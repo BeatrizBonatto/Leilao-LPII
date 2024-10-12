@@ -4,11 +4,11 @@ import org.eclipse.microprofile.openapi.annotations.media.Schema;
 
 @Schema(description = "Tipos de dispositivos de informatica disponiveis para leilao")
 public enum TipoDispositivo {
-    
+
     NOTEBOOK("Notebook"),
     MONITOR("Monitor"),
     HUB("Hub"),
-    SWITCH("Switch"), 
+    SWITCH("Switch"),
     ROTEADOR("Roteador");
 
     private String dispositivo;
@@ -17,7 +17,8 @@ public enum TipoDispositivo {
         this.dispositivo = dispositivo;
     }
 
-    public String getVeiculo() {
+    // Renomeado de getVeiculo para getDispositivo
+    public String getDispositivo() {
         return dispositivo;
     }
 }

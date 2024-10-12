@@ -1,27 +1,23 @@
 package beatrizbonatto.com.model;
 
-import jakarta.persistence.Column;
-import org.eclipse.microprofile.openapi.annotations.media.Schema;
+import beatrizbonatto.com.dto.VeiculoDTO;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
 import org.locationtech.jts.geom.impl.PackedCoordinateSequence.Double;
 
 import jakarta.persistence.Entity;
 
 @Entity
-@Schema(description = "Veiculo a ser leiloado")
 public class Veiculo extends Produto {
-    @Column(nullable = false)
+    @Id
+    @GeneratedValue
+    private Long id;
     private TipoVeiculo tipoVeiculo;
-    @Column(nullable = false)
     private String marca;
-    @Column(nullable = false)
     private String modelo;
-    @Column(nullable = false)
     private Integer ano;
-    @Column(nullable = false)
     private String cor;
-    @Column(nullable = false)
     private Double kmRodados;
-    @Column(nullable = false)
     private String placa;
 
     public Veiculo() {
@@ -82,4 +78,15 @@ public class Veiculo extends Produto {
         this.placa = placa;
     }
 
+    VeiculoDTO veiculoDTO() {
+        VeiculoDTO veiculoDTO = new VeiculoDTO();
+        veiculoDTO.setId(id);
+        veiculoDTO.setTipoVeiculo(tipoVeiculo);
+        veiculoDTO.setMarca(marca);
+        veiculoDTO.setModelo(modelo);
+        veiculoDTO.setAno(ano);
+        veiculoDTO.setCor(cor);
+        veiculoDTO.setPlaca(placa);
+        return veiculoDTO;
+    }
 }

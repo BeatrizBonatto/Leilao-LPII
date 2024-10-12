@@ -1,29 +1,36 @@
 package beatrizbonatto.com.model;
 
-import jakarta.persistence.Column;
-import org.eclipse.microprofile.openapi.annotations.media.Schema;
-
+import beatrizbonatto.com.dto.DispInformaticaDTO;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
 import jakarta.persistence.Entity;
 
 @Entity
-@Schema(description = "Dispositivo de Informatica a ser leiloado")
 public class DispInformatica extends Produto {
-    @Column(nullable = false)
+    @Id
+    @GeneratedValue
+    private Long id;
     private TipoDispositivo tipoDispositivo;
-    @Column(nullable = false)
     private String marca;
-    @Column(nullable = false)
     private String modelo;
 
     public DispInformatica() {
     }
 
     public DispInformatica(Long id, String tipo, String descricao, Double precoInicial, Leilao leilao,
-            TipoDispositivo tipoDispositivo, String marca, String modelo, String serie) {
-        super("Dispositivo de Informarica", descricao, precoInicial, leilao);
+                           TipoDispositivo tipoDispositivo, String marca, String modelo) {
+        super("Dispositivo de Informática", descricao, precoInicial, leilao);
         this.tipoDispositivo = tipoDispositivo;
         this.marca = marca;
         this.modelo = modelo;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public TipoDispositivo getTipoDispositivo() {
@@ -50,4 +57,12 @@ public class DispInformatica extends Produto {
         this.modelo = modelo;
     }
 
+    DispInformaticaDTO dispInformaticaDTO() {
+        DispInformaticaDTO dto = new DispInformaticaDTO();
+        dto.setId(id);
+        dto.setTipoDispositivo(tipoDispositivo);
+        dto.setMarca(marca);
+        dto.setModelo(modelo);
+        return dto;
+    }
 }
