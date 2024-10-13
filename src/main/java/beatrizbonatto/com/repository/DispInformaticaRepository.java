@@ -25,7 +25,7 @@ public class DispInformaticaRepository {
 
     @Transactional
     public List<DispInformatica> listaDeDispInformatica() {
-        return em.createQuery("select c from DispInformatica c", DispInformatica.class).getResultList();
+        return em.createQuery("select di from DispInformatica di", DispInformatica.class).getResultList();
     }
 
     @Transactional

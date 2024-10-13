@@ -1,11 +1,9 @@
 package beatrizbonatto.com.model;
 
-import beatrizbonatto.com.dto.VeiculoDTO;
+import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import org.locationtech.jts.geom.impl.PackedCoordinateSequence.Double;
-
-import jakarta.persistence.Entity;
 
 @Entity
 public class Veiculo extends Produto {
@@ -24,14 +22,14 @@ public class Veiculo extends Produto {
     }
 
     public Veiculo(Long id, String tipo, String descricao, java.lang.Double precoInicial, Leilao leilao,
-            TipoVeiculo tipoVeiculo, String marca, String modelo, Integer ano, String cor, Double km_rodados, String placa) {
+            TipoVeiculo tipoVeiculo, String marca, String modelo, Integer ano, String cor, Double kmRodados, String placa) {
         super("Veiculo", descricao, precoInicial, leilao);
         this.tipoVeiculo = tipoVeiculo;
         this.marca = marca;
         this.modelo = modelo;
         this.ano = ano;
         this.cor = cor;
-        this.kmRodados = km_rodados;
+        this.kmRodados = kmRodados;
         this.placa = placa;
     }
 
@@ -68,8 +66,8 @@ public class Veiculo extends Produto {
     public Double getKmRodados() {
         return kmRodados;
     }
-    public void setKmRodados(Double km_rodados) {
-        this.kmRodados = km_rodados;
+    public void setKmRodados(Double kmRodados) {
+        this.kmRodados = kmRodados;
     }
     public String getPlaca() {
         return placa;
@@ -78,15 +76,4 @@ public class Veiculo extends Produto {
         this.placa = placa;
     }
 
-    VeiculoDTO veiculoDTO() {
-        VeiculoDTO veiculoDTO = new VeiculoDTO();
-        veiculoDTO.setId(id);
-        veiculoDTO.setTipoVeiculo(tipoVeiculo);
-        veiculoDTO.setMarca(marca);
-        veiculoDTO.setModelo(modelo);
-        veiculoDTO.setAno(ano);
-        veiculoDTO.setCor(cor);
-        veiculoDTO.setPlaca(placa);
-        return veiculoDTO;
-    }
 }

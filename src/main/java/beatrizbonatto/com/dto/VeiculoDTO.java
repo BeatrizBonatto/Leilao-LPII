@@ -1,41 +1,18 @@
 package beatrizbonatto.com.dto;
 
 import beatrizbonatto.com.model.TipoVeiculo;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import org.eclipse.microprofile.openapi.annotations.media.Schema;
 
-@Entity
-@Schema(description = "Veiculo a ser leiloado")
 public class VeiculoDTO {
-    @Id
-    @GeneratedValue
+
     private Long id;
-
-    @Column(nullable = false)
     private TipoVeiculo tipoVeiculo;
-
-    @Column(nullable = false)
     private String marca;
-
-    @Column(nullable = false)
     private String modelo;
-
-    @Column(nullable = false)
     private Integer ano;
-
-    @Column(nullable = false)
     private String cor;
-
-    @Column(nullable = false)
-    private Double kmRodados;
-
-    @Column(nullable = false)
     private String placa;
 
-    public VeiculoDTO() {
+    public VeiculoDTO(TipoVeiculo tipoVeiculo, String marca, String modelo, Integer ano, String cor, String placa) {
     }
 
     public VeiculoDTO(TipoVeiculo tipoVeiculo, String marca, String modelo, Integer ano, String cor, Double kmRodados, String placa) {
@@ -44,7 +21,6 @@ public class VeiculoDTO {
         this.modelo = modelo;
         this.ano = ano;
         this.cor = cor;
-        this.kmRodados = kmRodados;
         this.placa = placa;
     }
 
@@ -94,14 +70,6 @@ public class VeiculoDTO {
 
     public void setCor(String cor) {
         this.cor = cor;
-    }
-
-    public Double getKmRodados() {
-        return kmRodados;
-    }
-
-    public void setKmRodados(Double kmRodados) {
-        this.kmRodados = kmRodados;
     }
 
     public String getPlaca() {
