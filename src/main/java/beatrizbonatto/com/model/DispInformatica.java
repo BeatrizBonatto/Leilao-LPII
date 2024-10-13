@@ -1,9 +1,8 @@
 package beatrizbonatto.com.model;
 
-import beatrizbonatto.com.dto.DispInformaticaDTO;
+import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
-import jakarta.persistence.Entity;
 
 import java.util.List;
 
@@ -19,9 +18,9 @@ public class DispInformatica extends Produto {
     public DispInformatica() {
     }
 
-    public DispInformatica(Long id, String tipo, String descricao, Double precoInicial, Leilao leilao, List<Lance> lances,
+    public DispInformatica(Long id, String tipo, String descricao, Double precoInicial, String status, Leilao leilao, List<Lance> lances,
                            TipoDispositivo tipoDispositivo, String marca, String modelo) {
-        super("Dispositivo de Informática", descricao, precoInicial, leilao, lances);
+        super("Dispositivo de Informática", descricao, precoInicial, status, leilao, lances);
         this.tipoDispositivo = tipoDispositivo;
         this.marca = marca;
         this.modelo = modelo;

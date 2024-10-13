@@ -18,7 +18,6 @@ public class LeilaoDTO {
     private String endereco;
     private String cidade;
     private String estado;
-    private String status;
     private List<Produto> produtos;
     private List<InstFinanceira> instFinanceiras;
 
@@ -27,7 +26,7 @@ public class LeilaoDTO {
     public LeilaoDTO(LocalDateTime dataInicio, LocalDateTime dataFim, LocalDateTime dataVisitacao, LocalDateTime dataEvento,
                      String dominioLeilaoEletronico,
                      String endereco, String cidade, String estado,
-                     String status, List<Produto> produtos, List<InstFinanceira> instFinanceiras) {
+                     List<Produto> produtos, List<InstFinanceira> instFinanceiras) {
         this.dataInicio = dataInicio;
         this.dataFim = dataFim;
         this.dataVisitacao = dataVisitacao;
@@ -36,7 +35,6 @@ public class LeilaoDTO {
         this.endereco = endereco;
         this.cidade = cidade;
         this.estado = estado;
-        this.status = status;
         this.produtos = produtos;
         this.instFinanceiras = instFinanceiras;
     }
@@ -111,14 +109,6 @@ public class LeilaoDTO {
 
     public void setEstado(String estado) {
         this.estado = estado;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
     }
 
     public List<Produto> getProdutos() {

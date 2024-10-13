@@ -24,7 +24,6 @@ public class LeilaoService {
         leilao.setEndereco(leilaoDTO.getEndereco());
         leilao.setCidade(leilaoDTO.getCidade());
         leilao.setEstado(leilaoDTO.getEstado());
-        leilao.setStatus(leilaoDTO.getStatus());
         leilao.setProdutos(leilaoDTO.getProdutos());
         leilao.setInstFinanceiras(leilaoDTO.getInstFinanceiras());
         leilaoRepository.registroLeilao(leilao);
@@ -55,7 +54,6 @@ public class LeilaoService {
             leilao.setEndereco(leilaoDTO.getEndereco());
             leilao.setCidade(leilaoDTO.getCidade());
             leilao.setEstado(leilaoDTO.getEstado());
-            leilao.setStatus(leilaoDTO.getStatus());
             leilao.setProdutos(leilaoDTO.getProdutos());
             leilao.setInstFinanceiras(leilaoDTO.getInstFinanceiras());
             leilaoRepository.atualizar(leilao);
@@ -74,6 +72,6 @@ public class LeilaoService {
     }
 
     private LeilaoDTO toDTO(Leilao leilao) {
-        return new LeilaoDTO(leilao.getDataInicio(), leilao.getDataFim(), leilao.getDataVisitacao(), leilao.getDataEvento(),leilao.getDominioLeilaoEletronico(), leilao.getEndereco(), leilao.getCidade(), leilao.getEstado(), leilao.getStatus(), leilao.getProdutos(), leilao.getInstFinanceiras());
+        return new LeilaoDTO(leilao.getDataInicio(), leilao.getDataFim(), leilao.getDataVisitacao(), leilao.getDataEvento(),leilao.getDominioLeilaoEletronico(), leilao.getEndereco(), leilao.getCidade(), leilao.getEstado(), leilao.getProdutos(), leilao.getInstFinanceiras());
     }
 }

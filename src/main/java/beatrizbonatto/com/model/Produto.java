@@ -1,7 +1,6 @@
 package beatrizbonatto.com.model;
 
 import jakarta.persistence.*;
-import org.eclipse.microprofile.openapi.annotations.media.Schema;
 
 import java.util.List;
 
@@ -13,6 +12,7 @@ public class Produto {
     private String tipo;
     private String complemento;
     private Double precoInicial;
+    private String status;
 
     @ManyToOne
     @JoinColumn(name = "leilao_id")
@@ -26,10 +26,11 @@ public class Produto {
 
     public Produto() {}
 
-    public Produto(String tipo, String complemento, Double precoInicial, Leilao leilao, List<Lance> lances) {
+    public Produto(String tipo, String complemento, Double precoInicial, String status, Leilao leilao, List<Lance> lances) {
         this.tipo = tipo;
         this.complemento = complemento;
         this.precoInicial = precoInicial;
+        this.status = status;
         this.leilao = leilao;
         this.lances = lances;
     }
@@ -64,6 +65,14 @@ public class Produto {
 
     public void setPrecoInicial(Double precoInicial) {
         this.precoInicial = precoInicial;
+    }
+
+    public String getStatus() {
+        return this.status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public Leilao getLeilao() {

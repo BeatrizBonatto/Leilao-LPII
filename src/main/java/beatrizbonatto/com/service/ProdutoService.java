@@ -19,6 +19,7 @@ public class ProdutoService {
         produto.setTipo(produtoDTO.getTipo());
         produto.setComplemento(produtoDTO.getComplemento());
         produto.setPrecoInicial(produtoDTO.getPrecoInicial());
+        produto.setStatus(produtoDTO.getStatus());
         produto.setLeilao(produtoDTO.getLeilao());
         produto.setLances(produtoDTO.getLances());
         produtoRepository.registroProduto(produto);
@@ -44,6 +45,7 @@ public class ProdutoService {
             produto.setTipo(produtoDTO.getTipo());
             produto.setComplemento(produtoDTO.getComplemento());
             produto.setPrecoInicial(produtoDTO.getPrecoInicial());
+            produto.setStatus(produtoDTO.getStatus());
             produto.setLeilao(produtoDTO.getLeilao());
             produto.setLances(produtoDTO.getLances());
             produtoRepository.atualizar(produto);
@@ -62,6 +64,6 @@ public class ProdutoService {
     }
 
     private ProdutoDTO toDTO(Produto produto) {
-        return new ProdutoDTO(produto.getTipo(), produto.getComplemento(), produto.getPrecoInicial(), produto.getLeilao(), produto.getLances());
+        return new ProdutoDTO(  produto.getTipo(), produto.getComplemento(), produto.getPrecoInicial(), produto.getStatus(), produto.getLeilao(), produto.getLances());
     }
 }
