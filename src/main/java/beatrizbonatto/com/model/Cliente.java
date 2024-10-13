@@ -2,11 +2,13 @@ package beatrizbonatto.com.model;
 
 import beatrizbonatto.com.dto.ClienteDTO;
 import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 
 import java.sql.Date;
 
+@Entity
 public class Cliente {
     @Id
     @GeneratedValue
