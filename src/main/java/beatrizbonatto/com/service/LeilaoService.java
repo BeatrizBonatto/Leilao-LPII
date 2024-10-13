@@ -15,6 +15,10 @@ public class LeilaoService {
     LeilaoRepository leilaoRepository;
 
     public void createLeilao(LeilaoDTO leilaoDTO) {
+        if (leilaoDTO.getInstFinanceiras() == null || leilaoDTO.getInstFinanceiras().isEmpty()) {
+            throw new IllegalArgumentException("Cada leilão deve ter ao menos uma entidade financeira associada.");
+        }
+
         Leilao leilao = new Leilao();
         leilao.setDataInicio(leilaoDTO.getDataInicio());
         leilao.setDataFim(leilaoDTO.getDataFim());
