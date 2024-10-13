@@ -10,9 +10,6 @@ import java.util.List;
 
 @ApplicationScoped
 public class ClienteRepository {
-    public static List<Cliente> listaDeClientes;
-    private List<Cliente> clientes;
-
     @PersistenceContext
     EntityManager em;
 
@@ -32,7 +29,7 @@ public class ClienteRepository {
 
     @Transactional
     public void atualizar(Cliente cliente) {
-        em.persist(cliente);
+        em.merge(cliente);
     }
 
     @Transactional

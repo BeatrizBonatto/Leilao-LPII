@@ -1,11 +1,16 @@
 package beatrizbonatto.com.model;
 
 import beatrizbonatto.com.dto.ClienteDTO;
+import jakarta.persistence.Column;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
 
 import java.sql.Date;
 
 public class Cliente {
-    private int id;
+    @Id
+    @GeneratedValue
+    private Long id;
     private String nome;
     private String cpf;
     private String celular;
@@ -22,11 +27,11 @@ public class Cliente {
         this.dataNascimento = dataNascimento;
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -70,13 +75,4 @@ public class Cliente {
         this.dataNascimento = dataNascimento;
     }
 
-    ClienteDTO clienteDTO(){
-        ClienteDTO clienteDTO = new ClienteDTO();
-        clienteDTO.setNome(nome);
-        clienteDTO.setCpf(cpf);
-        clienteDTO.setCelular(celular);
-        clienteDTO.setEmail(email);
-        clienteDTO.setDataNascimento(dataNascimento);
-        return clienteDTO;
-    }
 }
