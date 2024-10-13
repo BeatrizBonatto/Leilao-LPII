@@ -1,29 +1,14 @@
 package beatrizbonatto.com.dto;
 
 import beatrizbonatto.com.model.TipoDispositivo;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import org.eclipse.microprofile.openapi.annotations.media.Schema;
 
-@Entity
-@Schema(description = "Dispositivo de Informatica a ser leiloado")
 public class DispInformaticaDTO {
-    @Id
-    @GeneratedValue
     private Long id;
-
-    @Column(nullable = false)
     private TipoDispositivo tipoDispositivo;
-
-    @Column(nullable = false)
     private String marca;
-
-    @Column(nullable = false)
     private String modelo;
 
-    public DispInformaticaDTO() {}
+    public DispInformaticaDTO(TipoDispositivo tipoDispositivo, String modelo, String marca) {}
 
     public DispInformaticaDTO(String modelo, String marca, TipoDispositivo tipoDispositivo) {
         this.modelo = modelo;

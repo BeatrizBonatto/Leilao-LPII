@@ -57,12 +57,4 @@ public class DispInformatica extends Produto {
         this.modelo = modelo;
     }
 
-    DispInformaticaDTO dispInformaticaDTO() {
-        DispInformaticaDTO dto = new DispInformaticaDTO();
-        dto.setId(id);
-        dto.setTipoDispositivo(tipoDispositivo);
-        dto.setMarca(marca);
-        dto.setModelo(modelo);
-        return dto;
-    }
 }
