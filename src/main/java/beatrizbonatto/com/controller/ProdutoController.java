@@ -65,4 +65,15 @@ public class ProdutoController {
             return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
         }
     }
+
+    @PUT
+    @Path("/{produtoId}/desassociar/{novoLeilaoId}")
+    public Response desassociarProduto(@PathParam("produtoId") Long produtoId, @PathParam("novoLeilaoId") Long novoLeilaoId) {
+        try {
+            produtoService.desassociarProduto(produtoId, novoLeilaoId);
+            return Response.ok().build();
+        } catch (IllegalArgumentException e) {
+            return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
+        }
+    }
 }

@@ -8,6 +8,8 @@ import beatrizbonatto.com.repository.ProdutoRepository;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -78,6 +80,28 @@ public class ProdutoService {
             throw new IllegalStateException("O produto já recebeu lances e não pode ser removido.");
         }
         return false;
+    }
+
+    public void desassociarProduto(Long produtoId, Long novoLeilaoId) {
+        Produto produto = produtoRepository.consultaProduto(produtoId);
+
+        if (produto == null) {
+            throw new IllegalArgumentException("Produto não encontrado");
+        }
+
+        if (produto.getLances() != null && !produto.getLances().isEmpty()) {
+            throw new IllegalArgumentException("Não é possível desassociar um produto que já recebeu lances.");
+        }
+
+        Leilao novoLeilao = leilaoRepository.consultaLeilao(novoLeilaoId);
+
+        if (novoLeilao.getDataInicio().isBefore(LocalDateTime.now())) {
+            throw new IllegalArgumentException("O leilão deve ser futuro.");
+        }
+
+        produto.setLeilao(novoLeilao);
+        updateProduto(produtoId, toDTO(produto));
+
     }
 
     private ProdutoDTO toDTO(Produto produto) {
