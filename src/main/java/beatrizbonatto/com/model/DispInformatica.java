@@ -5,6 +5,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.Entity;
 
+import java.util.List;
+
 @Entity
 public class DispInformatica extends Produto {
     @Id
@@ -17,9 +19,9 @@ public class DispInformatica extends Produto {
     public DispInformatica() {
     }
 
-    public DispInformatica(Long id, String tipo, String descricao, Double precoInicial, Leilao leilao,
+    public DispInformatica(Long id, String tipo, String descricao, Double precoInicial, Leilao leilao, List<Lance> lances,
                            TipoDispositivo tipoDispositivo, String marca, String modelo) {
-        super("Dispositivo de Informática", descricao, precoInicial, leilao);
+        super("Dispositivo de Informática", descricao, precoInicial, leilao, lances);
         this.tipoDispositivo = tipoDispositivo;
         this.marca = marca;
         this.modelo = modelo;

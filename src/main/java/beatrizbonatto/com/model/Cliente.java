@@ -1,12 +1,9 @@
 package beatrizbonatto.com.model;
 
-import beatrizbonatto.com.dto.ClienteDTO;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 import java.sql.Date;
+import java.util.List;
 
 @Entity
 public class Cliente {
@@ -19,14 +16,21 @@ public class Cliente {
     private String email;
     private Date dataNascimento;
 
+    @ManyToMany
+    @JoinTable(name = "cliente_lance",
+            joinColumns = @JoinColumn(name = "clienteo_id"),
+            inverseJoinColumns = @JoinColumn(name = "lance_id"))
+    private List<Lance> lances;
+
     public Cliente(){}
 
-    public Cliente(String nome, String cpf, String celular, String email, Date dataNascimento) {
+    public Cliente(String nome, String cpf, String celular, String email, Date dataNascimento, List<Lance> lances) {
         this.nome = nome;
         this.cpf = cpf;
         this.celular = celular;
         this.email = email;
         this.dataNascimento = dataNascimento;
+        this.lances = lances;
     }
 
     public Long getId() {
@@ -77,4 +81,11 @@ public class Cliente {
         this.dataNascimento = dataNascimento;
     }
 
+    public List<Lance> getLances() {
+        return lances;
+    }
+
+    public void setLances(List<Lance> lances) {
+        this.lances = lances;
+    }
 }

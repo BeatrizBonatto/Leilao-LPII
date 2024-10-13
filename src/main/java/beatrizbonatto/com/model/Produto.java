@@ -3,6 +3,8 @@ package beatrizbonatto.com.model;
 import jakarta.persistence.*;
 import org.eclipse.microprofile.openapi.annotations.media.Schema;
 
+import java.util.List;
+
 @Entity
 public class Produto {
     @Id
@@ -16,14 +18,20 @@ public class Produto {
     @JoinColumn(name = "leilao_id")
     private Leilao leilao;
 
-    public Produto() {
-    }
+    @ManyToMany
+    @JoinTable(name = "produto_lance",
+            joinColumns = @JoinColumn(name = "produto_id"),
+            inverseJoinColumns = @JoinColumn(name = "lance_id"))
+    private List<Lance> lances;
 
-    public Produto(String tipo, String complemento, Double precoInicial, Leilao leilao) {
+    public Produto() {}
+
+    public Produto(String tipo, String complemento, Double precoInicial, Leilao leilao, List<Lance> lances) {
         this.tipo = tipo;
         this.complemento = complemento;
         this.precoInicial = precoInicial;
         this.leilao = leilao;
+        this.lances = lances;
     }
 
     public Long getId() {
@@ -65,5 +73,12 @@ public class Produto {
     public void setLeilao(Leilao leilao) {
         this.leilao = leilao;
     }
-    
+
+    public List<Lance> getLances() {
+        return lances;
+    }
+
+    public void setLances(List<Lance> lances) {
+        this.lances = lances;
+    }
 }

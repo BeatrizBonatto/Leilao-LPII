@@ -1,6 +1,9 @@
 package beatrizbonatto.com.dto;
 
+import beatrizbonatto.com.model.Lance;
+
 import java.sql.Date;
+import java.util.List;
 
 public class ClienteDTO {
     private Long id;
@@ -9,15 +12,17 @@ public class ClienteDTO {
     private String celular;
     private String email;
     private Date dataNascimento;
+    private List<Lance> lances;
 
     public ClienteDTO(){}
 
-    public ClienteDTO(String nome, String cpf, String celular, String email, Date dataNascimento) {
+    public ClienteDTO(String nome, String cpf, String celular, String email, Date dataNascimento, List<Lance> lances) {
         this.nome = nome;
         this.cpf = cpf;
         this.celular = celular;
         this.email = email;
         this.dataNascimento = dataNascimento;
+        this.lances = lances;
     }
 
 
@@ -69,4 +74,11 @@ public class ClienteDTO {
         this.dataNascimento = dataNascimento;
     }
 
+    public List<Lance> getLances() {
+        return lances;
+    }
+
+    public void setLances(List<Lance> lances) {
+        this.lances = lances;
+    }
 }

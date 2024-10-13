@@ -1,7 +1,10 @@
 package beatrizbonatto.com.dto;
 
 
+import beatrizbonatto.com.model.Lance;
 import beatrizbonatto.com.model.Leilao;
+
+import java.util.List;
 
 public class ProdutoDTO {
     private Long id;
@@ -9,15 +12,17 @@ public class ProdutoDTO {
     private String complemento;
     private Double precoInicial;
     private Leilao leilao;
+    private List<Lance> lances;
 
     public ProdutoDTO() {
     }
 
-    public ProdutoDTO(String tipo, String complemento, Double precoInicial, Leilao leilao) {
+    public ProdutoDTO(String tipo, String complemento, Double precoInicial, Leilao leilao, List<Lance> lances) {
         this.tipo = tipo;
         this.complemento = complemento;
         this.precoInicial = precoInicial;
         this.leilao = leilao;
+        this.lances = lances;
     }
 
     public Long getId() {
@@ -59,4 +64,13 @@ public class ProdutoDTO {
     public void setLeilao(Leilao leilao) {
         this.leilao = leilao;
     }
+
+    public List<Lance> getLances() {
+        return lances;
+    }
+
+    public void setLances(List<Lance> lances) {
+        this.lances = lances;
+    }
+
 }

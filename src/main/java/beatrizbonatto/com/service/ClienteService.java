@@ -21,6 +21,7 @@ public class ClienteService {
         cliente.setCelular(clienteDTO.getCelular());
         cliente.setEmail(clienteDTO.getEmail());
         cliente.setDataNascimento(clienteDTO.getDataNascimento());
+        cliente.setLances(clienteDTO.getLances());
         clienteRepository.registroCliente(cliente);
     }
 
@@ -46,6 +47,7 @@ public class ClienteService {
             cliente.setCelular(clienteDTO.getCelular());
             cliente.setEmail(clienteDTO.getEmail());
             cliente.setDataNascimento(clienteDTO.getDataNascimento());
+            cliente.setLances(clienteDTO.getLances());
             clienteRepository.atualizar(cliente);
             return toDTO(cliente);
         }
@@ -62,6 +64,6 @@ public class ClienteService {
     }
 
     private ClienteDTO toDTO(Cliente cliente) {
-        return new ClienteDTO(cliente.getNome(), cliente.getCpf(), cliente.getCelular(), cliente.getEmail(), cliente.getDataNascimento());
+        return new ClienteDTO(cliente.getNome(), cliente.getCpf(), cliente.getCelular(), cliente.getEmail(), cliente.getDataNascimento(), cliente.getLances());
     }
 }
