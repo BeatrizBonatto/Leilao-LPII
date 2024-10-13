@@ -1,10 +1,9 @@
 package beatrizbonatto.com.dto;
 
+import beatrizbonatto.com.model.InstFinanceira;
 import beatrizbonatto.com.model.Produto;
-import jakarta.persistence.OneToMany;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -20,16 +19,15 @@ public class LeilaoDTO {
     private String cidade;
     private String estado;
     private String status;
+    private List<Produto> produtos;
+    private List<InstFinanceira> instFinanceiras;
 
-    @OneToMany
-    private List<Produto> produtos = new ArrayList<Produto>();
-
-    public LeilaoDTO(LocalDateTime dataInicio, LocalDateTime dataFim, LocalDateTime dataVisitacao, LocalDateTime dataEvento, String dominioLeilaoEletronico, String endereco, String cidade, String estado, String status) {}
+    public LeilaoDTO() {}
 
     public LeilaoDTO(LocalDateTime dataInicio, LocalDateTime dataFim, LocalDateTime dataVisitacao, LocalDateTime dataEvento,
                      String dominioLeilaoEletronico,
                      String endereco, String cidade, String estado,
-                     String status, List<Produto> produtos) {
+                     String status, List<Produto> produtos, List<InstFinanceira> instFinanceiras) {
         this.dataInicio = dataInicio;
         this.dataFim = dataFim;
         this.dataVisitacao = dataVisitacao;
@@ -40,6 +38,7 @@ public class LeilaoDTO {
         this.estado = estado;
         this.status = status;
         this.produtos = produtos;
+        this.instFinanceiras = instFinanceiras;
     }
 
     public int getId() {
@@ -128,5 +127,13 @@ public class LeilaoDTO {
 
     public void setProdutos(List<Produto> produtos) {
         this.produtos = produtos;
+    }
+
+    public List<InstFinanceira> getInstFinanceiras() {
+        return instFinanceiras;
+    }
+
+    public void setInstFinanceiras(List<InstFinanceira> instFinanceiras) {
+        this.instFinanceiras = instFinanceiras;
     }
 }

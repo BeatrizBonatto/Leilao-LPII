@@ -1,9 +1,6 @@
 package beatrizbonatto.com.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -27,11 +24,18 @@ public class Leilao {
     @OneToMany(mappedBy = "leilao")
     private List<Produto> produtos = new ArrayList<>();
 
+    @ManyToMany
+    @JoinTable(name = "leilao_instfinanceira",
+            joinColumns = @JoinColumn(name = "leilao_id"),
+            inverseJoinColumns = @JoinColumn(name = "instfinanceira_id")
+    )
+    private List<InstFinanceira> instFinanceiras = new ArrayList<>();
+
     public Leilao() {}
 
     public Leilao(LocalDateTime dataInicio, LocalDateTime dataFim, LocalDateTime dataVisitacao,
                   LocalDateTime dataEvento, String dominioLeilaoEletronico, String endereco,
-                  String cidade, String estado, String status, List<Produto> produtos) {
+                  String cidade, String estado, String status, List<Produto> produtos, List<InstFinanceira> instFinanceiras) {
         this.dataInicio = dataInicio;
         this.dataFim = dataFim;
         this.dataVisitacao = dataVisitacao;
@@ -42,6 +46,7 @@ public class Leilao {
         this.estado = estado;
         this.status = status;
         this.produtos = produtos;
+        this.instFinanceiras = instFinanceiras;
     }
 
     public int getId() {
@@ -132,4 +137,11 @@ public class Leilao {
         this.produtos = produtos;
     }
 
+    public List<InstFinanceira> getInstFinanceiras() {
+        return instFinanceiras;
+    }
+
+    public void setInstFinanceiras(List<InstFinanceira> instFinanceiras) {
+        this.instFinanceiras = instFinanceiras;
+    }
 }
