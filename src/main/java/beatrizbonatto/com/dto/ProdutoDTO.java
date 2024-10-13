@@ -2,27 +2,12 @@ package beatrizbonatto.com.dto;
 
 
 import beatrizbonatto.com.model.Leilao;
-import jakarta.persistence.*;
-import org.eclipse.microprofile.openapi.annotations.media.Schema;
 
-@Entity
-@Schema(description = "Produto a ser leiloado")
 public class ProdutoDTO {
-    @Id
-    @GeneratedValue
     private Long id;
-
-    @Column(nullable = false)
     private String tipo;
-
-    @Column
     private String complemento;
-
-    @Column(nullable = false)
     private Double precoInicial;
-
-    @ManyToOne
-    @JoinColumn(name = "leilao_id")
     private Leilao leilao;
 
     public ProdutoDTO() {
