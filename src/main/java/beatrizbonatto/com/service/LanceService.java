@@ -2,6 +2,7 @@ package beatrizbonatto.com.service;
 
 import beatrizbonatto.com.dto.LanceDTO;
 import beatrizbonatto.com.model.Lance;
+import beatrizbonatto.com.model.Produto;
 import beatrizbonatto.com.repository.LanceRepository;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
@@ -15,6 +16,17 @@ public class LanceService {
     LanceRepository lanceRepository;
 
     public void createLance(LanceDTO lanceDTO) {
+        for (Produto produto : lanceDTO.getProdutos()) {
+            Lance lanceAtual = lanceRepository.listaDeLances().stream()
+                    .filter(l -> l.getProdutos().contains(produto))
+                    .findFirst()
+                    .orElse(null);
+
+            if (lanceAtual != null && lanceAtual.getValor() >= lanceDTO.getValor()) {
+                throw new IllegalArgumentException("O lance deve ser maior que o lance atual do produto " + produto.getTipo());
+            }
+        }
+
         Lance lance = new Lance();
         lance.setClientes(lanceDTO.getClientes());
         lance.setProdutos(lanceDTO.getProdutos());

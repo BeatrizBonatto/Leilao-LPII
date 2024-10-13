@@ -17,7 +17,6 @@ public enum TipoDispositivo {
         this.dispositivo = dispositivo;
     }
 
-    // Renomeado de getVeiculo para getDispositivo
     public String getDispositivo() {
         return dispositivo;
     }

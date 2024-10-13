@@ -15,8 +15,12 @@ public class LanceController {
 
     @POST
     public Response createLance(LanceDTO lanceDTO) {
-        lanceService.createLance(lanceDTO);
-        return Response.status(Response.Status.CREATED).entity(lanceDTO).build();
+        try {
+            lanceService.createLance(lanceDTO);
+            return Response.status(Response.Status.CREATED).entity(lanceDTO).build();
+        } catch (IllegalArgumentException e) {
+            return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
+        }
     }
 
     @GET
