@@ -47,7 +47,7 @@ public class Leilao {
         this.instFinanceiras = instFinanceiras;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 

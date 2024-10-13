@@ -9,7 +9,7 @@ import java.util.List;
 
 public class LeilaoDTO {
 
-    private int id;
+    private Long id;
     private LocalDateTime dataInicio;
     private LocalDateTime dataFim;
     private LocalDateTime dataVisitacao;
@@ -39,11 +39,11 @@ public class LeilaoDTO {
         this.instFinanceiras = instFinanceiras;
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

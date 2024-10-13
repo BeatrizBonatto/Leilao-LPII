@@ -15,8 +15,12 @@ public class ProdutoController {
 
     @POST
     public Response createProduto(ProdutoDTO produtoDTO) {
-        produtoService.createProduto(produtoDTO);
-        return Response.status(Response.Status.CREATED).entity(produtoDTO).build();
+        try {
+            produtoService.createProduto(produtoDTO);
+            return Response.status(Response.Status.CREATED).entity(produtoDTO).build();
+        } catch (Exception e) {
+            return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
+        }
     }
 
     @GET
@@ -37,20 +41,28 @@ public class ProdutoController {
     @PUT
     @Path("/{id}")
     public Response updateProduto(@PathParam("id") Long id, ProdutoDTO produtoDTO) {
-        ProdutoDTO updatedProduto = produtoService.updateProduto(id, produtoDTO);
-        if (updatedProduto == null) {
-            return Response.status(Response.Status.NOT_FOUND).build();
+        try {
+            ProdutoDTO updatedProduto = produtoService.updateProduto(id, produtoDTO);
+            if (updatedProduto == null) {
+                return Response.status(Response.Status.NOT_FOUND).build();
+            }
+            return Response.ok(updatedProduto).build();
+        } catch (Exception e) {
+            return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
         }
-        return Response.ok(updatedProduto).build();
     }
 
     @DELETE
     @Path("/{id}")
     public Response deleteProduto(@PathParam("id") Long id) {
-        if (produtoService.deleteProduto(id)) {
-            return Response.noContent().build();
-        } else {
-            return Response.status(Response.Status.NOT_FOUND).build();
+        try {
+            if (produtoService.deleteProduto(id)) {
+                return Response.noContent().build();
+            } else {
+                return Response.status(Response.Status.NOT_FOUND).build();
+            }
+        } catch (Exception e) {
+            return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
         }
     }
 }
