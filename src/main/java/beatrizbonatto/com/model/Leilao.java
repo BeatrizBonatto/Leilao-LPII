@@ -1,6 +1,5 @@
 package beatrizbonatto.com.model;
 
-import beatrizbonatto.com.dto.LeilaoDTO;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
@@ -133,18 +132,4 @@ public class Leilao {
         this.produtos = produtos;
     }
 
-    LeilaoDTO leilaoDTO() {
-        LeilaoDTO leilaoDTO = new LeilaoDTO();
-        leilaoDTO.setDataInicio(dataInicio);
-        leilaoDTO.setDataFim(dataFim);
-        leilaoDTO.setDataVisitacao(dataVisitacao);
-        leilaoDTO.setDataEvento(dataEvento);
-        leilaoDTO.setDominioLeilaoEletronico(dominioLeilaoEletronico);
-        leilaoDTO.setEndereco(endereco);
-        leilaoDTO.setCidade(cidade);
-        leilaoDTO.setEstado(estado);
-        leilaoDTO.setStatus(status);
-        leilaoDTO.setProdutos(produtos);
-        return leilaoDTO;
-    }
 }

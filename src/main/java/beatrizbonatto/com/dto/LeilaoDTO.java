@@ -1,40 +1,30 @@
 package beatrizbonatto.com.dto;
 
 import beatrizbonatto.com.model.Produto;
-import jakarta.persistence.*;
+import jakarta.persistence.OneToMany;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-@Entity
+
 public class LeilaoDTO {
-    @Id
-    @GeneratedValue
+
     private int id;
-    @Column(nullable = false)
     private LocalDateTime dataInicio;
-    @Column(nullable = false)
     private LocalDateTime dataFim;
-    @Column(nullable = false)
     private LocalDateTime dataVisitacao;
-    @Column(nullable = false)
     private LocalDateTime dataEvento;
-    @Column(nullable = false)
     private String dominioLeilaoEletronico;
-    @Column(nullable = false)
     private String endereco;
-    @Column(nullable = false)
     private String cidade;
-    @Column(nullable = false)
     private String estado;
-    @Column(nullable = false)
     private String status;
 
     @OneToMany
     private List<Produto> produtos = new ArrayList<Produto>();
 
-    public LeilaoDTO() {}
+    public LeilaoDTO(LocalDateTime dataInicio, LocalDateTime dataFim, LocalDateTime dataVisitacao, LocalDateTime dataEvento, String dominioLeilaoEletronico, String endereco, String cidade, String estado, String status) {}
 
     public LeilaoDTO(LocalDateTime dataInicio, LocalDateTime dataFim, LocalDateTime dataVisitacao, LocalDateTime dataEvento,
                      String dominioLeilaoEletronico,
