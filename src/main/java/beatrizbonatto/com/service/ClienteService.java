@@ -5,6 +5,7 @@ import beatrizbonatto.com.model.Cliente;
 import beatrizbonatto.com.repository.ClienteRepository;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
+import jakarta.transaction.Transactional;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -14,6 +15,7 @@ public class ClienteService {
     @Inject
     ClienteRepository clienteRepository;
 
+    @Transactional
     public void createCliente(ClienteDTO clienteDTO) {
         Cliente cliente = new Cliente();
         cliente.setNome(clienteDTO.getNome());
@@ -39,6 +41,7 @@ public class ClienteService {
                 .collect(Collectors.toList());
     }
 
+    @Transactional
     public ClienteDTO updateCliente(Long id, ClienteDTO clienteDTO) {
         Cliente cliente = clienteRepository.consultaCliente(id);
         if (cliente != null) {
@@ -54,6 +57,7 @@ public class ClienteService {
         return null;
     }
 
+    @Transactional
     public boolean deleteCliente(Long id) {
         Cliente cliente = clienteRepository.consultaCliente(id);
         if (cliente != null) {

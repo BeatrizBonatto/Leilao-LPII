@@ -16,7 +16,7 @@ public class Cliente {
     private String email;
     private Date dataNascimento;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "cliente_lance",
             joinColumns = @JoinColumn(name = "clienteo_id"),
             inverseJoinColumns = @JoinColumn(name = "lance_id"))

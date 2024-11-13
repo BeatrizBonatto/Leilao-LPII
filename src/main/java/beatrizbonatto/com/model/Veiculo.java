@@ -17,14 +17,14 @@ public class Veiculo extends Produto {
     private String modelo;
     private Integer ano;
     private String cor;
-    private Double kmRodados;
+    private double kmRodados;
     private String placa;
 
     public Veiculo() {
     }
 
     public Veiculo(Long id, String tipo, String descricao, java.lang.Double precoInicial, String status, Leilao leilao, List<Lance> lances,
-            TipoVeiculo tipoVeiculo, String marca, String modelo, Integer ano, String cor, Double kmRodados, String placa) {
+            TipoVeiculo tipoVeiculo, String marca, String modelo, Integer ano, String cor, double kmRodados, String placa) {
         super("Veiculo", descricao, precoInicial, status, leilao, lances);
         this.tipoVeiculo = tipoVeiculo;
         this.marca = marca;
@@ -75,11 +75,11 @@ public class Veiculo extends Produto {
         this.cor = cor;
     }
 
-    public Double getKmRodados() {
+    public double getKmRodados() {
         return kmRodados;
     }
 
-    public void setKmRodados(Double kmRodados) {
+    public void setKmRodados(double kmRodados) {
         this.kmRodados = kmRodados;
     }
 
