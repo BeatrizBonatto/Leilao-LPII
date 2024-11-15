@@ -14,15 +14,15 @@ public class ClienteController {
     ClienteService clienteService;
 
     @POST
-    public Response createCliente(ClienteDTO clienteDTO) {
-        clienteService.createCliente(clienteDTO);
+    public Response criarCliente(ClienteDTO clienteDTO) {
+        clienteService.criarCliente(clienteDTO);
         return Response.status(Response.Status.CREATED).entity(clienteDTO).build();
     }
 
     @GET
     @Path("/{id}")
-    public Response getCliente(@PathParam("id") Long id) {
-       ClienteDTO clienteDTO = clienteService.getCliente(id);
+    public Response buscarClientePorId(@PathParam("id") Long id) {
+       ClienteDTO clienteDTO = clienteService.buscarClientePorId(id);
         if (clienteDTO == null) {
             return Response.status(Response.Status.NOT_FOUND).build();
         }
@@ -30,24 +30,24 @@ public class ClienteController {
     }
 
     @GET
-    public List<ClienteDTO> listClientes() {
-        return clienteService.listClientes();
+    public List<ClienteDTO> listaDeClientes() {
+        return clienteService.listaDeClientes();
     }
 
     @PUT
     @Path("/{id}")
-    public Response updateCliente(@PathParam("id") Long id, ClienteDTO clienteDTO) {
-        ClienteDTO updatedCliente = clienteService.updateCliente(id, clienteDTO);
-        if (updatedCliente == null) {
+    public Response atualizarCliente(@PathParam("id") Long id, ClienteDTO clienteDTO) {
+        ClienteDTO novoCliente = clienteService.atualizarCliente(id, clienteDTO);
+        if (novoCliente == null) {
             return Response.status(Response.Status.NOT_FOUND).build();
         }
-        return Response.ok(updatedCliente).build();
+        return Response.ok(novoCliente).build();
     }
 
     @DELETE
     @Path("/{id}")
-    public Response deleteCliente(@PathParam("id") Long id) {
-        if (clienteService.deleteCliente(id)) {
+    public Response excluirCliente(@PathParam("id") Long id) {
+        if (clienteService.excluirCliente(id)) {
             return Response.noContent().build();
         } else {
             return Response.status(Response.Status.NOT_FOUND).build();

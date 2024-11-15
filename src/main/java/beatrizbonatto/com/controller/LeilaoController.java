@@ -14,15 +14,15 @@ public class LeilaoController {
     LeilaoService leilaoService;
 
     @POST
-    public Response createLeilao(LeilaoDTO leilaoDTO) {
+    public Response criarLeilao(LeilaoDTO leilaoDTO) {
         leilaoService.createLeilao(leilaoDTO);
         return Response.status(Response.Status.CREATED).entity(leilaoDTO).build();
     }
 
     @GET
     @Path("/{id}")
-    public Response getLeilao(@PathParam("id") Long id) {
-       LeilaoDTO leilaoDTO = leilaoService.getLeilao(id);
+    public Response buscaLeilaoPorId(@PathParam("id") Long id) {
+       LeilaoDTO leilaoDTO = leilaoService.buscaLeilaoPorId(id);
         if (leilaoDTO == null) {
             return Response.status(Response.Status.NOT_FOUND).build();
         }
@@ -30,14 +30,14 @@ public class LeilaoController {
     }
 
     @GET
-    public List<LeilaoDTO> listLeilaos() {
-        return leilaoService.listLeiloes();
+    public List<LeilaoDTO> listaDeLeiloes() {
+        return leilaoService.listaDeLeiloes();
     }
 
     @PUT
     @Path("/{id}")
-    public Response updateLeilao(@PathParam("id") Long id, LeilaoDTO leilaoDTO) {
-        LeilaoDTO updatedLeilao = leilaoService.updateLeilao(id, leilaoDTO);
+    public Response atualizarLeilao(@PathParam("id") Long id, LeilaoDTO leilaoDTO) {
+        LeilaoDTO updatedLeilao = leilaoService.atualizarLeilao(id, leilaoDTO);
         if (updatedLeilao == null) {
             return Response.status(Response.Status.NOT_FOUND).build();
         }
@@ -46,8 +46,8 @@ public class LeilaoController {
 
     @DELETE
     @Path("/{id}")
-    public Response deleteLeilao(@PathParam("id") Long id) {
-        if (leilaoService.deleteLeilao(id)) {
+    public Response excluirLeilao(@PathParam("id") Long id) {
+        if (leilaoService.excluirLeilao(id)) {
             return Response.noContent().build();
         } else {
             return Response.status(Response.Status.NOT_FOUND).build();
