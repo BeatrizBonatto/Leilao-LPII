@@ -3,12 +3,13 @@ package beatrizbonatto.com.dto;
 
 import beatrizbonatto.com.model.Lance;
 import beatrizbonatto.com.model.Leilao;
+import beatrizbonatto.com.model.SubTipo;
 
 import java.util.List;
 
 public class ProdutoDTO {
     private Long id;
-    private String tipo;
+    private SubTipo subTipo;
     private String complemento;
     private Double precoInicial;
     private String status;
@@ -18,8 +19,9 @@ public class ProdutoDTO {
     public ProdutoDTO() {
     }
 
-    public ProdutoDTO(String tipo, String complemento, Double precoInicial, String status, Leilao leilao, List<Lance> lances) {
-        this.tipo = tipo;
+    public ProdutoDTO(SubTipo subTipo, String complemento, Double precoInicial,
+                      String status, Leilao leilao, List<Lance> lances) {
+        this.subTipo = subTipo;
         this.complemento = complemento;
         this.precoInicial = precoInicial;
         this.status = status;
@@ -35,12 +37,12 @@ public class ProdutoDTO {
         this.id = id;
     }
 
-    public String getTipo() {
-        return tipo;
+    public SubTipo getSubTipo() {
+        return subTipo;
     }
 
-    public void setTipo(String tipo) {
-        this.tipo = tipo;
+    public void setSubTipo(SubTipo subTipo) {
+        this.subTipo = subTipo;
     }
 
     public String getComplemento() {

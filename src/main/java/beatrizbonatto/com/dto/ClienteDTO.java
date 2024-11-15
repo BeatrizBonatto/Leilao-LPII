@@ -9,18 +9,14 @@ public class ClienteDTO {
     private Long id;
     private String nome;
     private String cpf;
-    private String celular;
-    private String email;
     private Date dataNascimento;
     private List<Lance> lances;
 
     public ClienteDTO(){}
 
-    public ClienteDTO(String nome, String cpf, String celular, String email, Date dataNascimento, List<Lance> lances) {
+    public ClienteDTO(String nome, String cpf, Date dataNascimento, List<Lance> lances) {
         this.nome = nome;
         this.cpf = cpf;
-        this.celular = celular;
-        this.email = email;
         this.dataNascimento = dataNascimento;
         this.lances = lances;
     }
@@ -50,22 +46,6 @@ public class ClienteDTO {
         this.cpf = cpf;
     }
 
-    public String getCelular() {
-        return celular;
-    }
-
-    public void setCelular(String celular) {
-        this.celular = celular;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
     public Date getDataNascimento() {
         return dataNascimento;
     }
@@ -81,4 +61,5 @@ public class ClienteDTO {
     public void setLances(List<Lance> lances) {
         this.lances = lances;
     }
+
 }

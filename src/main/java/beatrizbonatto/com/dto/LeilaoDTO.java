@@ -19,14 +19,17 @@ public class LeilaoDTO {
     private String cidade;
     private String estado;
     private List<Produto> produtos;
-    private List<InstFinanceira> instFinanceiras;
+    private List<InstFinanceira> instFinanceira;
+    private String status;
 
     public LeilaoDTO() {}
 
-    public LeilaoDTO(LocalDateTime dataInicio, LocalDateTime dataFim, LocalDateTime dataVisitacao, LocalDateTime dataEvento,
+    public LeilaoDTO(Long id, LocalDateTime dataInicio, LocalDateTime dataFim, LocalDateTime dataVisitacao, LocalDateTime dataEvento,
                      String dominioLeilaoEletronico,
                      String endereco, String cidade, String estado,
-                     List<Produto> produtos, List<InstFinanceira> instFinanceiras) {
+                     List<Produto> produtos, List<InstFinanceira> instFinanceira,
+                     String status) {
+        this.id = id;
         this.dataInicio = dataInicio;
         this.dataFim = dataFim;
         this.dataVisitacao = dataVisitacao;
@@ -36,7 +39,8 @@ public class LeilaoDTO {
         this.cidade = cidade;
         this.estado = estado;
         this.produtos = produtos;
-        this.instFinanceiras = instFinanceiras;
+        this.instFinanceira = instFinanceira;
+        this.status = status;
     }
 
     public Long getId() {
@@ -119,11 +123,20 @@ public class LeilaoDTO {
         this.produtos = produtos;
     }
 
-    public List<InstFinanceira> getInstFinanceiras() {
-        return instFinanceiras;
+    public List<InstFinanceira> getInstFinanceira() {
+        return instFinanceira;
     }
 
-    public void setInstFinanceiras(List<InstFinanceira> instFinanceiras) {
-        this.instFinanceiras = instFinanceiras;
+    public void setInstFinanceira(List<InstFinanceira> instFinanceira) {
+        this.instFinanceira = instFinanceira;
     }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
 }

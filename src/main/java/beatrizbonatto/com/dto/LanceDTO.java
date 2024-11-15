@@ -7,15 +7,16 @@ import java.util.List;
 
 public class LanceDTO {
     private Long id;
-    private List<Cliente> clientes;
-    private List<Produto> produtos;
+    private Cliente cliente;
+    private Produto produto;
     private Double valor;
 
     public LanceDTO() {}
 
-    public LanceDTO(List<Cliente> clientes, List<Produto> produtos, Double valor) {
-        this.clientes = clientes;
-        this.produtos = produtos;
+    public LanceDTO(Long id, Cliente cliente, Produto produto, Double valor) {
+        this.id = cliente.getId();
+        this.cliente = cliente;
+        this.produto = produto;
         this.valor = valor;
     }
 
@@ -27,20 +28,20 @@ public class LanceDTO {
         this.id = id;
     }
 
-    public List<Cliente> getClientes() {
-        return clientes;
+    public Cliente getCliente() {
+        return cliente;
     }
 
-    public void setClientes(List<Cliente> clientes) {
-        this.clientes = clientes;
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
     }
 
-    public List<Produto> getProdutos() {
-        return produtos;
+    public Produto getProduto() {
+        return produto;
     }
 
-    public void setProdutos(List<Produto> produtos) {
-        this.produtos = produtos;
+    public void setProduto(Produto produto) {
+        this.produto = produto;
     }
 
     public Double getValor() {
