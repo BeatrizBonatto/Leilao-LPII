@@ -19,9 +19,7 @@ public class Produto {
     @Column(name = "preco_inicial")
     private Double precoInicial;
 
-    private String status;
-
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "leilao_id")
     private Leilao leilao;
 
@@ -34,12 +32,11 @@ public class Produto {
     public Produto() {}
 
     public Produto(Long id, SubTipo subTipo, String complemento, Double precoInicial,
-                   String status, Leilao leilao, List<Lance> lances) {
+                   Leilao leilao, List<Lance> lances) {
         this.id = id;
         this.subTipo = subTipo;
         this.complemento = complemento;
         this.precoInicial = precoInicial;
-        this.status = status;
         this.leilao = leilao;
         this.lances = lances;
     }
@@ -74,14 +71,6 @@ public class Produto {
 
     public void setPrecoInicial(Double precoInicial) {
         this.precoInicial = precoInicial;
-    }
-
-    public String getStatus() {
-        return this.status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
     }
 
     public Leilao getLeilao() {
