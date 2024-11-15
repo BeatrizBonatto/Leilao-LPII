@@ -12,7 +12,6 @@ public class ProdutoDTO {
     private SubTipo subTipo;
     private String complemento;
     private Double precoInicial;
-    private String status;
     private Leilao leilao;
     private List<Lance> lances;
 
@@ -20,11 +19,10 @@ public class ProdutoDTO {
     }
 
     public ProdutoDTO(SubTipo subTipo, String complemento, Double precoInicial,
-                      String status, Leilao leilao, List<Lance> lances) {
+                      Leilao leilao, List<Lance> lances) {
         this.subTipo = subTipo;
         this.complemento = complemento;
         this.precoInicial = precoInicial;
-        this.status = status;
         this.leilao = leilao;
         this.lances = lances;
     }
@@ -59,14 +57,6 @@ public class ProdutoDTO {
 
     public void setPrecoInicial(Double precoInicial) {
         this.precoInicial = precoInicial;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
     }
 
     public Leilao getLeilao() {
