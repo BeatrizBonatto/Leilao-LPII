@@ -20,7 +20,7 @@ public class Cliente {
 
     @OneToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "cliente_lance",
-            joinColumns = @JoinColumn(name = "clienteo_id"),
+            joinColumns = @JoinColumn(name = "cliente_id"),
             inverseJoinColumns = @JoinColumn(name = "lance_id"))
     private List<Lance> lances;
 
