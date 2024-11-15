@@ -18,8 +18,8 @@ public class Leilao {
     @Column(name = "data_fim")
     private LocalDateTime dataFim;
 
-    @Column(name = "data_visitacao")
-    private LocalDateTime dataVisitacao;
+    @Column(name = "data_visita")
+    private LocalDateTime dataVisita;
 
     @Column(name = "data_evento")
     private LocalDateTime dataEvento;
@@ -48,7 +48,7 @@ public class Leilao {
 
     public Leilao() {}
 
-    public Leilao(Long id , LocalDateTime dataInicio, LocalDateTime dataFim, LocalDateTime dataVisitacao, LocalDateTime dataEvento,
+    public Leilao(Long id , LocalDateTime dataInicio, LocalDateTime dataFim, LocalDateTime dataVisita, LocalDateTime dataEvento,
                   String dominioLeilaoEletronico,
                   String endereco, String cidade, String estado,
                   List<Produto> produtos, List<Lance> lances, List<InstFinanceira> instFinanceira,
@@ -56,7 +56,7 @@ public class Leilao {
         this.id = id;
         this.dataInicio = dataInicio;
         this.dataFim = dataFim;
-        this.dataVisitacao = dataVisitacao;
+        this.dataVisita = dataVisita;
         this.dataEvento = dataEvento;
         this.dominioLeilaoEletronico = dominioLeilaoEletronico;
         this.endereco = endereco;
@@ -91,12 +91,12 @@ public class Leilao {
         this.dataFim = dataFim;
     }
 
-    public LocalDateTime getDataVisitacao() {
-        return dataVisitacao;
+    public LocalDateTime getDataVisita() {
+        return dataVisita;
     }
 
-    public void setDataVisitacao(LocalDateTime dataVisitacao) {
-        this.dataVisitacao = dataVisitacao;
+    public void setDataVisita(LocalDateTime dataVisitacao) {
+        this.dataVisita = dataVisitacao;
     }
 
     public LocalDateTime getDataEvento() {
