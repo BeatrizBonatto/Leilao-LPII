@@ -1,5 +1,7 @@
 package beatrizbonatto.com.repository;
 
+import beatrizbonatto.com.dto.ClienteDTO;
+import beatrizbonatto.com.dto.InstFinanceiraDTO;
 import beatrizbonatto.com.model.InstFinanceira;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
@@ -15,29 +17,16 @@ public class InstFinanceiraRepository {
     EntityManager em;
 
     @Transactional
-    public void registroInstFinanceira(InstFinanceira instFinanceira) {
-        em.persist(instFinanceira);
-    }
-
-    public InstFinanceira consultaInstFinanceira(Long id) {
-        return em.find(InstFinanceira.class, id);
+    public List<InstFinanceiraDTO> listaDeInstFinanceira() {
+        return em.createQuery("select if from InstFinanceira if", InstFinanceiraDTO.class)
+                .getResultList();
     }
 
     @Transactional
-    public List<InstFinanceira> listaDeInstFinanceira() {
-        return em.createQuery("select if from InstFinanceira if", InstFinanceira.class).getResultList();
+    public InstFinanceiraDTO buscarInstFinanceiraPorId(Long id) {
+        return em.createQuery("select if from InstFinanceira if where id = :id", InstFinanceiraDTO.class)
+                .setParameter("id", id)
+                .getSingleResult();
     }
 
-    @Transactional
-    public void atualizar(InstFinanceira instFinanceira) {
-        em.merge(instFinanceira);
-    }
-
-    @Transactional
-    public void remocao(Long id) {
-        InstFinanceira instFinanceira = consultaInstFinanceira(id);
-        if (instFinanceira != null) {
-            em.remove(instFinanceira);
-        }
-    }
 }

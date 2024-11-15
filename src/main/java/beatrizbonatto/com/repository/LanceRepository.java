@@ -1,10 +1,10 @@
 package beatrizbonatto.com.repository;
 
+import beatrizbonatto.com.dto.LanceDTO;
 import beatrizbonatto.com.model.Lance;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.persistence.EntityManager;
-import jakarta.transaction.Transactional;
 
 import java.util.List;
 
@@ -14,30 +14,14 @@ public class LanceRepository {
     @Inject
     EntityManager em;
 
-    @Transactional
-    public void registroLance(Lance lance) {
-        em.persist(lance);
+    public List<LanceDTO> listaDeLances() {
+        return em.createQuery("select la from Lance la", LanceDTO.class).getResultList();
     }
 
-    public Lance consultaLance(Long id) {
-        return em.find(Lance.class, id);
+    public  LanceDTO buscaLancePorId(Long id) {
+        return em.createQuery("select la from Lance la where la.id = :id", LanceDTO.class)
+                .setParameter("id", id)
+                .getSingleResult();
     }
 
-    @Transactional
-    public List<Lance> listaDeLances() {
-        return em.createQuery("select la from Lance la", Lance.class).getResultList();
-    }
-
-    @Transactional
-    public void atualizar(Lance lance) {
-        em.merge(lance);
-    }
-
-    @Transactional
-    public void remocao(Long id) {
-        Lance lance = consultaLance(id);
-        if (lance != null) {
-            em.remove(lance);
-        }
-    }
 }

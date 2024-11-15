@@ -1,10 +1,9 @@
 package beatrizbonatto.com.repository;
 
-import beatrizbonatto.com.model.Cliente;
+import beatrizbonatto.com.dto.ClienteDTO;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.persistence.EntityManager;
-import jakarta.transaction.Transactional;
 
 import java.util.List;
 
@@ -14,30 +13,14 @@ public class ClienteRepository {
     @Inject
     EntityManager em;
 
-    @Transactional
-    public void registroCliente(Cliente cliente) {
-        em.persist(cliente);
+    public List<ClienteDTO> listaDeClientes() {
+        return em.createQuery("select c from Cliente c", ClienteDTO.class).getResultList();
     }
 
-    public Cliente consultaCliente(Long id) {
-        return em.find(Cliente.class, id);
+    public ClienteDTO ClientePorId(Long id) {
+        return em.createQuery("select c from Cliente c where c.id = :id", ClienteDTO.class)
+                .setParameter("id", id)
+                .getSingleResult();
     }
 
-    @Transactional
-    public List<Cliente> listaDeClientes() {
-        return em.createQuery("select c from Cliente c", Cliente.class).getResultList();
-    }
-
-    @Transactional
-    public void atualizar(Cliente cliente) {
-        em.merge(cliente);
-    }
-
-    @Transactional
-    public void remocao(Long id) {
-        Cliente cliente = consultaCliente(id);
-        if (cliente != null) {
-            em.remove(cliente);
-        }
-    }
 }
