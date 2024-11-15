@@ -5,20 +5,27 @@ import jakarta.persistence.*;
 import java.util.List;
 
 @Entity
+@Inheritance(strategy = InheritanceType.JOINED)
 public class Produto {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    private String tipo;
+
+    @Column(name = "sub_tipo")
+    private SubTipo subTipo;
+
     private String complemento;
+
+    @Column(name = "preco_inicial")
     private Double precoInicial;
+
     private String status;
 
     @ManyToOne
     @JoinColumn(name = "leilao_id")
     private Leilao leilao;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "produto_lance",
             joinColumns = @JoinColumn(name = "produto_id"),
             inverseJoinColumns = @JoinColumn(name = "lance_id"))
@@ -26,8 +33,10 @@ public class Produto {
 
     public Produto() {}
 
-    public Produto(String tipo, String complemento, Double precoInicial, String status, Leilao leilao, List<Lance> lances) {
-        this.tipo = tipo;
+    public Produto(Long id, SubTipo subTipo, String complemento, Double precoInicial,
+                   String status, Leilao leilao, List<Lance> lances) {
+        this.id = id;
+        this.subTipo = subTipo;
         this.complemento = complemento;
         this.precoInicial = precoInicial;
         this.status = status;
@@ -43,12 +52,12 @@ public class Produto {
         this.id = id;
     }
 
-    public String getTipo() {
-        return tipo;
+    public SubTipo getSubTipo() {
+        return subTipo;
     }
 
-    public void setTipo(String tipo) {
-        this.tipo = tipo;
+    public void setSubTipo(SubTipo subTipo) {
+        this.subTipo = subTipo;
     }
 
     public String getComplemento() {

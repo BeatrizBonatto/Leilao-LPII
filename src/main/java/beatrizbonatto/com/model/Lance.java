@@ -1,5 +1,6 @@
 package beatrizbonatto.com.model;
 
+import beatrizbonatto.com.dto.LanceDTO;
 import jakarta.persistence.*;
 
 import java.util.List;
@@ -7,27 +8,29 @@ import java.util.List;
 @Entity
 public class Lance {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    private Double valor;
 
-    @ManyToMany
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinTable(name = "lance_cliente",
             joinColumns = @JoinColumn(name = "lance_id"),
-            inverseJoinColumns = @JoinColumn(name = "clienteo_id"))
-    private List<Cliente> clientes;
+            inverseJoinColumns = @JoinColumn(name = "cliente_id"))
+    private Cliente cliente;
 
-    @ManyToMany
+    @OneToOne(fetch = FetchType.EAGER)
     @JoinTable(name = "lance_produto",
             joinColumns = @JoinColumn(name = "lance_id"),
             inverseJoinColumns = @JoinColumn(name = "produto_id"))
-    private List<Produto> produtos;
+    private Produto produto;
+
+    private Double valor;
 
     public Lance() {}
 
-    public Lance(List<Cliente> clientes, List<Produto> produtos, Double valor) {
-        this.clientes = clientes;
-        this.produtos = produtos;
+    public Lance(Long id, Cliente cliente, Produto produto, Double valor) {
+        this.id = id;
+        this.cliente = cliente;
+        this.produto = produto;
         this.valor = valor;
     }
 
@@ -39,20 +42,20 @@ public class Lance {
         this.id = id;
     }
 
-    public List<Cliente> getClientes() {
-        return clientes;
+    public Cliente getCliente() {
+        return cliente;
     }
 
-    public void setClientes(List<Cliente> clientes) {
-        this.clientes = clientes;
+    public void setCliente(Cliente clientes) {
+        this.cliente = cliente;
     }
 
-    public List<Produto> getProdutos() {
-        return produtos;
+    public Produto getProduto() {
+        return produto;
     }
 
-    public void setProdutos(List<Produto> produtos) {
-        this.produtos = produtos;
+    public void setProduto(Produto produtos) {
+        this.produto = produto;
     }
 
     public Double getValor() {
@@ -62,4 +65,5 @@ public class Lance {
     public void setValor(Double valor) {
         this.valor = valor;
     }
+
 }

@@ -9,32 +9,48 @@ import java.util.List;
 @Entity
 public class Leilao {
     @Id
-    @GeneratedValue
-    private int id;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
+
+    @Column(name = "data_inicio")
     private LocalDateTime dataInicio;
+
+    @Column(name = "data_fim")
     private LocalDateTime dataFim;
+
+    @Column(name = "data_visitacao")
     private LocalDateTime dataVisitacao;
+
+    @Column(name = "data_evento")
     private LocalDateTime dataEvento;
+
+    @Column(name = "dominio_leilao_eletronico")
     private String dominioLeilaoEletronico;
+
     private String endereco;
+
     private String cidade;
+
     private String estado;
 
-    @OneToMany(mappedBy = "leilao")
+    @OneToMany(mappedBy = "produtos")
     private List<Produto> produtos = new ArrayList<>();
 
-    @ManyToMany
+
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "leilao_instfinanceira",
             joinColumns = @JoinColumn(name = "leilao_id"),
             inverseJoinColumns = @JoinColumn(name = "instfinanceira_id")
     )
-    private List<InstFinanceira> instFinanceiras = new ArrayList<>();
+    private List<InstFinanceira> instFinanceira;
 
     public Leilao() {}
 
-    public Leilao(LocalDateTime dataInicio, LocalDateTime dataFim, LocalDateTime dataVisitacao,
-                  LocalDateTime dataEvento, String dominioLeilaoEletronico, String endereco,
-                  String cidade, String estado, List<Produto> produtos, List<InstFinanceira> instFinanceiras) {
+    public Leilao(Long id , LocalDateTime dataInicio, LocalDateTime dataFim, LocalDateTime dataVisitacao, LocalDateTime dataEvento,
+                  String dominioLeilaoEletronico,
+                  String endereco, String cidade, String estado,
+                  List<Produto> produtos, List<Lance> lances, List<InstFinanceira> instFinanceira) {
+        this.id = id;
         this.dataInicio = dataInicio;
         this.dataFim = dataFim;
         this.dataVisitacao = dataVisitacao;
@@ -44,14 +60,14 @@ public class Leilao {
         this.cidade = cidade;
         this.estado = estado;
         this.produtos = produtos;
-        this.instFinanceiras = instFinanceiras;
+        this.instFinanceira = instFinanceira;
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -127,11 +143,11 @@ public class Leilao {
         this.produtos = produtos;
     }
 
-    public List<InstFinanceira> getInstFinanceiras() {
-        return instFinanceiras;
+    public List<InstFinanceira> getInstFinanceira() {
+        return instFinanceira;
     }
 
-    public void setInstFinanceiras(List<InstFinanceira> instFinanceiras) {
-        this.instFinanceiras = instFinanceiras;
+    public void setInstFinanceira(List<InstFinanceira> instFinanceira) {
+        this.instFinanceira = instFinanceira;
     }
 }
