@@ -15,8 +15,8 @@ public enum SubTipo {
     SWITCH(Tipo.DISPOSITIVO_INFORMATICA, "Switch"),
     ROTEADOR(Tipo.DISPOSITIVO_INFORMATICA, "Roteador");
 
-    Tipo tipo;
-    String subTipo;
+    private Tipo tipo;
+    private String subTipo;
 
     SubTipo(Tipo tipo, String subTipo) {
         this.tipo = tipo;
