@@ -5,65 +5,52 @@ import beatrizbonatto.com.model.Cliente;
 import beatrizbonatto.com.repository.ClienteRepository;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
+import jakarta.persistence.EntityManager;
+import jakarta.transaction.Transactional;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @ApplicationScoped
 public class ClienteService {
     @Inject
     ClienteRepository clienteRepository;
 
-    public void createCliente(ClienteDTO clienteDTO) {
-        Cliente cliente = new Cliente();
-        cliente.setNome(clienteDTO.getNome());
-        cliente.setCpf(clienteDTO.getCpf());
-        cliente.setCelular(clienteDTO.getCelular());
-        cliente.setEmail(clienteDTO.getEmail());
-        cliente.setDataNascimento(clienteDTO.getDataNascimento());
-        cliente.setLances(clienteDTO.getLances());
-        clienteRepository.registroCliente(cliente);
+    @Inject
+    EntityManager em;
+
+    @Transactional
+    public void criarCliente(ClienteDTO clienteDTO) {
+        em.persist(clienteDTO);
     }
 
-    public ClienteDTO getCliente(Long id) {
-        Cliente cliente = clienteRepository.consultaCliente(id);
-        if (cliente != null) {
-            return toDTO(cliente);
+    public ClienteDTO buscarClientePorId(Long id) {
+        return clienteRepository.ClientePorId(id);
+    }
+
+    public List<ClienteDTO> listaDeClientes() {
+        return clienteRepository.listaDeClientes();
+    }
+
+    @Transactional
+    public ClienteDTO atualizarCliente(Long id, ClienteDTO clienteAtualizado) {
+        if(buscarClientePorId(id) != null) {
+            em.merge(clienteAtualizado);
+            return clienteAtualizado;
         }
-        return null;
+        throw new IllegalArgumentException("Cliente não existe");
     }
 
-    public List<ClienteDTO> listClientes() {
-        return clienteRepository.listaDeClientes().stream()
-                .map(this::toDTO)
-                .collect(Collectors.toList());
-    }
-
-    public ClienteDTO updateCliente(Long id, ClienteDTO clienteDTO) {
-        Cliente cliente = clienteRepository.consultaCliente(id);
-        if (cliente != null) {
-            cliente.setNome(clienteDTO.getNome());
-            cliente.setCpf(clienteDTO.getCpf());
-            cliente.setCelular(clienteDTO.getCelular());
-            cliente.setEmail(clienteDTO.getEmail());
-            cliente.setDataNascimento(clienteDTO.getDataNascimento());
-            cliente.setLances(clienteDTO.getLances());
-            clienteRepository.atualizar(cliente);
-            return toDTO(cliente);
-        }
-        return null;
-    }
-
-    public boolean deleteCliente(Long id) {
-        Cliente cliente = clienteRepository.consultaCliente(id);
-        if (cliente != null) {
-            clienteRepository.remocao(id);
+    @Transactional
+    public boolean excluirCliente(Long id) {
+        if(em.find(ClienteDTO.class, id) != null) {
+            ClienteDTO clienteDTO = buscarClientePorId(id);
+            em.remove(clienteDTO);
             return true;
         }
-        return false;
+        throw new IllegalArgumentException("Cliente não existe");
     }
 
     private ClienteDTO toDTO(Cliente cliente) {
-        return new ClienteDTO(cliente.getNome(), cliente.getCpf(), cliente.getCelular(), cliente.getEmail(), cliente.getDataNascimento(), cliente.getLances());
+        return new ClienteDTO(cliente.getNome(), cliente.getCpf(), cliente.getDataNascimento(), cliente.getLances());
     }
 }

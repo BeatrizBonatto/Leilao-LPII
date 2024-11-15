@@ -5,77 +5,61 @@ import beatrizbonatto.com.model.Leilao;
 import beatrizbonatto.com.repository.LeilaoRepository;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
+import jakarta.persistence.EntityManager;
+import jakarta.transaction.Transactional;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @ApplicationScoped
 public class LeilaoService {
     @Inject
     LeilaoRepository leilaoRepository;
 
+    @Inject
+    EntityManager em;
+
+    @Transactional
     public void createLeilao(LeilaoDTO leilaoDTO) {
-        if (leilaoDTO.getInstFinanceiras() == null || leilaoDTO.getInstFinanceiras().isEmpty()) {
+        if (leilaoDTO.getInstFinanceira() == null || leilaoDTO.getInstFinanceira().toString() == "") {
             throw new IllegalArgumentException("Cada leilão deve ter ao menos uma entidade financeira associada.");
         }
 
-        Leilao leilao = new Leilao();
-        leilao.setDataInicio(leilaoDTO.getDataInicio());
-        leilao.setDataFim(leilaoDTO.getDataFim());
-        leilao.setDataVisitacao(leilaoDTO.getDataVisitacao());
-        leilao.setDataEvento(leilaoDTO.getDataEvento());
-        leilao.setDominioLeilaoEletronico(leilao.getDominioLeilaoEletronico());
-        leilao.setEndereco(leilaoDTO.getEndereco());
-        leilao.setCidade(leilaoDTO.getCidade());
-        leilao.setEstado(leilaoDTO.getEstado());
-        leilao.setProdutos(leilaoDTO.getProdutos());
-        leilao.setInstFinanceiras(leilaoDTO.getInstFinanceiras());
-        leilaoRepository.registroLeilao(leilao);
+        em.persist(leilaoDTO);
     }
 
-    public LeilaoDTO getLeilao(Long id) {
-        Leilao leilao = leilaoRepository.consultaLeilao(id);
-        if (leilao != null) {
-            return toDTO(leilao);
+    public LeilaoDTO buscaLeilaoPorId(Long id) {
+        return leilaoRepository.buscaLeilaoPorId(id);
+    }
+
+    public List<LeilaoDTO> listaDeLeiloes() {
+        return leilaoRepository.listaDeLeiloes();
+    }
+
+    @Transactional
+    public LeilaoDTO atualizarLeilao(Long id, LeilaoDTO leilaoAtualizado) {
+        if(buscaLeilaoPorId(id) != null) {
+            em.merge(leilaoAtualizado);
+            return leilaoAtualizado;
         }
-        return null;
+        throw new IllegalArgumentException("Cliente não existe");
     }
 
-    public List<LeilaoDTO> listLeiloes() {
-        return leilaoRepository.listaDeLeiloes().stream()
-                .map(this::toDTO)
-                .collect(Collectors.toList());
-    }
-
-    public LeilaoDTO updateLeilao(Long id, LeilaoDTO leilaoDTO) {
-        Leilao leilao = leilaoRepository.consultaLeilao(id);
-        if (leilao != null) {
-            leilao.setDataInicio(leilaoDTO.getDataInicio());
-            leilao.setDataFim(leilaoDTO.getDataFim());
-            leilao.setDataVisitacao(leilaoDTO.getDataVisitacao());
-            leilao.setDataEvento(leilaoDTO.getDataEvento());
-            leilao.setDominioLeilaoEletronico(leilao.getDominioLeilaoEletronico());
-            leilao.setEndereco(leilaoDTO.getEndereco());
-            leilao.setCidade(leilaoDTO.getCidade());
-            leilao.setEstado(leilaoDTO.getEstado());
-            leilao.setProdutos(leilaoDTO.getProdutos());
-            leilao.setInstFinanceiras(leilaoDTO.getInstFinanceiras());
-            leilaoRepository.atualizar(leilao);
-            return toDTO(leilao);
-        }
-        return null;
-    }
-
-    public boolean deleteLeilao(Long id) {
-        Leilao leilao = leilaoRepository.consultaLeilao(id);
-        if (leilao != null) {
-            leilaoRepository.remocao(id);
+    @Transactional
+    public boolean excluirLeilao(Long id) {
+        if(buscaLeilaoPorId(id) != null) {
+            em.remove(id);
             return true;
         }
-        return false;
+        throw new IllegalArgumentException("Cliente não existe");
     }
 
     private LeilaoDTO toDTO(Leilao leilao) {
-        return new LeilaoDTO(leilao.getDataInicio(), leilao.getDataFim(), leilao.getDataVisitacao(), leilao.getDataEvento(),leilao.getDominioLeilaoEletronico(), leilao.getEndereco(), leilao.getCidade(), leilao.getEstado(), leilao.getProdutos(), leilao.getInstFinanceiras());
+        return new LeilaoDTO(leilao.getId() ,
+                leilao.getDataInicio(), leilao.getDataFim(), leilao.getDataVisita(), leilao.getDataEvento(),
+                leilao.getDominioLeilaoEletronico(),
+                leilao.getEndereco(), leilao.getCidade(), leilao.getEstado(),
+                leilao.getProdutos(), leilao.getInstFinanceira(),
+                leilao.getStatus()
+        );
     }
 }
