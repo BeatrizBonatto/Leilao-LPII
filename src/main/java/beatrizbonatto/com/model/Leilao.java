@@ -44,12 +44,15 @@ public class Leilao {
     )
     private List<InstFinanceira> instFinanceira;
 
+    private String status;
+
     public Leilao() {}
 
     public Leilao(Long id , LocalDateTime dataInicio, LocalDateTime dataFim, LocalDateTime dataVisitacao, LocalDateTime dataEvento,
                   String dominioLeilaoEletronico,
                   String endereco, String cidade, String estado,
-                  List<Produto> produtos, List<Lance> lances, List<InstFinanceira> instFinanceira) {
+                  List<Produto> produtos, List<Lance> lances, List<InstFinanceira> instFinanceira,
+                  String status) {
         this.id = id;
         this.dataInicio = dataInicio;
         this.dataFim = dataFim;
@@ -61,6 +64,7 @@ public class Leilao {
         this.estado = estado;
         this.produtos = produtos;
         this.instFinanceira = instFinanceira;
+        this.status = status;
     }
 
     public Long getId() {
@@ -150,4 +154,13 @@ public class Leilao {
     public void setInstFinanceira(List<InstFinanceira> instFinanceira) {
         this.instFinanceira = instFinanceira;
     }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
 }
