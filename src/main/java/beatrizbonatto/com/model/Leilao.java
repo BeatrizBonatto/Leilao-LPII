@@ -33,7 +33,7 @@ public class Leilao {
 
     private String estado;
 
-    @OneToMany(mappedBy = "produtos")
+    @OneToMany(mappedBy = "leilao")
     private List<Produto> produtos = new ArrayList<>();
 
 

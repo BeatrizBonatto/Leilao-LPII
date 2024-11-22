@@ -27,11 +27,11 @@ public class LeilaoService {
         em.persist(leilaoDTO);
     }
 
-    public LeilaoDTO buscaLeilaoPorId(Long id) {
+    public Leilao buscaLeilaoPorId(Long id) {
         return leilaoRepository.buscaLeilaoPorId(id);
     }
 
-    public List<LeilaoDTO> listaDeLeiloes() {
+    public List<Leilao> listaDeLeiloes() {
         return leilaoRepository.listaDeLeiloes();
     }
 

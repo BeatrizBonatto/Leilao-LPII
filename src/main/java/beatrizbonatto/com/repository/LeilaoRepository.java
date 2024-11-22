@@ -15,12 +15,12 @@ public class LeilaoRepository {
     @Inject
     EntityManager em;
 
-    public List<LeilaoDTO> listaDeLeiloes() {
-        return em.createQuery("select l from Leilao l", LeilaoDTO.class).getResultList();
+    public List<Leilao> listaDeLeiloes() {
+        return em.createQuery("select l from Leilao l", Leilao.class).getResultList();
     }
 
-    public LeilaoDTO buscaLeilaoPorId(Long id) {
-        return em.createQuery("select l from leilao l where l.id = :id", LeilaoDTO.class)
+    public Leilao buscaLeilaoPorId(Long id) {
+        return em.createQuery("select l from Leilao l where l.id = :id", Leilao.class)
                 .setParameter("id", id)
                 .getSingleResult();
     }

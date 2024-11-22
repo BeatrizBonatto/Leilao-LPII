@@ -1,6 +1,7 @@
 package beatrizbonatto.com.controller;
 
 import beatrizbonatto.com.dto.LeilaoDTO;
+import beatrizbonatto.com.model.Leilao;
 import beatrizbonatto.com.service.LeilaoService;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
@@ -22,15 +23,15 @@ public class LeilaoController {
     @GET
     @Path("/{id}")
     public Response buscaLeilaoPorId(@PathParam("id") Long id) {
-       LeilaoDTO leilaoDTO = leilaoService.buscaLeilaoPorId(id);
-        if (leilaoDTO == null) {
+       Leilao leilao = leilaoService.buscaLeilaoPorId(id);
+        if (leilao == null) {
             return Response.status(Response.Status.NOT_FOUND).build();
         }
-        return Response.ok(leilaoDTO).build();
+        return Response.ok(leilao).build();
     }
 
     @GET
-    public List<LeilaoDTO> listaDeLeiloes() {
+    public List<Leilao> listaDeLeiloes() {
         return leilaoService.listaDeLeiloes();
     }
 
