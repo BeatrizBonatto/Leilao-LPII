@@ -1,6 +1,7 @@
 package beatrizbonatto.com.controller;
 
 import beatrizbonatto.com.dto.ProdutoDTO;
+import beatrizbonatto.com.model.Produto;
 import beatrizbonatto.com.service.ProdutoService;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
@@ -26,15 +27,15 @@ public class ProdutoController {
     @GET
     @Path("/{id}")
     public Response buscarProdutoPorId(@PathParam("id") Long id) {
-       ProdutoDTO produtoDTO = produtoService.buscarProdutoPorId(id);
-        if (produtoDTO == null) {
+       Produto produto = produtoService.buscarProdutoPorId(id);
+        if (produto == null) {
             return Response.status(Response.Status.NOT_FOUND).build();
         }
-        return Response.ok(produtoDTO).build();
+        return Response.ok(produto).build();
     }
 
     @GET
-    public List<ProdutoDTO> listaDeProdutos() {
+    public List<Produto> listaDeProdutos() {
         return produtoService.listaDeProdutos();
     }
 
@@ -66,14 +67,14 @@ public class ProdutoController {
         }
     }
 
-//    @PUT
-//    @Path("/{produtoId}/desassociar/{novoLeilaoId}")
-//    public Response desassociarProduto(@PathParam("produtoId") Long produtoId, @PathParam("novoLeilaoId") Long novoLeilaoId) {
-//        try {
-//            produtoService.desassociarProduto(produtoId, novoLeilaoId);
-//            return Response.ok().build();
-//        } catch (IllegalArgumentException e) {
-//            return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
-//        }
-//    }
+    @PUT
+    @Path("/{produtoId}/desassociar/{novoLeilaoId}")
+    public Response desassociarProduto(@PathParam("produtoId") Long produtoId, @PathParam("novoLeilaoId") Long novoLeilaoId) {
+        try {
+            produtoService.desassociarProduto(produtoId, novoLeilaoId);
+            return Response.ok().build();
+        } catch (IllegalArgumentException e) {
+            return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
+        }
+    }
 }

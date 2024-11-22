@@ -11,6 +11,7 @@ public class Produto {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    @Enumerated(EnumType.STRING)
     @Column(name = "sub_tipo")
     private SubTipo subTipo;
 
