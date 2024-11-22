@@ -23,11 +23,11 @@ public class ClienteService {
         em.persist(clienteDTO);
     }
 
-    public ClienteDTO buscarClientePorId(Long id) {
+    public Cliente buscarClientePorId(Long id) {
         return clienteRepository.ClientePorId(id);
     }
 
-    public List<ClienteDTO> listaDeClientes() {
+    public List<Cliente> listaDeClientes() {
         return clienteRepository.listaDeClientes();
     }
 
@@ -42,9 +42,9 @@ public class ClienteService {
 
     @Transactional
     public boolean excluirCliente(Long id) {
-        if(em.find(ClienteDTO.class, id) != null) {
-            ClienteDTO clienteDTO = buscarClientePorId(id);
-            em.remove(clienteDTO);
+        if(em.find(Cliente.class, id) != null) {
+            Cliente cliente = buscarClientePorId(id);
+            em.remove(cliente);
             return true;
         }
         throw new IllegalArgumentException("Cliente não existe");

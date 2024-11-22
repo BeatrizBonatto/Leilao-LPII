@@ -1,6 +1,7 @@
 package beatrizbonatto.com.controller;
 
 import beatrizbonatto.com.dto.ClienteDTO;
+import beatrizbonatto.com.model.Cliente;
 import beatrizbonatto.com.service.ClienteService;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
@@ -22,15 +23,15 @@ public class ClienteController {
     @GET
     @Path("/{id}")
     public Response buscarClientePorId(@PathParam("id") Long id) {
-       ClienteDTO clienteDTO = clienteService.buscarClientePorId(id);
-        if (clienteDTO == null) {
+       Cliente cliente = clienteService.buscarClientePorId(id);
+        if (cliente == null) {
             return Response.status(Response.Status.NOT_FOUND).build();
         }
-        return Response.ok(clienteDTO).build();
+        return Response.ok(cliente).build();
     }
 
     @GET
-    public List<ClienteDTO> listaDeClientes() {
+    public List<Cliente> listaDeClientes() {
         return clienteService.listaDeClientes();
     }
 
