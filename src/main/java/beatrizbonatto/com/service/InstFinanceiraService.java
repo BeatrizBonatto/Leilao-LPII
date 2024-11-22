@@ -1,6 +1,5 @@
 package beatrizbonatto.com.service;
 
-import beatrizbonatto.com.dto.ClienteDTO;
 import beatrizbonatto.com.dto.InstFinanceiraDTO;
 import beatrizbonatto.com.model.InstFinanceira;
 import beatrizbonatto.com.repository.InstFinanceiraRepository;
@@ -10,7 +9,6 @@ import jakarta.persistence.EntityManager;
 import jakarta.transaction.Transactional;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @ApplicationScoped
 public class InstFinanceiraService {
@@ -25,12 +23,12 @@ public class InstFinanceiraService {
         em.persist(instFinanceiraDTO);
     }
 
-    public InstFinanceiraDTO buscarInstFinanceira(Long id) {
+    public InstFinanceira buscarInstFinanceira(Long id) {
         return instFinanceiraRepository.buscarInstFinanceiraPorId(id);
     }
 
     @Transactional
-    public List<InstFinanceiraDTO> listaDeInstFinanceira() {
+    public List<InstFinanceira> listaDeInstFinanceira() {
         return instFinanceiraRepository.listaDeInstFinanceira();
     }
 
@@ -46,8 +44,8 @@ public class InstFinanceiraService {
     @Transactional
     public boolean excluirInstFinanceira(Long id) {
         if(em.find(InstFinanceiraDTO.class, id) != null) {
-            InstFinanceiraDTO instFinanceiraDTO = buscarInstFinanceira(id);
-            em.remove(instFinanceiraDTO);
+            InstFinanceira instFinanceira = buscarInstFinanceira(id);
+            em.remove(instFinanceira);
             return true;
         }
         throw new IllegalArgumentException("Instituição Financeira não existe");
@@ -55,10 +53,11 @@ public class InstFinanceiraService {
 
     private InstFinanceiraDTO toDTO(InstFinanceira instFinanceira) {
         return new InstFinanceiraDTO(
+                instFinanceira.getId(),
                 instFinanceira.getCodigo(),
-                    instFinanceira.getNome(),
-                    instFinanceira.getCnpj(),
-                    instFinanceira.getLeiloes()
+                instFinanceira.getNome(),
+                instFinanceira.getCnpj(),
+                instFinanceira.getLeiloes()
         );
     }
 }

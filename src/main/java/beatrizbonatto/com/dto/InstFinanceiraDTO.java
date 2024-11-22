@@ -12,7 +12,7 @@ public class InstFinanceiraDTO {
     private String cnpj;
     private List<Leilao> leiloes;
 
-    public InstFinanceiraDTO(Long codigo, String nome, String cnpj, List<Leilao> leiloes) {}
+    public InstFinanceiraDTO() {}
 
     public InstFinanceiraDTO(Long id, Long codigo, String nome, String cnpj, List<Leilao> leiloes) {
         this.id = id;

@@ -1,6 +1,7 @@
 package beatrizbonatto.com.controller;
 
 import beatrizbonatto.com.dto.InstFinanceiraDTO;
+import beatrizbonatto.com.model.InstFinanceira;
 import beatrizbonatto.com.service.InstFinanceiraService;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
@@ -22,15 +23,15 @@ public class InstFinanceiraController {
     @GET
     @Path("/{id}")
     public Response buscarInstFinanceira(@PathParam("id") Long id) {
-       InstFinanceiraDTO instFinanceiraDTO = instFinanceiraService.buscarInstFinanceira(id);
-        if (instFinanceiraDTO == null) {
+       InstFinanceira instFinanceira = instFinanceiraService.buscarInstFinanceira(id);
+        if (instFinanceira == null) {
             return Response.status(Response.Status.NOT_FOUND).build();
         }
-        return Response.ok(instFinanceiraDTO).build();
+        return Response.ok(instFinanceira).build();
     }
 
     @GET
-    public List<InstFinanceiraDTO> listaDeInstFinanceira() {
+    public List<InstFinanceira> listaDeInstFinanceira() {
         return instFinanceiraService.listaDeInstFinanceira();
     }
 
