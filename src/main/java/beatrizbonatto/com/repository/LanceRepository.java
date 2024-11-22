@@ -1,6 +1,5 @@
 package beatrizbonatto.com.repository;
 
-import beatrizbonatto.com.dto.LanceDTO;
 import beatrizbonatto.com.model.Lance;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
@@ -14,12 +13,12 @@ public class LanceRepository {
     @Inject
     EntityManager em;
 
-    public List<LanceDTO> listaDeLances() {
-        return em.createQuery("select la from Lance la", LanceDTO.class).getResultList();
+    public List<Lance> listaDeLances() {
+        return em.createQuery("select la from Lance la", Lance.class).getResultList();
     }
 
-    public  LanceDTO buscaLancePorId(Long id) {
-        return em.createQuery("select la from Lance la where la.id = :id", LanceDTO.class)
+    public  Lance buscaLancePorId(Long id) {
+        return em.createQuery("select la from Lance la where la.id = :id", Lance.class)
                 .setParameter("id", id)
                 .getSingleResult();
     }

@@ -1,6 +1,7 @@
 package beatrizbonatto.com.controller;
 
 import beatrizbonatto.com.dto.LanceDTO;
+import beatrizbonatto.com.model.Lance;
 import beatrizbonatto.com.service.LanceService;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
@@ -26,15 +27,15 @@ public class LanceController {
     @GET
     @Path("/{id}")
     public Response buscarLancePorId(@PathParam("id") Long id) {
-       LanceDTO lanceDTO = lanceService.buscarLancePorId(id);
-        if (lanceDTO == null) {
+       Lance lance = lanceService.buscarLancePorId(id);
+        if (lance == null) {
             return Response.status(Response.Status.NOT_FOUND).build();
         }
-        return Response.ok(lanceDTO).build();
+        return Response.ok(lance).build();
     }
 
     @GET
-    public List<LanceDTO> listaDeLances() {
+    public List<Lance> listaDeLances() {
         return lanceService.listaDeLances();
     }
 

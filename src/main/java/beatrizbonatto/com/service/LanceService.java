@@ -31,11 +31,11 @@ public class LanceService {
         em.persist(lanceDTO);
     }
 
-    public LanceDTO buscarLancePorId(Long id) {
+    public Lance buscarLancePorId(Long id) {
         return lanceRepository.buscaLancePorId(id);
     }
 
-    public List<LanceDTO> listaDeLances() {
+    public List<Lance> listaDeLances() {
         return lanceRepository.listaDeLances();
     }
 
