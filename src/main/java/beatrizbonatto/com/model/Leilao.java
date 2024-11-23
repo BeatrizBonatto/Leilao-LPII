@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@Table(name = "Leilao")
 public class Leilao {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -33,26 +34,22 @@ public class Leilao {
 
     private String estado;
 
-    @OneToMany(mappedBy = "leilao")
-    private List<Produto> produtos = new ArrayList<>();
+    @OneToMany(fetch = FetchType.EAGER)
+    private List<Produto> produtos;
 
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "leilao_instfinanceira",
             joinColumns = @JoinColumn(name = "leilao_id"),
-            inverseJoinColumns = @JoinColumn(name = "instfinanceira_id")
-    )
+            inverseJoinColumns = @JoinColumn(name = "instfinanceira_id"))
     private List<InstFinanceira> instFinanceira;
-
-    private String status;
 
     public Leilao() {}
 
     public Leilao(Long id , LocalDateTime dataInicio, LocalDateTime dataFim, LocalDateTime dataVisita, LocalDateTime dataEvento,
                   String dominioLeilaoEletronico,
                   String endereco, String cidade, String estado,
-                  List<Produto> produtos, List<Lance> lances, List<InstFinanceira> instFinanceira,
-                  String status) {
+                  List<Produto> produtos, List<Lance> lances, List<InstFinanceira> instFinanceira) {
         this.id = id;
         this.dataInicio = dataInicio;
         this.dataFim = dataFim;
@@ -64,7 +61,6 @@ public class Leilao {
         this.estado = estado;
         this.produtos = produtos;
         this.instFinanceira = instFinanceira;
-        this.status = status;
     }
 
     public Long getId() {
@@ -153,14 +149,6 @@ public class Leilao {
 
     public void setInstFinanceira(List<InstFinanceira> instFinanceira) {
         this.instFinanceira = instFinanceira;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
     }
 
 }
