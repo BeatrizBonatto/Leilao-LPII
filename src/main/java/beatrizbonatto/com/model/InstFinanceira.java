@@ -2,7 +2,6 @@ package beatrizbonatto.com.model;
 
 import jakarta.persistence.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -22,8 +21,7 @@ public class InstFinanceira {
     @ManyToMany (fetch = FetchType.EAGER)
     @JoinTable(name = "instfinanceira_leilao",
             joinColumns = @JoinColumn(name = "instfinanceira_id"),
-            inverseJoinColumns = @JoinColumn(name = "leilao_id")
-    )
+            inverseJoinColumns = @JoinColumn(name = "leilao_id"))
     private List<Leilao> leiloes;
 
     public InstFinanceira() {}
