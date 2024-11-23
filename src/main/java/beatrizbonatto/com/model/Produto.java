@@ -5,7 +5,7 @@ import jakarta.persistence.*;
 import java.util.List;
 
 @Entity
-@Inheritance(strategy = InheritanceType.JOINED)
+@Table(name = "Produto")
 public class Produto {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -20,14 +20,12 @@ public class Produto {
     @Column(name = "preco_inicial")
     private Double precoInicial;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "leilao_id")
+    @OneToOne(fetch = FetchType.EAGER)
+    @JoinColumn
     private Leilao leilao;
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "produto_lance",
-            joinColumns = @JoinColumn(name = "produto_id"),
-            inverseJoinColumns = @JoinColumn(name = "lance_id"))
+    @OneToMany(fetch = FetchType.EAGER)
+    @JoinColumn
     private List<Lance> lances;
 
     public Produto() {}
