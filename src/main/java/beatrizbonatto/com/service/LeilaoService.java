@@ -53,13 +53,16 @@ public class LeilaoService {
         throw new IllegalArgumentException("Cliente não existe");
     }
 
+    public List<Leilao> listaDeLeiloesOrdenadoPorDataEvento() {
+        return leilaoRepository.listaDeLeiloesOrdenadoPorDataEvento();
+    }
+
     private LeilaoDTO toDTO(Leilao leilao) {
         return new LeilaoDTO(leilao.getId() ,
                 leilao.getDataInicio(), leilao.getDataFim(), leilao.getDataVisita(), leilao.getDataEvento(),
                 leilao.getDominioLeilaoEletronico(),
                 leilao.getEndereco(), leilao.getCidade(), leilao.getEstado(),
-                leilao.getProdutos(), leilao.getInstFinanceira(),
-                leilao.getStatus()
+                leilao.getProdutos(), leilao.getInstFinanceira()
         );
     }
 }

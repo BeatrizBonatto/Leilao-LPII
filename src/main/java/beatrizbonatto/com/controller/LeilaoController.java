@@ -35,6 +35,11 @@ public class LeilaoController {
         return leilaoService.listaDeLeiloes();
     }
 
+    @GET
+    public List<Leilao> listaDeLeiloesOrdenadoPorDataEvento() {
+        return leilaoService.listaDeLeiloesOrdenadoPorDataEvento();
+    }
+
     @PUT
     @Path("/{id}")
     public Response atualizarLeilao(@PathParam("id") Long id, LeilaoDTO leilaoDTO) {

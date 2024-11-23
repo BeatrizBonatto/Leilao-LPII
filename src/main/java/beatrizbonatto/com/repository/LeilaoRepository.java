@@ -24,4 +24,8 @@ public class LeilaoRepository {
                 .setParameter("id", id)
                 .getSingleResult();
     }
+
+    public List<Leilao> listaDeLeiloesOrdenadoPorDataEvento() {
+        return em.createQuery("select l from Leilao l order by l.dataEvento", Leilao.class).getResultList();
+    }
 }
