@@ -6,6 +6,7 @@ import java.sql.Date;
 import java.util.List;
 
 @Entity
+@Table(name = "Cliente")
 public class Cliente {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -19,9 +20,6 @@ public class Cliente {
     private Date dataNascimento;
 
     @OneToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "cliente_lance",
-            joinColumns = @JoinColumn(name = "cliente_id"),
-            inverseJoinColumns = @JoinColumn(name = "lance_id"))
     private List<Lance> lances;
 
     public Cliente(){}
