@@ -1,26 +1,20 @@
 package beatrizbonatto.com.model;
 
-import beatrizbonatto.com.dto.LanceDTO;
 import jakarta.persistence.*;
 
-import java.util.List;
-
 @Entity
+@Table(name = "Lance")
 public class Lance {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinTable(name = "lance_cliente",
-            joinColumns = @JoinColumn(name = "lance_id"),
-            inverseJoinColumns = @JoinColumn(name = "cliente_id"))
+    @JoinColumn
     private Cliente cliente;
 
     @OneToOne(fetch = FetchType.EAGER)
-    @JoinTable(name = "lance_produto",
-            joinColumns = @JoinColumn(name = "lance_id"),
-            inverseJoinColumns = @JoinColumn(name = "produto_id"))
+    @JoinColumn
     private Produto produto;
 
     private Double valor;
