@@ -31,7 +31,11 @@ public class ProdutoService {
 
     @Transactional
     public void criarProduto(ProdutoDTO produtoDTO) {
-        em.persist(produtoDTO);
+        if(produtoDTO.getSubTipo() != null && produtoDTO.getNome() != null && produtoDTO.getLeilao() != null) {
+            em.persist(produtoDTO);
+        } else {
+            throw new IllegalArgumentException("Todos os campos devem ser preenchidos");
+        }
     }
 
     public List<Produto> listaDeProdutos() {
