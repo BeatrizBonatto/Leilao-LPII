@@ -19,7 +19,7 @@ public class Cliente {
     @Column(name = "data_nascimento")
     private Date dataNascimento;
 
-    @OneToMany(fetch = FetchType.EAGER)
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "cliente", cascade = CascadeType.ALL)
     private List<Lance> lances;
 
     public Cliente(){}

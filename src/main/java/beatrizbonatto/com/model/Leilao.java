@@ -13,40 +13,37 @@ public class Leilao {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column(name = "data_inicio")
+    @Column(name = "data_inicio", nullable = false)
     private LocalDateTime dataInicio;
 
-    @Column(name = "data_fim")
+    @Column(name = "data_fim", nullable = false)
     private LocalDateTime dataFim;
 
-    @Column(name = "data_visita")
+    @Column(name = "data_visita", nullable = false)
     private LocalDateTime dataVisita;
 
-    @Column(name = "data_evento")
-    private LocalDateTime dataEvento;
-
-    @Column(name = "dominio_leilao_eletronico")
+    @Column(name = "dominio_leilao_eletronico", nullable = false)
     private String dominioLeilaoEletronico;
 
+    @Column(nullable = false)
     private String endereco;
 
+    @Column(nullable = false)
     private String cidade;
 
+    @Column(nullable = false)
     private String estado;
 
-    @OneToMany(fetch = FetchType.EAGER)
-    private List<Produto> produtos;
-
+    @OneToMany(mappedBy = "leilao", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    private List<Produto> produtos = new ArrayList<>();
 
     @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "leilao_instfinanceira",
-            joinColumns = @JoinColumn(name = "leilao_id"),
-            inverseJoinColumns = @JoinColumn(name = "instfinanceira_id"))
-    private List<InstFinanceira> instFinanceira;
+    @JoinTable(name = "leilao_instfinanceira")
+    private List<InstFinanceira> instFinanceira = new ArrayList<>();
 
     public Leilao() {}
 
-    public Leilao(Long id , LocalDateTime dataInicio, LocalDateTime dataFim, LocalDateTime dataVisita, LocalDateTime dataEvento,
+    public Leilao(Long id , LocalDateTime dataInicio, LocalDateTime dataFim, LocalDateTime dataVisita,
                   String dominioLeilaoEletronico,
                   String endereco, String cidade, String estado,
                   List<Produto> produtos, List<Lance> lances, List<InstFinanceira> instFinanceira) {
@@ -54,7 +51,6 @@ public class Leilao {
         this.dataInicio = dataInicio;
         this.dataFim = dataFim;
         this.dataVisita = dataVisita;
-        this.dataEvento = dataEvento;
         this.dominioLeilaoEletronico = dominioLeilaoEletronico;
         this.endereco = endereco;
         this.cidade = cidade;
@@ -93,14 +89,6 @@ public class Leilao {
 
     public void setDataVisita(LocalDateTime dataVisitacao) {
         this.dataVisita = dataVisitacao;
-    }
-
-    public LocalDateTime getDataEvento() {
-        return dataEvento;
-    }
-
-    public void setDataEvento(LocalDateTime dataEvento) {
-        this.dataEvento = dataEvento;
     }
 
     public String getDominioLeilaoEletronico() {

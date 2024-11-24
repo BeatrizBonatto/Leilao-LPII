@@ -15,6 +15,7 @@ public class InstFinanceiraController {
     InstFinanceiraService instFinanceiraService;
 
     @POST
+    @Path("/criar")
     public Response criarInstFinanceira(InstFinanceiraDTO instFinanceiraDTO) {
         instFinanceiraService.criarInstFinanceira(instFinanceiraDTO);
         return Response.status(Response.Status.CREATED).entity(instFinanceiraDTO).build();
@@ -36,7 +37,7 @@ public class InstFinanceiraController {
     }
 
     @PUT
-    @Path("/{id}")
+    @Path("atualizar/{id}")
     public Response atualizarInstFinanceira(@PathParam("id") Long id, InstFinanceiraDTO instFinanceiraDTO) {
         InstFinanceiraDTO updatedInstFinanceira = instFinanceiraService.atualizarInstFinanceira(id, instFinanceiraDTO);
         if (updatedInstFinanceira == null) {
@@ -46,7 +47,7 @@ public class InstFinanceiraController {
     }
 
     @DELETE
-    @Path("/{id}")
+    @Path("excluir/{id}")
     public Response excluirInstFinanceira(@PathParam("id") Long id) {
         if (instFinanceiraService.excluirInstFinanceira(id)) {
             return Response.noContent().build();

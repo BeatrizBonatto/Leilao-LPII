@@ -3,8 +3,6 @@ package beatrizbonatto.com.dto;
 import beatrizbonatto.com.model.Cliente;
 import beatrizbonatto.com.model.Produto;
 
-import java.util.List;
-
 public class LanceDTO {
     private Long id;
     private Cliente cliente;

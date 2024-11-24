@@ -10,13 +10,14 @@ public class Lance {
     private Long id;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn
+    @JoinColumn(name = "cliente_id", nullable = false)
     private Cliente cliente;
 
-    @OneToOne(fetch = FetchType.EAGER)
-    @JoinColumn
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "produto_id", nullable = false)
     private Produto produto;
 
+    @Column(nullable = false)
     private Double valor;
 
     public Lance() {}

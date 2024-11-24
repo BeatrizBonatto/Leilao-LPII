@@ -2,42 +2,36 @@ package beatrizbonatto.com.model;
 
 import jakarta.persistence.*;
 
-import java.util.List;
-
 @Entity
-@Table(name = "Produto")
+@Table
 public class Produto {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "sub_tipo")
+    @Column(name = "sub_tipo", nullable = false, columnDefinition = "VARCHAR(255)")
     private SubTipo subTipo;
 
-    private String complemento;
+    @Column(nullable = false)
+    private String descricao;
 
-    @Column(name = "preco_inicial")
+    @Column(name = "preco_inicial", nullable = false)
     private Double precoInicial;
 
-    @OneToOne(fetch = FetchType.EAGER)
-    @JoinColumn
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "leilao_id", nullable = false)
     private Leilao leilao;
-
-    @OneToMany(fetch = FetchType.EAGER)
-    @JoinColumn
-    private List<Lance> lances;
 
     public Produto() {}
 
-    public Produto(Long id, SubTipo subTipo, String complemento, Double precoInicial,
-                   Leilao leilao, List<Lance> lances) {
+    public Produto(Long id, SubTipo subTipo, String descricao, Double precoInicial,
+                   Leilao leilao) {
         this.id = id;
         this.subTipo = subTipo;
-        this.complemento = complemento;
+        this.descricao = descricao;
         this.precoInicial = precoInicial;
         this.leilao = leilao;
-        this.lances = lances;
     }
 
     public Long getId() {
@@ -56,12 +50,12 @@ public class Produto {
         this.subTipo = subTipo;
     }
 
-    public String getComplemento() {
-        return complemento;
+    public String getDescricao() {
+        return descricao;
     }
 
-    public void setComplemento(String complemento) {
-        this.complemento = complemento;
+    public void setDescricao(String complemento) {
+        this.descricao = complemento;
     }
 
     public Double getPrecoInicial() {
@@ -80,11 +74,4 @@ public class Produto {
         this.leilao = leilao;
     }
 
-    public List<Lance> getLances() {
-        return lances;
-    }
-
-    public void setLances(List<Lance> lances) {
-        this.lances = lances;
-    }
 }

@@ -1,31 +1,26 @@
 package beatrizbonatto.com.dto;
 
 
-import beatrizbonatto.com.model.Lance;
 import beatrizbonatto.com.model.Leilao;
 import beatrizbonatto.com.model.SubTipo;
-
-import java.util.List;
 
 public class ProdutoDTO {
     private Long id;
     private SubTipo subTipo;
-    private String complemento;
+    private String descricao;
     private Double precoInicial;
     private Leilao leilao;
-    private List<Lance> lances;
 
     public ProdutoDTO() {
     }
 
-    public ProdutoDTO(Long id, SubTipo subTipo, String complemento, Double precoInicial,
-                      Leilao leilao, List<Lance> lances) {
+    public ProdutoDTO(Long id, SubTipo subTipo, String descricao, Double precoInicial,
+                      Leilao leilao) {
         this.id = id;
         this.subTipo = subTipo;
-        this.complemento = complemento;
+        this.descricao = descricao;
         this.precoInicial = precoInicial;
         this.leilao = leilao;
-        this.lances = lances;
     }
 
     public Long getId() {
@@ -44,12 +39,12 @@ public class ProdutoDTO {
         this.subTipo = subTipo;
     }
 
-    public String getComplemento() {
-        return complemento;
+    public String getDescricao() {
+        return descricao;
     }
 
-    public void setComplemento(String complemento) {
-        this.complemento = complemento;
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
     }
 
     public Double getPrecoInicial() {
@@ -66,10 +61,6 @@ public class ProdutoDTO {
 
     public void setLeilao(Leilao leilao) {
         this.leilao = leilao;
-    }
-
-    public List<Lance> getLances() {
-        return lances;
     }
 
 }

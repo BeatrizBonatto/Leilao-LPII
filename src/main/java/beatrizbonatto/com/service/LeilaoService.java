@@ -59,7 +59,7 @@ public class LeilaoService {
 
     private LeilaoDTO toDTO(Leilao leilao) {
         return new LeilaoDTO(leilao.getId() ,
-                leilao.getDataInicio(), leilao.getDataFim(), leilao.getDataVisita(), leilao.getDataEvento(),
+                leilao.getDataInicio(), leilao.getDataFim(), leilao.getDataVisita(),
                 leilao.getDominioLeilaoEletronico(),
                 leilao.getEndereco(), leilao.getCidade(), leilao.getEstado(),
                 leilao.getProdutos(), leilao.getInstFinanceira()

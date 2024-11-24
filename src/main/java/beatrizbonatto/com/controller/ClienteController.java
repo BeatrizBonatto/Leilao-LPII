@@ -15,6 +15,7 @@ public class ClienteController {
     ClienteService clienteService;
 
     @POST
+    @Path("/criar")
     public Response criarCliente(ClienteDTO clienteDTO) {
         clienteService.criarCliente(clienteDTO);
         return Response.status(Response.Status.CREATED).entity(clienteDTO).build();
@@ -36,7 +37,7 @@ public class ClienteController {
     }
 
     @PUT
-    @Path("/{id}")
+    @Path("atualizar/{id}")
     public Response atualizarCliente(@PathParam("id") Long id, ClienteDTO clienteDTO) {
         ClienteDTO novoCliente = clienteService.atualizarCliente(id, clienteDTO);
         if (novoCliente == null) {
@@ -46,7 +47,7 @@ public class ClienteController {
     }
 
     @DELETE
-    @Path("/{id}")
+    @Path("excluir/{id}")
     public Response excluirCliente(@PathParam("id") Long id) {
         if (clienteService.excluirCliente(id)) {
             return Response.noContent().build();

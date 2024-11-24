@@ -23,4 +23,10 @@ public class LanceRepository {
                 .getSingleResult();
     }
 
+    public  Lance buscarLancesPorProdutoId(Long id) {
+        return em.createQuery("select la from Lance la where la.produto = :id", Lance.class)
+                .setParameter("id", id)
+                .getSingleResult();
+    }
+
 }
