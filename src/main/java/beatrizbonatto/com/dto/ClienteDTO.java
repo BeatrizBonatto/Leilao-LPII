@@ -10,7 +10,6 @@ public class ClienteDTO {
     private String nome;
     private String cpf;
     private Date dataNascimento;
-    private List<Lance> lances;
 
     public ClienteDTO(){}
 
@@ -18,7 +17,6 @@ public class ClienteDTO {
         this.nome = nome;
         this.cpf = cpf;
         this.dataNascimento = dataNascimento;
-        this.lances = lances;
     }
 
 
@@ -52,14 +50,6 @@ public class ClienteDTO {
 
     public void setDataNascimento(Date dataNascimento) {
         this.dataNascimento = dataNascimento;
-    }
-
-    public List<Lance> getLances() {
-        return lances;
-    }
-
-    public void setLances(List<Lance> lances) {
-        this.lances = lances;
     }
 
 }
