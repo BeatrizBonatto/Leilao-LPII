@@ -32,11 +32,13 @@ public class LeilaoController {
     }
 
     @GET
+    @Path("/lista")
     public List<Leilao> listaDeLeiloes() {
         return leilaoService.listaDeLeiloes();
     }
 
     @GET
+    @Path("/lista_por_data")
     public List<Leilao> listaDeLeiloesOrdenadoPorDataEvento() {
         return leilaoService.listaDeLeiloesOrdenadoPorDataEvento();
     }
