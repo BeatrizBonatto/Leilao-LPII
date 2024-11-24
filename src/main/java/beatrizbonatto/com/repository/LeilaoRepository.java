@@ -8,6 +8,7 @@ import jakarta.inject.Inject;
 import jakarta.persistence.EntityManager;
 import jakarta.transaction.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @ApplicationScoped
@@ -30,32 +31,41 @@ public class LeilaoRepository {
         return em.createQuery("select l from Leilao l order by l.dataInicio", Leilao.class).getResultList();
     }
 
+    private String determinarStatusLeilao(Leilao leilao) {
+        LocalDateTime agora = LocalDateTime.now();
+
+        if (agora.isBefore(leilao.getDataInicio())) {
+            return "EM ABERTO";
+        } else if (agora.isAfter(leilao.getDataInicio()) && agora.isBefore(leilao.getDataFim())) {
+            return "EM ANDAMENTO";
+        } else {
+            return "FINALIZADO";
+        }
+    }
+
     public DetalhesLeilaoDTO detalhesDoLeilaoPorId(Long leilaoId) {
-        // Consulta o Leilão e extrai os dados necessários
         String leilaoQuery = "SELECT l FROM Leilao l WHERE l.id = :leilaoId";
         Leilao leilao = em.createQuery(leilaoQuery, Leilao.class)
                 .setParameter("leilaoId", leilaoId)
                 .getSingleResult();
 
-        // Consulta os nomes dos produtos associados ao leilão
         String produtosQuery = "SELECT p.nome FROM Produto p WHERE p.leilao.id = :leilaoId";
         List<String> produtos = em.createQuery(produtosQuery, String.class)
                 .setParameter("leilaoId", leilaoId)
                 .getResultList();
 
-        // Consulta os nomes das instituições financeiras associadas ao leilão
         String instFinanceirasQuery = "SELECT i.nome FROM InstFinanceira i JOIN i.leiloes l WHERE l.id = :leilaoId";
         List<String> instFinanceiras = em.createQuery(instFinanceirasQuery, String.class)
                 .setParameter("leilaoId", leilaoId)
                 .getResultList();
 
-        // Consulta a quantidade de produtos associados ao leilão
         String quantidadeQuery = "SELECT COUNT(p.id) FROM Produto p WHERE p.leilao.id = :leilaoId";
         Long quantidadeProdutos = em.createQuery(quantidadeQuery, Long.class)
                 .setParameter("leilaoId", leilaoId)
                 .getSingleResult();
 
-        // Construção do DTO usando o novo construtor
+        String status = determinarStatusLeilao(leilao);
+
         return new DetalhesLeilaoDTO(
                 leilao.getId(),
                 leilao.getDataInicio(),
@@ -67,7 +77,8 @@ public class LeilaoRepository {
                 leilao.getEstado(),
                 produtos,
                 instFinanceiras,
-                quantidadeProdutos.intValue()
+                quantidadeProdutos.intValue(),
+                status
         );
     }
 

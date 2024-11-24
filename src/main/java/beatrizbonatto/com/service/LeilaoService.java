@@ -9,6 +9,7 @@ import jakarta.inject.Inject;
 import jakarta.persistence.EntityManager;
 import jakarta.transaction.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @ApplicationScoped
@@ -59,6 +60,16 @@ public class LeilaoService {
 
     public DetalhesLeilaoDTO detalhesDoLeilaoPorId(Long leilaoId){
         return leilaoRepository.detalhesDoLeilaoPorId(leilaoId);
+    }
+
+    private String determinarStatusLeilao(Leilao leilao, LocalDateTime agora) {
+        if (agora.isBefore(leilao.getDataInicio())) {
+            return "EM ABERTO";
+        } else if (agora.isAfter(leilao.getDataInicio()) && agora.isBefore(leilao.getDataFim())) {
+            return "EM ANDAMENTO";
+        } else {
+            return "FINALIZADO";
+        }
     }
 
     private LeilaoDTO toDTO(Leilao leilao) {

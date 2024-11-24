@@ -17,10 +17,11 @@ public class DetalhesLeilaoDTO {
     private List<String> produtos;
     private List<String> instituicoesFinanceiras;
     private Integer quantidadeProdutos;
+    private String status;
 
     public DetalhesLeilaoDTO(Long leilaoId, LocalDateTime dataInicio, LocalDateTime dataFim, LocalDateTime dataVisita,
                              String dominioLeilaoEletronico, String endereco, String cidade, String estado,
-                             List<String> produtos, List<String> instituicoesFinanceiras, Integer quantidadeProdutos) {
+                             List<String> produtos, List<String> instituicoesFinanceiras, Integer quantidadeProdutos, String status) {
         this.leilaoId = leilaoId;
         this.dataInicio = dataInicio;
         this.dataFim = dataFim;
@@ -32,6 +33,7 @@ public class DetalhesLeilaoDTO {
         this.produtos = produtos;
         this.instituicoesFinanceiras = instituicoesFinanceiras;
         this.quantidadeProdutos = quantidadeProdutos;
+        this.status = status;
     }
 
     public Long getLeilaoId() {
@@ -120,5 +122,13 @@ public class DetalhesLeilaoDTO {
 
     public void setQuantidadeProdutos(Integer quantidadeProdutos) {
         this.quantidadeProdutos = quantidadeProdutos;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 }
