@@ -2,6 +2,7 @@ package beatrizbonatto.com.service;
 
 import beatrizbonatto.com.dto.DetalhesLeilaoDTO;
 import beatrizbonatto.com.dto.LeilaoDTO;
+import beatrizbonatto.com.model.Lance;
 import beatrizbonatto.com.model.Leilao;
 import beatrizbonatto.com.repository.LeilaoRepository;
 import jakarta.enterprise.context.ApplicationScoped;
@@ -70,6 +71,10 @@ public class LeilaoService {
         } else {
             return "FINALIZADO";
         }
+    }
+
+    public List<Lance> buscarLancesPorValorMinMax(Long leilaoId, Double minimo, Double maximo) {
+        return leilaoRepository.buscarLancesPorValorMinMax(leilaoId, minimo, maximo);
     }
 
     private LeilaoDTO toDTO(Leilao leilao) {

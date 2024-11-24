@@ -1,12 +1,11 @@
 package beatrizbonatto.com.repository;
 
 import beatrizbonatto.com.dto.DetalhesLeilaoDTO;
-import beatrizbonatto.com.dto.LeilaoDTO;
+import beatrizbonatto.com.model.Lance;
 import beatrizbonatto.com.model.Leilao;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.persistence.EntityManager;
-import jakarta.transaction.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -80,6 +79,19 @@ public class LeilaoRepository {
                 quantidadeProdutos.intValue(),
                 status
         );
+    }
+
+    public List<Lance> buscarLancesPorValorMinMax(Long leilaoId, Double minimo, Double maximo) {
+        String query = "SELECT la " +
+                "FROM Lance la " +
+                "WHERE la.produto.leilao.id = :leilaoId " +
+                "AND la.valor BETWEEN :minimo AND :maximo";
+
+        return em.createQuery(query, Lance.class)
+                .setParameter("leilaoId", leilaoId)
+                .setParameter("minimo", minimo)
+                .setParameter("maximo", maximo)
+                .getResultList();
     }
 
 
