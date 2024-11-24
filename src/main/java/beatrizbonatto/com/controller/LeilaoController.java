@@ -1,5 +1,6 @@
 package beatrizbonatto.com.controller;
 
+import beatrizbonatto.com.dto.DetalhesLeilaoDTO;
 import beatrizbonatto.com.dto.LeilaoDTO;
 import beatrizbonatto.com.model.Leilao;
 import beatrizbonatto.com.service.LeilaoService;
@@ -16,7 +17,7 @@ public class LeilaoController {
 
     @POST
     public Response criarLeilao(LeilaoDTO leilaoDTO) {
-        leilaoService.createLeilao(leilaoDTO);
+        leilaoService.criarLeilao(leilaoDTO);
         return Response.status(Response.Status.CREATED).entity(leilaoDTO).build();
     }
 
@@ -38,6 +39,12 @@ public class LeilaoController {
     @GET
     public List<Leilao> listaDeLeiloesOrdenadoPorDataEvento() {
         return leilaoService.listaDeLeiloesOrdenadoPorDataEvento();
+    }
+
+    @GET
+    @Path("/detalhes/{id}")
+    public DetalhesLeilaoDTO detalhesDoLeilaoPorId(@PathParam("id") Long leilaoId) {
+        return leilaoService.detalhesDoLeilaoPorId(leilaoId);
     }
 
     @PUT

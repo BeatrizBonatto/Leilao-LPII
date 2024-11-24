@@ -7,6 +7,7 @@ import beatrizbonatto.com.model.SubTipo;
 public class ProdutoDTO {
     private Long id;
     private SubTipo subTipo;
+    private String nome;
     private String descricao;
     private Double precoInicial;
     private Leilao leilao;
@@ -14,10 +15,11 @@ public class ProdutoDTO {
     public ProdutoDTO() {
     }
 
-    public ProdutoDTO(Long id, SubTipo subTipo, String descricao, Double precoInicial,
+    public ProdutoDTO(Long id, SubTipo subTipo, String nome, String descricao, Double precoInicial,
                       Leilao leilao) {
         this.id = id;
         this.subTipo = subTipo;
+        this.nome = nome;
         this.descricao = descricao;
         this.precoInicial = precoInicial;
         this.leilao = leilao;
@@ -37,6 +39,14 @@ public class ProdutoDTO {
 
     public void setSubTipo(SubTipo subTipo) {
         this.subTipo = subTipo;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public void setNome(String nome) {
+        this.nome = nome;
     }
 
     public String getDescricao() {

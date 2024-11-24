@@ -91,6 +91,6 @@ public class ProdutoService {
 
 
     private ProdutoDTO toDTO(Produto produto) {
-        return new ProdutoDTO(produto.getId(), produto.getSubTipo(), produto.getDescricao(), produto.getPrecoInicial(), produto.getLeilao());
+        return new ProdutoDTO(produto.getId(), produto.getSubTipo(), produto.getNome(), produto.getDescricao(), produto.getPrecoInicial(), produto.getLeilao());
     }
 }

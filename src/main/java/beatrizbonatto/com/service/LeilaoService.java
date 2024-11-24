@@ -1,5 +1,6 @@
 package beatrizbonatto.com.service;
 
+import beatrizbonatto.com.dto.DetalhesLeilaoDTO;
 import beatrizbonatto.com.dto.LeilaoDTO;
 import beatrizbonatto.com.model.Leilao;
 import beatrizbonatto.com.repository.LeilaoRepository;
@@ -19,11 +20,10 @@ public class LeilaoService {
     EntityManager em;
 
     @Transactional
-    public void createLeilao(LeilaoDTO leilaoDTO) {
+    public void criarLeilao(LeilaoDTO leilaoDTO) {
         if (leilaoDTO.getInstFinanceira() == null || leilaoDTO.getInstFinanceira().toString() == "") {
             throw new IllegalArgumentException("Cada leilão deve ter ao menos uma entidade financeira associada.");
         }
-
         em.persist(leilaoDTO);
     }
 
@@ -55,6 +55,10 @@ public class LeilaoService {
 
     public List<Leilao> listaDeLeiloesOrdenadoPorDataEvento() {
         return leilaoRepository.listaDeLeiloesOrdenadoPorDataEvento();
+    }
+
+    public DetalhesLeilaoDTO detalhesDoLeilaoPorId(Long leilaoId){
+        return leilaoRepository.detalhesDoLeilaoPorId(leilaoId);
     }
 
     private LeilaoDTO toDTO(Leilao leilao) {
