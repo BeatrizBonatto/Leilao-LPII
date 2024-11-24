@@ -51,8 +51,14 @@ public class LeilaoController {
     }
 
     @GET
-    @Path("/{id}/{min}/{max}")
+    @Path("/lances/{id}/{min}/{max}")
     public List<Lance> buscarLancesPorValorMinMax(@PathParam("id") Long leilaoId, @PathParam("min") Double minimo, @PathParam("max") Double maximo) {
+        return leilaoService.buscarLancesPorValorMinMax(leilaoId, minimo, maximo);
+    }
+
+    @GET
+    @Path("/lance_inicial/{id}/{min}/{max}")
+    public List<Lance> buscarLancesInicialPorValorMinMax(@PathParam("id") Long leilaoId, @PathParam("min") Double minimo, @PathParam("max") Double maximo) {
         return leilaoService.buscarLancesPorValorMinMax(leilaoId, minimo, maximo);
     }
 

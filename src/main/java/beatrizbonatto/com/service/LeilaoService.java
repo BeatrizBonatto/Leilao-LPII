@@ -77,6 +77,10 @@ public class LeilaoService {
         return leilaoRepository.buscarLancesPorValorMinMax(leilaoId, minimo, maximo);
     }
 
+    public List<Lance> buscarLancesInicialPorValorMinMax(Long leilaoId, Double minimo, Double maximo) {
+        return leilaoRepository.buscarLancesPorValorMinMax(leilaoId, minimo, maximo);
+    }
+
     private LeilaoDTO toDTO(Leilao leilao) {
         return new LeilaoDTO(leilao.getId() ,
                 leilao.getDataInicio(), leilao.getDataFim(), leilao.getDataVisita(),

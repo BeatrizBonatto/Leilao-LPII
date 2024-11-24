@@ -94,5 +94,16 @@ public class LeilaoRepository {
                 .getResultList();
     }
 
+    public List<Lance> buscarLancesInicialPorValorMinMax(Long leilaoId, Double minimo, Double maximo) {
+        String query = "SELECT la FROM Lance la " +
+                "WHERE la.produto.leilao.id = :leilaoId " +
+                "AND la.produto.precoInicial BETWEEN :minimo AND :maximo";
+
+        return em.createQuery(query, Lance.class)
+                .setParameter("leilaoId", leilaoId)
+                .setParameter("minimo", minimo)
+                .setParameter("maximo", maximo)
+                .getResultList();
+    }
 
 }
