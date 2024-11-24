@@ -64,9 +64,15 @@ public class LeilaoController {
     }
 
     @GET
-    @Path("/{id}/{nome}")
+    @Path("nome_produto/{id}/{nome}")
     public List<Produto> buscarProdutosPorNomePorLeilao(@PathParam("id") Long leilaoId, @PathParam("nome") String nome) {
         return leilaoService.buscarProdutosPorNomePorLeilao(nome, leilaoId);
+    }
+
+    @GET
+    @Path("/subtipo_produto/{id}/{subtipo}")
+    public List<Produto> buscarProdutosPorSubTipoPorLeilao(@PathParam("subtipo") String subTipo, @PathParam("id") Long leilaoId) {
+        return leilaoService.buscarProdutosPorSubTipoPorLeilao(subTipo, leilaoId);
     }
 
     @PUT

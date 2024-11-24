@@ -86,6 +86,10 @@ public class LeilaoService {
         return leilaoRepository.buscarProdutosPorNomePorLeilao(nome, leilaoId);
     }
 
+    public List<Produto> buscarProdutosPorSubTipoPorLeilao(String subTipo, Long leilaoId) {
+        return leilaoRepository.buscarProdutosPorSubTipoPorLeilao(subTipo, leilaoId);
+    }
+
     private LeilaoDTO toDTO(Leilao leilao) {
         return new LeilaoDTO(leilao.getId() ,
                 leilao.getDataInicio(), leilao.getDataFim(), leilao.getDataVisita(),

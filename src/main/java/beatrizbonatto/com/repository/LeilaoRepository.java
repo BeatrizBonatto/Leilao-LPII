@@ -116,4 +116,13 @@ public class LeilaoRepository {
                 .getResultList();
     }
 
+    public List<Produto> buscarProdutosPorSubTipoPorLeilao(String subTipo, Long leilaoId) {
+        String query = "SELECT p FROM Produto p WHERE upper(p.subTipo) LIKE upper(:subTipo) AND p.leilao.id = :leilaoId";
+
+        return em.createQuery(query, Produto.class)
+                .setParameter("subTipo", "%" + subTipo + "%")
+                .setParameter("leilaoId", leilaoId)
+                .getResultList();
+    }
+
 }
