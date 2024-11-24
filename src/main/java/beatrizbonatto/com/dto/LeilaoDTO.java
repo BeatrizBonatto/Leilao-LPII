@@ -13,30 +13,30 @@ public class LeilaoDTO {
     private LocalDateTime dataInicio;
     private LocalDateTime dataFim;
     private LocalDateTime dataVisitacao;
-    private LocalDateTime dataEvento;
     private String dominioLeilaoEletronico;
     private String endereco;
     private String cidade;
     private String estado;
     private List<Produto> produtos;
-    private List<InstFinanceira> instFinanceiras;
+    private List<InstFinanceira> instFinanceira;
 
     public LeilaoDTO() {}
 
-    public LeilaoDTO(LocalDateTime dataInicio, LocalDateTime dataFim, LocalDateTime dataVisitacao, LocalDateTime dataEvento,
+    public LeilaoDTO(Long id,
+                     LocalDateTime dataInicio, LocalDateTime dataFim, LocalDateTime dataVisitacao,
                      String dominioLeilaoEletronico,
                      String endereco, String cidade, String estado,
-                     List<Produto> produtos, List<InstFinanceira> instFinanceiras) {
+                     List<Produto> produtos, List<InstFinanceira> instFinanceira) {
+        this.id = id;
         this.dataInicio = dataInicio;
         this.dataFim = dataFim;
         this.dataVisitacao = dataVisitacao;
-        this.dataEvento = dataEvento;
         this.dominioLeilaoEletronico = dominioLeilaoEletronico;
         this.endereco = endereco;
         this.cidade = cidade;
         this.estado = estado;
         this.produtos = produtos;
-        this.instFinanceiras = instFinanceiras;
+        this.instFinanceira = instFinanceira;
     }
 
     public Long getId() {
@@ -69,14 +69,6 @@ public class LeilaoDTO {
 
     public void setDataVisitacao(LocalDateTime dataVisitacao) {
         this.dataVisitacao = dataVisitacao;
-    }
-
-    public LocalDateTime getDataEvento() {
-        return dataEvento;
-    }
-
-    public void setDataEvento(LocalDateTime dataEvento) {
-        this.dataEvento = dataEvento;
     }
 
     public String getDominioLeilaoEletronico() {
@@ -119,11 +111,12 @@ public class LeilaoDTO {
         this.produtos = produtos;
     }
 
-    public List<InstFinanceira> getInstFinanceiras() {
-        return instFinanceiras;
+    public List<InstFinanceira> getInstFinanceira() {
+        return instFinanceira;
     }
 
-    public void setInstFinanceiras(List<InstFinanceira> instFinanceiras) {
-        this.instFinanceiras = instFinanceiras;
+    public void setInstFinanceira(List<InstFinanceira> instFinanceira) {
+        this.instFinanceira = instFinanceira;
     }
+
 }

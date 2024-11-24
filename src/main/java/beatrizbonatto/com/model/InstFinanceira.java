@@ -2,25 +2,32 @@ package beatrizbonatto.com.model;
 
 import jakarta.persistence.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@Table(name = "Inst_Financeira")
 public class InstFinanceira {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+
     private Long codigo;
+
     private String nome;
+
     @Column(unique=true)
     private String cnpj;
 
-    @ManyToMany(mappedBy = "instFinanceiras")
-    private List<Leilao> leiloes = new ArrayList<>();
+    @ManyToMany (fetch = FetchType.EAGER)
+    @JoinTable(name = "instfinanceira_leilao",
+            joinColumns = @JoinColumn(name = "instfinanceira_id"),
+            inverseJoinColumns = @JoinColumn(name = "leilao_id"))
+    private List<Leilao> leiloes;
 
     public InstFinanceira() {}
 
-    public InstFinanceira(Long codigo, String nome, String cnpj, List<Leilao> leiloes) {
+    public InstFinanceira(Long id, Long codigo, String nome, String cnpj, List<Leilao> leiloes) {
+        this.id = id;
         this.codigo = codigo;
         this.nome = nome;
         this.cnpj = cnpj;
@@ -66,4 +73,5 @@ public class InstFinanceira {
     public void setLeiloes(List<Leilao> leiloes) {
         this.leiloes = leiloes;
     }
+
 }

@@ -1,17 +1,19 @@
 package beatrizbonatto.com.service;
 
 import beatrizbonatto.com.dto.ProdutoDTO;
+import beatrizbonatto.com.model.Lance;
 import beatrizbonatto.com.model.Leilao;
 import beatrizbonatto.com.model.Produto;
+import beatrizbonatto.com.repository.LanceRepository;
 import beatrizbonatto.com.repository.LeilaoRepository;
 import beatrizbonatto.com.repository.ProdutoRepository;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
+import jakarta.persistence.EntityManager;
+import jakarta.transaction.Transactional;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @ApplicationScoped
 public class ProdutoService {
@@ -21,90 +23,82 @@ public class ProdutoService {
     @Inject
     LeilaoRepository leilaoRepository;
 
-    public void createProduto(ProdutoDTO produtoDTO) {
-        Leilao leilao = leilaoRepository.consultaLeilao(produtoDTO.getLeilao().getId());
-        if (leilao == null) {
-            throw new IllegalStateException("Leilão não encontrado.");
+    @Inject
+    LanceRepository lanceRepository;
+
+    @Inject
+    EntityManager em;
+
+    @Transactional
+    public void criarProduto(ProdutoDTO produtoDTO) {
+        if(produtoDTO.getSubTipo() != null && produtoDTO.getNome() != null && produtoDTO.getLeilao() != null) {
+            em.persist(produtoDTO);
+        } else {
+            throw new IllegalArgumentException("Todos os campos devem ser preenchidos");
         }
-
-        Produto produto = new Produto();
-        produto.setTipo(produtoDTO.getTipo());
-        produto.setComplemento(produtoDTO.getComplemento());
-        produto.setPrecoInicial(produtoDTO.getPrecoInicial());
-        produto.setStatus(produtoDTO.getStatus());
-        produto.setLeilao(leilao);
-        produto.setLances(produtoDTO.getLances());
-        produtoRepository.registroProduto(produto);
     }
 
-    public ProdutoDTO getProduto(Long id) {
-        Produto produto = produtoRepository.consultaProduto(id);
-        if (produto != null) {
-            return toDTO(produto);
+    public List<Produto> listaDeProdutos() {
+        return produtoRepository.listaDeProdutos();
+    }
+
+    public Produto buscarProdutoPorId(Long id) {
+        return produtoRepository.buscarProdutoPorId(id);
+    }
+
+    public Produto buscarProdutoPorLeilao(Long leilaoId, Long produtoId){
+        return produtoRepository.buscarProdutoPorLeilao(leilaoId, produtoId);
+    }
+
+    @Transactional
+    public ProdutoDTO atualizarProduto(Long id, ProdutoDTO produtoAtualizado) {
+        if(buscarProdutoPorId(id) != null) {
+            em.merge(produtoAtualizado);
+            return produtoAtualizado;
         }
-        return null;
+        throw new IllegalArgumentException("Produto não existe");
     }
 
-    public List<ProdutoDTO> listProdutos() {
-        return produtoRepository.listaDeProdutos().stream()
-                .map(this::toDTO)
-                .collect(Collectors.toList());
-    }
-
-    public ProdutoDTO updateProduto(Long id, ProdutoDTO produtoDTO) {
-        Produto produto = produtoRepository.consultaProduto(id);
-        if (produto != null) {
-            Leilao leilao = leilaoRepository.consultaLeilao(produtoDTO.getLeilao().getId());
-            if (leilao == null) {
-                throw new IllegalStateException("Leilão não encontrado.");
-            }
-
-            produto.setTipo(produtoDTO.getTipo());
-            produto.setComplemento(produtoDTO.getComplemento());
-            produto.setPrecoInicial(produtoDTO.getPrecoInicial());
-            produto.setStatus(produtoDTO.getStatus());
-            produto.setLeilao(leilao);
-            produto.setLances(produtoDTO.getLances());
-            produtoRepository.atualizar(produto);
-            return toDTO(produto);
-        }
-        return null;
-    }
-
-    public boolean deleteProduto(Long id) {
-        Produto produto = produtoRepository.consultaProduto(id);
-        if (produto != null && produto.getLances().isEmpty()) {
-            produtoRepository.remocao(id);
+    @Transactional
+    public boolean excluirProduto(Long id) {
+        if(em.find(Produto.class, id) != null) {
+            Produto produto = buscarProdutoPorId(id);
+            em.remove(id);
             return true;
-        } else if (produto != null) {
-            throw new IllegalStateException("O produto já recebeu lances e não pode ser removido.");
         }
-        return false;
+        throw new IllegalArgumentException("Produto não existe");
     }
 
     public void desassociarProduto(Long produtoId, Long novoLeilaoId) {
-        Produto produto = produtoRepository.consultaProduto(produtoId);
+        // Busca o produto pelo ID
+        Produto produto = produtoRepository.buscarProdutoPorId(produtoId);
 
         if (produto == null) {
             throw new IllegalArgumentException("Produto não encontrado");
         }
 
-        if (produto.getLances() != null && !produto.getLances().isEmpty()) {
+        Lance lancesAssociados = lanceRepository.buscarLancesPorProdutoId(produtoId);
+
+        if (lancesAssociados != null) {
             throw new IllegalArgumentException("Não é possível desassociar um produto que já recebeu lances.");
         }
 
-        Leilao novoLeilao = leilaoRepository.consultaLeilao(novoLeilaoId);
+        Leilao novoLeilao = leilaoRepository.buscaLeilaoPorId(novoLeilaoId);
+
+        if (novoLeilao == null) {
+            throw new IllegalArgumentException("Novo leilão não encontrado.");
+        }
 
         if (novoLeilao.getDataInicio().isBefore(LocalDateTime.now())) {
             throw new IllegalArgumentException("O leilão deve ser futuro.");
         }
 
         produto.setLeilao(novoLeilao);
-        updateProduto(produtoId, toDTO(produto));
-
+        atualizarProduto(produtoId, toDTO(produto));
     }
 
+
     private ProdutoDTO toDTO(Produto produto) {
-        return new ProdutoDTO(produto.getTipo(), produto.getComplemento(), produto.getPrecoInicial(), produto.getStatus(), produto.getLeilao(), produto.getLances());
+        return new ProdutoDTO(produto.getId(), produto.getSubTipo(), produto.getNome(), produto.getDescricao(), produto.getPrecoInicial(), produto.getLeilao());
     }
 }

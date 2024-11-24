@@ -1,74 +1,82 @@
 package beatrizbonatto.com.service;
 
+import beatrizbonatto.com.dto.HistoricoLancesDTO;
 import beatrizbonatto.com.dto.LanceDTO;
 import beatrizbonatto.com.model.Lance;
-import beatrizbonatto.com.model.Produto;
 import beatrizbonatto.com.repository.LanceRepository;
+import beatrizbonatto.com.repository.LeilaoRepository;
+import beatrizbonatto.com.repository.ProdutoRepository;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
+import jakarta.persistence.EntityManager;
+import jakarta.transaction.Transactional;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @ApplicationScoped
 public class LanceService {
     @Inject
     LanceRepository lanceRepository;
 
-    public void createLance(LanceDTO lanceDTO) {
-        for (Produto produto : lanceDTO.getProdutos()) {
-            Lance lanceAtual = lanceRepository.listaDeLances().stream()
-                    .filter(l -> l.getProdutos().contains(produto))
-                    .findFirst()
-                    .orElse(null);
+    @Inject
+    ProdutoRepository produtoRepository;
 
-            if (lanceAtual != null && lanceAtual.getValor() >= lanceDTO.getValor()) {
-                throw new IllegalArgumentException("O lance deve ser maior que o lance atual do produto " + produto.getTipo());
+    @Inject
+    LeilaoRepository leilaoRepository;
+
+    @Inject
+    EntityManager em;
+
+    @Transactional
+    public void criarLance(LanceDTO lanceDTO) {
+        if (lanceDTO.getProduto() != null && lanceDTO.getCliente() != null && lanceDTO.getValor() != null) {
+            if (lanceDTO.getValor() > lanceDTO.getProduto().getPrecoInicial()) {
+
+                Lance lance = new Lance();
+                lance.setProduto(lanceDTO.getProduto());
+                lance.setCliente(lanceDTO.getCliente());
+                lance.setValor(lanceDTO.getValor());
+
+                em.persist(lance);
+            } else {
+                throw new IllegalArgumentException("Valor do lance precisa ser maior que o valor inicial do produto");
             }
+        } else {
+            throw new IllegalArgumentException("Todos os campos devem ser preenchidos");
         }
-
-        Lance lance = new Lance();
-        lance.setClientes(lanceDTO.getClientes());
-        lance.setProdutos(lanceDTO.getProdutos());
-        lance.setValor(lanceDTO.getValor());
-        lanceRepository.registroLance(lance);
     }
 
-    public LanceDTO getLance(Long id) {
-        Lance lance = lanceRepository.consultaLance(id);
-        if (lance != null) {
-            return toDTO(lance);
+    public Lance buscarLancePorId(Long id) {
+        return lanceRepository.buscaLancePorId(id);
+    }
+
+    public List<Lance> listaDeLances() {
+        return lanceRepository.listaDeLances();
+    }
+
+    public List<HistoricoLancesDTO> buscarHistoricoLancesPorProduto(Long produtoId) {
+        return lanceRepository.buscarHistoricoLancesPorProduto(produtoId);
+    }
+
+    @Transactional
+    public LanceDTO atualizarLance(Long id, LanceDTO lanceAtualizado) {
+        if(buscarLancePorId(id) != null) {
+            em.merge(lanceAtualizado);
+            return lanceAtualizado;
         }
-        return null;
+        throw new IllegalArgumentException("Lance não existe");
     }
 
-    public List<LanceDTO> listLances() {
-        return lanceRepository.listaDeLances().stream()
-                .map(this::toDTO)
-                .collect(Collectors.toList());
-    }
-
-    public LanceDTO updateLance(Long id, LanceDTO lanceDTO) {
-        Lance lance = lanceRepository.consultaLance(id);
-        if (lance != null) {
-            lance.setClientes(lanceDTO.getClientes());
-            lance.setProdutos(lanceDTO.getProdutos());
-            lance.setValor(lanceDTO.getValor());
-            return toDTO(lance);
-        }
-        return null;
-    }
-
-    public boolean deleteLance(Long id) {
-        Lance lance = lanceRepository.consultaLance(id);
-        if (lance != null) {
-            lanceRepository.remocao(id);
+    @Transactional
+    public boolean excluirLance(Long id) {
+        if(buscarLancePorId(id) != null) {
+            em.remove(id);
             return true;
         }
-        return false;
+        throw new IllegalArgumentException("Lance não existe");
     }
 
     private LanceDTO toDTO(Lance lance) {
-        return new LanceDTO(lance.getClientes(), lance.getProdutos(), lance.getValor());
+        return new LanceDTO(lance.getId() , lance.getCliente(), lance.getProduto(), lance.getValor());
     }
 }

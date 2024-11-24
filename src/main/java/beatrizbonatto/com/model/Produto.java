@@ -1,38 +1,42 @@
 package beatrizbonatto.com.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 
-import java.util.List;
-
 @Entity
+@Table
 public class Produto {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    private String tipo;
-    private String complemento;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "sub_tipo", nullable = false, columnDefinition = "VARCHAR(255)")
+    private SubTipo subTipo;
+
+    @Column(nullable = false)
+    private String nome;
+
+    private String descricao;
+
+    @Column(name = "preco_inicial", nullable = false)
     private Double precoInicial;
-    private String status;
 
-    @ManyToOne
-    @JoinColumn(name = "leilao_id")
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "leilao_id", nullable = false)
+    @JsonBackReference
     private Leilao leilao;
-
-    @ManyToMany
-    @JoinTable(name = "produto_lance",
-            joinColumns = @JoinColumn(name = "produto_id"),
-            inverseJoinColumns = @JoinColumn(name = "lance_id"))
-    private List<Lance> lances;
 
     public Produto() {}
 
-    public Produto(String tipo, String complemento, Double precoInicial, String status, Leilao leilao, List<Lance> lances) {
-        this.tipo = tipo;
-        this.complemento = complemento;
+    public Produto(Long id, SubTipo subTipo, String nome, String descricao, Double precoInicial,
+                   Leilao leilao) {
+        this.id = id;
+        this.subTipo = subTipo;
+        this.nome = nome;
+        this.descricao = descricao;
         this.precoInicial = precoInicial;
-        this.status = status;
         this.leilao = leilao;
-        this.lances = lances;
     }
 
     public Long getId() {
@@ -43,20 +47,28 @@ public class Produto {
         this.id = id;
     }
 
-    public String getTipo() {
-        return tipo;
+    public SubTipo getSubTipo() {
+        return subTipo;
     }
 
-    public void setTipo(String tipo) {
-        this.tipo = tipo;
+    public void setSubTipo(SubTipo subTipo) {
+        this.subTipo = subTipo;
     }
 
-    public String getComplemento() {
-        return complemento;
+    public String getNome() {
+        return nome;
     }
 
-    public void setComplemento(String complemento) {
-        this.complemento = complemento;
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public String getDescricao() {
+        return descricao;
+    }
+
+    public void setDescricao(String complemento) {
+        this.descricao = complemento;
     }
 
     public Double getPrecoInicial() {
@@ -67,14 +79,6 @@ public class Produto {
         this.precoInicial = precoInicial;
     }
 
-    public String getStatus() {
-        return this.status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
     public Leilao getLeilao() {
         return leilao;
     }
@@ -83,11 +87,4 @@ public class Produto {
         this.leilao = leilao;
     }
 
-    public List<Lance> getLances() {
-        return lances;
-    }
-
-    public void setLances(List<Lance> lances) {
-        this.lances = lances;
-    }
 }

@@ -1,30 +1,28 @@
 package beatrizbonatto.com.dto;
 
 
-import beatrizbonatto.com.model.Lance;
 import beatrizbonatto.com.model.Leilao;
-
-import java.util.List;
+import beatrizbonatto.com.model.SubTipo;
 
 public class ProdutoDTO {
     private Long id;
-    private String tipo;
-    private String complemento;
+    private SubTipo subTipo;
+    private String nome;
+    private String descricao;
     private Double precoInicial;
-    private String status;
     private Leilao leilao;
-    private List<Lance> lances;
 
     public ProdutoDTO() {
     }
 
-    public ProdutoDTO(String tipo, String complemento, Double precoInicial, String status, Leilao leilao, List<Lance> lances) {
-        this.tipo = tipo;
-        this.complemento = complemento;
+    public ProdutoDTO(Long id, SubTipo subTipo, String nome, String descricao, Double precoInicial,
+                      Leilao leilao) {
+        this.id = id;
+        this.subTipo = subTipo;
+        this.nome = nome;
+        this.descricao = descricao;
         this.precoInicial = precoInicial;
-        this.status = status;
         this.leilao = leilao;
-        this.lances = lances;
     }
 
     public Long getId() {
@@ -35,20 +33,28 @@ public class ProdutoDTO {
         this.id = id;
     }
 
-    public String getTipo() {
-        return tipo;
+    public SubTipo getSubTipo() {
+        return subTipo;
     }
 
-    public void setTipo(String tipo) {
-        this.tipo = tipo;
+    public void setSubTipo(SubTipo subTipo) {
+        this.subTipo = subTipo;
     }
 
-    public String getComplemento() {
-        return complemento;
+    public String getNome() {
+        return nome;
     }
 
-    public void setComplemento(String complemento) {
-        this.complemento = complemento;
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
+
+    public String getDescricao() {
+        return descricao;
+    }
+
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
     }
 
     public Double getPrecoInicial() {
@@ -59,28 +65,12 @@ public class ProdutoDTO {
         this.precoInicial = precoInicial;
     }
 
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
     public Leilao getLeilao() {
         return leilao;
     }
 
     public void setLeilao(Leilao leilao) {
         this.leilao = leilao;
-    }
-
-    public List<Lance> getLances() {
-        return lances;
-    }
-
-    public void setLances(List<Lance> lances) {
-        this.lances = lances;
     }
 
 }

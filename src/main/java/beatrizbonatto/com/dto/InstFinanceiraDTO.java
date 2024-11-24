@@ -1,18 +1,25 @@
 package beatrizbonatto.com.dto;
 
+import beatrizbonatto.com.model.Lance;
+import beatrizbonatto.com.model.Leilao;
+
+import java.util.List;
+
 public class InstFinanceiraDTO {
     private Long id;
     private Long codigo;
     private String nome;
     private String cnpj;
+    private List<Leilao> leiloes;
 
-    public InstFinanceiraDTO(Long codigo, String nome, String cnpj) {}
+    public InstFinanceiraDTO() {}
 
-    public InstFinanceiraDTO(Long id, Long codigo, String nome, String cnpj) {
+    public InstFinanceiraDTO(Long id, Long codigo, String nome, String cnpj, List<Leilao> leiloes) {
         this.id = id;
         this.codigo = codigo;
         this.nome = nome;
         this.cnpj = cnpj;
+        this.leiloes = leiloes;
     }
 
     public Long getId() {
@@ -45,5 +52,13 @@ public class InstFinanceiraDTO {
 
     public void setCnpj(String cnpj) {
         this.cnpj = cnpj;
+    }
+
+    public List<Leilao> getLeiloes() {
+        return leiloes;
+    }
+
+    public void setLeiloes(List<Leilao> leiloes) {
+        this.leiloes = leiloes;
     }
 }

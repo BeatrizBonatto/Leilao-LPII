@@ -1,6 +1,7 @@
 package beatrizbonatto.com.controller;
 
 import beatrizbonatto.com.dto.InstFinanceiraDTO;
+import beatrizbonatto.com.model.InstFinanceira;
 import beatrizbonatto.com.service.InstFinanceiraService;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
@@ -14,30 +15,31 @@ public class InstFinanceiraController {
     InstFinanceiraService instFinanceiraService;
 
     @POST
-    public Response createInstFinanceira(InstFinanceiraDTO instFinanceiraDTO) {
-        instFinanceiraService.createInstFinanceira(instFinanceiraDTO);
+    @Path("/criar")
+    public Response criarInstFinanceira(InstFinanceiraDTO instFinanceiraDTO) {
+        instFinanceiraService.criarInstFinanceira(instFinanceiraDTO);
         return Response.status(Response.Status.CREATED).entity(instFinanceiraDTO).build();
     }
 
     @GET
     @Path("/{id}")
-    public Response getInstFinanceira(@PathParam("id") Long id) {
-       InstFinanceiraDTO instFinanceiraDTO = instFinanceiraService.getInstFinanceira(id);
-        if (instFinanceiraDTO == null) {
+    public Response buscarInstFinanceira(@PathParam("id") Long id) {
+       InstFinanceira instFinanceira = instFinanceiraService.buscarInstFinanceira(id);
+        if (instFinanceira == null) {
             return Response.status(Response.Status.NOT_FOUND).build();
         }
-        return Response.ok(instFinanceiraDTO).build();
+        return Response.ok(instFinanceira).build();
     }
 
     @GET
-    public List<InstFinanceiraDTO> listInstFinanceiras() {
-        return instFinanceiraService.listInstFinanceiras();
+    public List<InstFinanceira> listaDeInstFinanceira() {
+        return instFinanceiraService.listaDeInstFinanceira();
     }
 
     @PUT
-    @Path("/{id}")
-    public Response updateInstFinanceira(@PathParam("id") Long id, InstFinanceiraDTO instFinanceiraDTO) {
-        InstFinanceiraDTO updatedInstFinanceira = instFinanceiraService.updateInstFinanceira(id, instFinanceiraDTO);
+    @Path("atualizar/{id}")
+    public Response atualizarInstFinanceira(@PathParam("id") Long id, InstFinanceiraDTO instFinanceiraDTO) {
+        InstFinanceiraDTO updatedInstFinanceira = instFinanceiraService.atualizarInstFinanceira(id, instFinanceiraDTO);
         if (updatedInstFinanceira == null) {
             return Response.status(Response.Status.NOT_FOUND).build();
         }
@@ -45,9 +47,9 @@ public class InstFinanceiraController {
     }
 
     @DELETE
-    @Path("/{id}")
-    public Response deleteInstFinanceira(@PathParam("id") Long id) {
-        if (instFinanceiraService.deleteInstFinanceira(id)) {
+    @Path("excluir/{id}")
+    public Response excluirInstFinanceira(@PathParam("id") Long id) {
+        if (instFinanceiraService.excluirInstFinanceira(id)) {
             return Response.noContent().build();
         } else {
             return Response.status(Response.Status.NOT_FOUND).build();

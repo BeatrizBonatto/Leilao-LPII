@@ -15,29 +15,16 @@ public class InstFinanceiraRepository {
     EntityManager em;
 
     @Transactional
-    public void registroInstFinanceira(InstFinanceira instFinanceira) {
-        em.persist(instFinanceira);
-    }
-
-    public InstFinanceira consultaInstFinanceira(Long id) {
-        return em.find(InstFinanceira.class, id);
-    }
-
-    @Transactional
     public List<InstFinanceira> listaDeInstFinanceira() {
-        return em.createQuery("select if from InstFinanceira if", InstFinanceira.class).getResultList();
+        return em.createQuery("select if from InstFinanceira if", InstFinanceira.class)
+                .getResultList();
     }
 
     @Transactional
-    public void atualizar(InstFinanceira instFinanceira) {
-        em.merge(instFinanceira);
+    public InstFinanceira buscarInstFinanceiraPorId(Long id) {
+        return em.createQuery("select if from InstFinanceira if where id = :id", InstFinanceira.class)
+                .setParameter("id", id)
+                .getSingleResult();
     }
 
-    @Transactional
-    public void remocao(Long id) {
-        InstFinanceira instFinanceira = consultaInstFinanceira(id);
-        if (instFinanceira != null) {
-            em.remove(instFinanceira);
-        }
-    }
 }

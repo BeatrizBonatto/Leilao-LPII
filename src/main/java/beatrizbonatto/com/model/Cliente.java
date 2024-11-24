@@ -1,34 +1,35 @@
 package beatrizbonatto.com.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.sql.Date;
 import java.util.List;
 
 @Entity
+@Table(name = "Cliente")
 public class Cliente {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+
     private String nome;
+
     private String cpf;
-    private String celular;
-    private String email;
+
+    @Column(name = "data_nascimento")
     private Date dataNascimento;
 
-    @ManyToMany
-    @JoinTable(name = "cliente_lance",
-            joinColumns = @JoinColumn(name = "clienteo_id"),
-            inverseJoinColumns = @JoinColumn(name = "lance_id"))
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "cliente", cascade = CascadeType.ALL)
+    @JsonIgnore
     private List<Lance> lances;
 
     public Cliente(){}
 
-    public Cliente(String nome, String cpf, String celular, String email, Date dataNascimento, List<Lance> lances) {
+    public Cliente(Long id, String nome, String cpf, Date dataNascimento, List<Lance> lances) {
+        this.id = id;
         this.nome = nome;
         this.cpf = cpf;
-        this.celular = celular;
-        this.email = email;
         this.dataNascimento = dataNascimento;
         this.lances = lances;
     }
@@ -55,22 +56,6 @@ public class Cliente {
 
     public void setCpf(String cpf) {
         this.cpf = cpf;
-    }
-
-    public String getCelular() {
-        return celular;
-    }
-
-    public void setCelular(String celular) {
-        this.celular = celular;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
     }
 
     public Date getDataNascimento() {

@@ -5,59 +5,59 @@ import beatrizbonatto.com.model.InstFinanceira;
 import beatrizbonatto.com.repository.InstFinanceiraRepository;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
+import jakarta.persistence.EntityManager;
+import jakarta.transaction.Transactional;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @ApplicationScoped
 public class InstFinanceiraService {
     @Inject
     InstFinanceiraRepository instFinanceiraRepository;
 
-    public void createInstFinanceira(InstFinanceiraDTO instFinanceiraDTO) {
-        InstFinanceira instFinanceira = new InstFinanceira();
-        instFinanceira.setCodigo(instFinanceiraDTO.getCodigo());
-        instFinanceira.setNome(instFinanceiraDTO.getNome());
-        instFinanceira.setCnpj(instFinanceiraDTO.getCnpj());
-        instFinanceiraRepository.registroInstFinanceira(instFinanceira);
+    @Inject
+    EntityManager em;
+
+    @Transactional
+    public void criarInstFinanceira(InstFinanceiraDTO instFinanceiraDTO) {
+        em.persist(instFinanceiraDTO);
     }
 
-    public InstFinanceiraDTO getInstFinanceira(Long id) {
-        InstFinanceira instFinanceira = instFinanceiraRepository.consultaInstFinanceira(id);
-        if (instFinanceira != null) {
-            return toDTO(instFinanceira);
+    public InstFinanceira buscarInstFinanceira(Long id) {
+        return instFinanceiraRepository.buscarInstFinanceiraPorId(id);
+    }
+
+    @Transactional
+    public List<InstFinanceira> listaDeInstFinanceira() {
+        return instFinanceiraRepository.listaDeInstFinanceira();
+    }
+
+    @Transactional
+    public InstFinanceiraDTO atualizarInstFinanceira(Long id, InstFinanceiraDTO instFinanceiraAtualizada) {
+        if(buscarInstFinanceira(id) != null) {
+            em.merge(instFinanceiraAtualizada);
+            return instFinanceiraAtualizada;
         }
-        return null;
+        throw new IllegalArgumentException("Instituição Financeira não existe");
     }
 
-    public List<InstFinanceiraDTO> listInstFinanceiras() {
-        return instFinanceiraRepository.listaDeInstFinanceira().stream()
-                .map(this::toDTO)
-                .collect(Collectors.toList());
-    }
-
-    public InstFinanceiraDTO updateInstFinanceira(Long id, InstFinanceiraDTO instFinanceiraDTO) {
-        InstFinanceira instFinanceira = instFinanceiraRepository.consultaInstFinanceira(id);
-        if (instFinanceira != null) {
-            instFinanceira.setCodigo(instFinanceiraDTO.getCodigo());
-            instFinanceira.setNome(instFinanceiraDTO.getNome());
-            instFinanceira.setCnpj(instFinanceiraDTO.getCnpj());
-            instFinanceiraRepository.atualizar(instFinanceira);
-            return toDTO(instFinanceira);
-        }
-        return null;
-    }
-
-    public boolean deleteInstFinanceira(Long id) {
-        InstFinanceira instFinanceira = instFinanceiraRepository.consultaInstFinanceira(id);
-        if (instFinanceira != null) {
-            instFinanceiraRepository.remocao(id);
+    @Transactional
+    public boolean excluirInstFinanceira(Long id) {
+        if(em.find(InstFinanceiraDTO.class, id) != null) {
+            InstFinanceira instFinanceira = buscarInstFinanceira(id);
+            em.remove(instFinanceira);
             return true;
         }
-        return false;
+        throw new IllegalArgumentException("Instituição Financeira não existe");
     }
 
     private InstFinanceiraDTO toDTO(InstFinanceira instFinanceira) {
-        return new InstFinanceiraDTO(instFinanceira.getCodigo(), instFinanceira.getNome(), instFinanceira.getCnpj());
+        return new InstFinanceiraDTO(
+                instFinanceira.getId(),
+                instFinanceira.getCodigo(),
+                instFinanceira.getNome(),
+                instFinanceira.getCnpj(),
+                instFinanceira.getLeiloes()
+        );
     }
 }
