@@ -3,6 +3,7 @@ package beatrizbonatto.com.repository;
 import beatrizbonatto.com.dto.DetalhesLeilaoDTO;
 import beatrizbonatto.com.model.Lance;
 import beatrizbonatto.com.model.Leilao;
+import beatrizbonatto.com.model.Produto;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.persistence.EntityManager;
@@ -103,6 +104,15 @@ public class LeilaoRepository {
                 .setParameter("leilaoId", leilaoId)
                 .setParameter("minimo", minimo)
                 .setParameter("maximo", maximo)
+                .getResultList();
+    }
+
+    public List<Produto> buscarProdutosPorNomePorLeilao(String nome, Long leilaoId) {
+        String query = "SELECT p FROM Produto p WHERE upper(p.nome) LIKE upper(:nome) AND p.leilao.id = :leilaoId";
+
+        return em.createQuery(query, Produto.class)
+                .setParameter("nome", "%" + nome + "%")
+                .setParameter("leilaoId", leilaoId)
                 .getResultList();
     }
 

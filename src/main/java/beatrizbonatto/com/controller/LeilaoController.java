@@ -4,6 +4,7 @@ import beatrizbonatto.com.dto.DetalhesLeilaoDTO;
 import beatrizbonatto.com.dto.LeilaoDTO;
 import beatrizbonatto.com.model.Lance;
 import beatrizbonatto.com.model.Leilao;
+import beatrizbonatto.com.model.Produto;
 import beatrizbonatto.com.service.LeilaoService;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
@@ -60,6 +61,12 @@ public class LeilaoController {
     @Path("/lance_inicial/{id}/{min}/{max}")
     public List<Lance> buscarLancesInicialPorValorMinMax(@PathParam("id") Long leilaoId, @PathParam("min") Double minimo, @PathParam("max") Double maximo) {
         return leilaoService.buscarLancesPorValorMinMax(leilaoId, minimo, maximo);
+    }
+
+    @GET
+    @Path("/{id}/{nome}")
+    public List<Produto> buscarProdutosPorNomePorLeilao(@PathParam("id") Long leilaoId, @PathParam("nome") String nome) {
+        return leilaoService.buscarProdutosPorNomePorLeilao(nome, leilaoId);
     }
 
     @PUT

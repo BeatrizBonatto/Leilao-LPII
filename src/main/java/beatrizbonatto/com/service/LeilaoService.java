@@ -4,6 +4,7 @@ import beatrizbonatto.com.dto.DetalhesLeilaoDTO;
 import beatrizbonatto.com.dto.LeilaoDTO;
 import beatrizbonatto.com.model.Lance;
 import beatrizbonatto.com.model.Leilao;
+import beatrizbonatto.com.model.Produto;
 import beatrizbonatto.com.repository.LeilaoRepository;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
@@ -79,6 +80,10 @@ public class LeilaoService {
 
     public List<Lance> buscarLancesInicialPorValorMinMax(Long leilaoId, Double minimo, Double maximo) {
         return leilaoRepository.buscarLancesPorValorMinMax(leilaoId, minimo, maximo);
+    }
+
+    public List<Produto> buscarProdutosPorNomePorLeilao(String nome, Long leilaoId) {
+        return leilaoRepository.buscarProdutosPorNomePorLeilao(nome, leilaoId);
     }
 
     private LeilaoDTO toDTO(Leilao leilao) {
