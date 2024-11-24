@@ -1,5 +1,6 @@
 package beatrizbonatto.com.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.sql.Date;
@@ -20,6 +21,7 @@ public class Cliente {
     private Date dataNascimento;
 
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "cliente", cascade = CascadeType.ALL)
+    @JsonIgnore
     private List<Lance> lances;
 
     public Cliente(){}

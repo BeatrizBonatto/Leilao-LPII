@@ -1,5 +1,6 @@
 package beatrizbonatto.com.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 import java.time.LocalDateTime;
@@ -35,6 +36,7 @@ public class Leilao {
     private String estado;
 
     @OneToMany(mappedBy = "leilao", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    @JsonManagedReference
     private List<Produto> produtos = new ArrayList<>();
 
     @ManyToMany(fetch = FetchType.EAGER)

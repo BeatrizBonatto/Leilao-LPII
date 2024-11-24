@@ -1,5 +1,6 @@
 package beatrizbonatto.com.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 
 @Entity
@@ -21,6 +22,7 @@ public class Produto {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "leilao_id", nullable = false)
+    @JsonBackReference
     private Leilao leilao;
 
     public Produto() {}
