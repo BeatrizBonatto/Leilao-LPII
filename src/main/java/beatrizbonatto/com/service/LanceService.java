@@ -1,5 +1,6 @@
 package beatrizbonatto.com.service;
 
+import beatrizbonatto.com.dto.HistoricoLancesDTO;
 import beatrizbonatto.com.dto.LanceDTO;
 import beatrizbonatto.com.model.Lance;
 import beatrizbonatto.com.repository.LanceRepository;
@@ -51,6 +52,10 @@ public class LanceService {
 
     public List<Lance> listaDeLances() {
         return lanceRepository.listaDeLances();
+    }
+
+    public List<HistoricoLancesDTO> buscarHistoricoLancesPorProduto(Long produtoId) {
+        return lanceRepository.buscarHistoricoLancesPorProduto(produtoId);
     }
 
     @Transactional

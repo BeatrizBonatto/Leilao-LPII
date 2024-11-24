@@ -1,5 +1,6 @@
 package beatrizbonatto.com.controller;
 
+import beatrizbonatto.com.dto.HistoricoLancesDTO;
 import beatrizbonatto.com.dto.LanceDTO;
 import beatrizbonatto.com.model.Lance;
 import beatrizbonatto.com.service.LanceService;
@@ -25,7 +26,7 @@ public class LanceController {
     }
 
     @GET
-    @Path("/{id}")
+    @Path("/lance_produto/{id}")
     public Response buscarLancePorId(@PathParam("id") Long id) {
        Lance lance = lanceService.buscarLancePorId(id);
         if (lance == null) {
@@ -37,6 +38,12 @@ public class LanceController {
     @GET
     public List<Lance> listaDeLances() {
         return lanceService.listaDeLances();
+    }
+
+    @GET
+    @Path("/produto/{idProduto}/historico-lances")
+    public List<HistoricoLancesDTO> buscarHistoricoLancesPorProduto(@PathParam("idProduto") Long produtoId) {
+        return lanceService.buscarHistoricoLancesPorProduto(produtoId);
     }
 
     @PUT
