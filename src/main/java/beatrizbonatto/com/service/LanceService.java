@@ -28,7 +28,21 @@ public class LanceService {
 
     @Transactional
     public void criarLance(LanceDTO lanceDTO) {
-        em.persist(lanceDTO);
+        if (lanceDTO.getProduto() != null && lanceDTO.getCliente() != null && lanceDTO.getValor() != null) {
+            if (lanceDTO.getValor() > lanceDTO.getProduto().getPrecoInicial()) {
+
+                Lance lance = new Lance();
+                lance.setProduto(lanceDTO.getProduto());
+                lance.setCliente(lanceDTO.getCliente());
+                lance.setValor(lanceDTO.getValor());
+
+                em.persist(lance);
+            } else {
+                throw new IllegalArgumentException("Valor do lance precisa ser maior que o valor inicial do produto");
+            }
+        } else {
+            throw new IllegalArgumentException("Todos os campos devem ser preenchidos");
+        }
     }
 
     public Lance buscarLancePorId(Long id) {
