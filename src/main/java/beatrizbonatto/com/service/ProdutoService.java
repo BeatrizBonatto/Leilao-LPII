@@ -46,6 +46,10 @@ public class ProdutoService {
         return produtoRepository.buscarProdutoPorId(id);
     }
 
+    public Produto buscarProdutoPorLeilao(Long leilaoId, Long produtoId){
+        return produtoRepository.buscarProdutoPorLeilao(leilaoId, produtoId);
+    }
+
     @Transactional
     public ProdutoDTO atualizarProduto(Long id, ProdutoDTO produtoAtualizado) {
         if(buscarProdutoPorId(id) != null) {

@@ -23,4 +23,15 @@ public class ProdutoRepository {
                 .getSingleResult();
     }
 
+    public Produto buscarProdutoPorLeilao(Long leilaoId, Long produtoId) {
+        String query = "SELECT p FROM Produto p " +
+                "WHERE p.id = :produtoId " +
+                "AND p.leilao.id = :leilaoId";
+
+        return em.createQuery(query, Produto.class)
+                .setParameter("leilaoId", leilaoId)
+                .setParameter("produtoId", produtoId)
+                .getSingleResult();
+    }
+
 }
