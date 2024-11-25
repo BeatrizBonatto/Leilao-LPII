@@ -1,80 +1,143 @@
-# leilao-lp2
+#  Projeto Leilão - LP2
 
-### Important: Java 11 is required to run the project due to the H2 database
+Este projeto utiliza **Quarkus**, o framework Java Supersônico Subatômico.  
+Saiba mais em: https://quarkus.io/
 
-This project uses Quarkus, the Supersonic Subatomic Java Framework.
+## Rodando a aplicação no modo de desenvolvimento
 
-If you want to learn more about Quarkus, please visit its website: <https://quarkus.io/>.
-
-## Running the application in dev mode
-
-You can run your application in dev mode that enables live coding using:
+Para executar a aplicação no modo de desenvolvimento, que habilita live coding, use o comando:
 
 ```shell script
 ./mvnw compile quarkus:dev
 ```
 
-> **_NOTE:_**  Quarkus now ships with a Dev UI, which is available in dev mode only at <http://localhost:8080/q/dev/>.
+> **_Nota:_** O Quarkus fornece uma interface Dev UI acessível apenas no modo de desenvolvimento:  <http://localhost:8080/q/dev/>
 
-## Packaging and running the application
 
-The application can be packaged using:
+
+## Empacotando e executando a aplicação
+
+Você pode empacotar a aplicação com:
 
 ```shell script
 ./mvnw package
 ```
 
-It produces the `quarkus-run.jar` file in the `target/quarkus-app/` directory.
-Be aware that it’s not an _über-jar_ as the dependencies are copied into the `target/quarkus-app/lib/` directory.
+Ele produz o arquivo `quarkus-run.jar` no diretório `target/quarkus-app/`. Esteja ciente de que não é um über-jar, pois as dependências são copiadas para o diretório `target/quarkus-app/lib/`.
 
-The application is now runnable using `java -jar target/quarkus-app/quarkus-run.jar`.
+O aplicativo agora pode ser executado usando `java -jar target/quarkus-app/quarkus-run.jar`.
 
-If you want to build an _über-jar_, execute the following command:
+Se você quiser criar um über-jar, execute o seguinte comando:
 
 ```shell script
 ./mvnw package -Dquarkus.package.jar.type=uber-jar
 ```
 
-The application, packaged as an _über-jar_, is now runnable using `java -jar target/*-runner.jar`.
+O aplicativo, empacotado como um über-jar, agora pode ser executado usando `java -jar target/*-runner.jar`.
 
-## Creating a native executable
+## Criando um executável nativo
 
-You can create a native executable using:
+Para criar um executável nativo:
 
 ```shell script
 ./mvnw package -Dnative
 ```
 
-Or, if you don't have GraalVM installed, you can run the native executable build in a container using:
+Caso não tenha o GraalVM instalado, você pode usar um contêiner para construir o executável nativo:
 
 ```shell script
 ./mvnw package -Dnative -Dquarkus.native.container-build=true
 ```
 
-You can then execute your native executable with: `./target/leilao-lp2-1.0.0-SNAPSHOT-runner`
+Você pode então executar seu executável nativo com: `./target/leilao-lp2-1.0.0-SNAPSHOT-runner`
 
-If you want to learn more about building native executables, please consult <https://quarkus.io/guides/maven-tooling>.
+Saiba mais sobre a criação de executáveis nativos em  <https://quarkus.io/guides/maven-tooling>
 
-## Related Guides
+## Guias relacionados
 
-- REST ([guide](https://quarkus.io/guides/rest)): A Jakarta REST implementation utilizing build time processing and Vert.x. This extension is not compatible with the quarkus-resteasy extension, or any of the extensions that depend on it.
-- Hibernate ORM ([guide](https://quarkus.io/guides/hibernate-orm)): Define your persistent model with Hibernate ORM and Jakarta Persistence
-- JDBC Driver - H2 ([guide](https://quarkus.io/guides/datasource)): Connect to the H2 database via JDBC
-- SmallRye OpenAPI ([guide](https://quarkus.io/guides/openapi-swaggerui)): Document your REST APIs with OpenAPI - comes with Swagger UI
-- REST Jackson ([guide](https://quarkus.io/guides/rest#json-serialisation)): Jackson serialization support for Quarkus REST. This extension is not compatible with the quarkus-resteasy extension, or any of the extensions that depend on it
+- REST ([guia](https://quarkus.io/guides/rest)): Uma implementação REST Jakarta que utiliza processamento de tempo de construção e Vert.x. Esta extensão não é compatível com a extensão quarkus-resteasy, ou qualquer uma das extensões que dependem dela.
+- Hibernate ORM ([guia](https://quarkus.io/guides/hibernate-orm)): Defina seu modelo persistente com Hibernate ORM e Jakarta Persistence
+- Driver JDBC - H2 ([guia](https://quarkus.io/guides/datasource)): Conecte-se ao banco de dados H2 via JDBC
+- SmallRye OpenAPI ([guia](https://quarkus.io/guides/openapi-swaggerui)): Documente suas APIs REST com OpenAPI - vem com Swagger UI
+- REST Jackson ([guia](https://quarkus.io/guides/rest#json-serialisation)): Suporte à serialização Jackson para Quarkus REST. Esta extensão não é compatível com a extensão quarkus-resteasy, ou qualquer uma das extensões que dependem dela
 
-## Provided Code
+## Código fornecido
 
 ### Hibernate ORM
 
-Create your first JPA entity
+Crie sua primeira entidade JPA
 
-[Related guide section...](https://quarkus.io/guides/hibernate-orm)
-
-
+[Seção de guia relacionada...](https://quarkus.io/guides/hibernate-orm)
 
 ### REST
 
-Easily start your REST Web Services
+Inicie facilmente seus serviços REST Web
 
-[Related guide section...](https://quarkus.io/guides/getting-started-reactive#reactive-jax-rs-resources)
+[Seção de guia relacionada...](https://quarkus.io/guides/getting-started-reactive#reactive-jax-rs-resources)
+
+---
+
+## Instalação do Java 11
+
+Devido ao uso do banco de dados H2, o projeto precisa do **Java 11** para funcionar corretamente.  
+Siga o guia de instalação abaixo para configurar o Java 11 no seu sistema.
+
+### Pré-requisitos:
+- Sistema Operacional: Windows, Linux ou macOS.
+- Permissões: Acesso como administrador na máquina.
+
+### Baixar o JDK 11
+1. Acesse o site oficial da Oracle:  
+ [Download do JDK 11](https://www.oracle.com/java/technologies/javase-jdk11-downloads.html)
+2. Escolha o instalador para o seu sistema operacional:
+   - Windows: `.exe`
+   - Linux: `.tar.gz`
+   - macOS: `.dmg`
+3. Baixe o arquivo.
+
+---
+
+### Instalação no Windows
+1. Localize o instalador baixado (`jdk-11_windows-x64_bin.exe`) e execute-o.
+2. Siga as instruções:
+   - Clique em Next para aceitar as configurações padrão.
+   - Aguarde até que a instalação termine.
+3. Configure as variáveis de ambiente:
+   - Abra o Painel de Controle > Sistema > Configurações Avançadas do Sistema.
+   - Clique em Variáveis de Ambiente.
+   - Em Variáveis do Sistema, encontre `Path` e clique em Editar.
+   - Adicione o caminho do diretório `bin` do Java (exemplo: `C:\Program Files\Java\jdk-11\bin`).
+
+4. Verifique a instalação:
+   - Abra o Prompt de Comando e execute:
+     
+     java -version
+     
+   - Deve aparecer a versão do Java 11.
+
+---
+
+### Instalação no Linux
+1. Abra o terminal e atualize os pacotes:
+   
+   sudo apt update
+
+2. Instale o JDK 11:
+   
+   sudo apt install openjdk-11-jdk
+
+3. Verifique a instalação:
+   
+   java -version
+
+   O terminal deve exibir a versão do Java 11.
+
+4. Verifique a instalação:
+   
+   java -version
+
+   O terminal deve exibir a versão do Java 11.
+
+---
+
+🎉 Pronto! Agora você pode executar o projeto Leilão com o Java 11 configurado.
