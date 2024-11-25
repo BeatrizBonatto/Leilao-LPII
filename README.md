@@ -1,5 +1,7 @@
 # leilao-lp2
 
+### Important: Java 11 is required to run the project due to the H2 database
+
 This project uses Quarkus, the Supersonic Subatomic Java Framework.
 
 If you want to learn more about Quarkus, please visit its website: <https://quarkus.io/>.
