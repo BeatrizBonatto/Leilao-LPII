@@ -1,6 +1,6 @@
 #  Projeto Leilão - LP2
 
-Este projeto utiliza **Quarkus**, o framework Supersonic Subatomic Java.  
+Este projeto utiliza **Quarkus**, um framework Java.  
 Saiba mais em: https://quarkus.io/
 
 ## Rodando a aplicação no modo de desenvolvimento
