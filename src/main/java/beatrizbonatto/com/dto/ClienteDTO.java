@@ -6,10 +6,10 @@ import java.sql.Date;
 import java.util.List;
 
 public class ClienteDTO {
-    private Long id;
     private String nome;
     private String cpf;
     private Date dataNascimento;
+    private List<Lance> lances;
 
     public ClienteDTO(){}
 
@@ -17,15 +17,7 @@ public class ClienteDTO {
         this.nome = nome;
         this.cpf = cpf;
         this.dataNascimento = dataNascimento;
-    }
-
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Long getId() {
-        return id;
+        this.lances = lances;
     }
 
     public String getNome() {
@@ -52,4 +44,11 @@ public class ClienteDTO {
         this.dataNascimento = dataNascimento;
     }
 
+    public List<Lance> getLances() {
+        return lances;
+    }
+
+    public void setLances(List<Lance> lances) {
+        this.lances = lances;
+    }
 }

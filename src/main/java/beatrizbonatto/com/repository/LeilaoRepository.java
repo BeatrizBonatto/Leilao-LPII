@@ -7,6 +7,7 @@ import beatrizbonatto.com.model.Produto;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.persistence.EntityManager;
+import jakarta.transaction.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -123,6 +124,11 @@ public class LeilaoRepository {
                 .setParameter("subTipo", "%" + subTipo + "%")
                 .setParameter("leilaoId", leilaoId)
                 .getResultList();
+    }
+
+    @Transactional
+    public void salvar(Leilao leilao) {
+        em.merge(leilao);
     }
 
 }

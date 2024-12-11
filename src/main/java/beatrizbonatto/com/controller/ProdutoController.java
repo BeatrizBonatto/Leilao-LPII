@@ -1,7 +1,10 @@
 package beatrizbonatto.com.controller;
 
+import beatrizbonatto.com.dto.NotebookDTO;
 import beatrizbonatto.com.dto.ProdutoDTO;
+import beatrizbonatto.com.model.Produtos.Notebook;
 import beatrizbonatto.com.model.Produto;
+import beatrizbonatto.com.service.ProdutoMapper;
 import beatrizbonatto.com.service.ProdutoService;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
@@ -14,17 +17,28 @@ public class ProdutoController {
     @Inject
     ProdutoService produtoService;
 
+    @Inject
+    ProdutoMapper produtoMapper;
+
+//    @POST
+//    public Response criarProduto(ProdutoDTO produtoDTO) {
+//        try {
+//            produtoService.criarProduto(produtoDTO);
+//            return Response.status(Response.Status.CREATED).entity(produtoDTO).build();
+//        } catch (Exception e) {
+//            return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
+//        }
+//    }
+
     @POST
-    public Response criarProduto(ProdutoDTO produtoDTO) {
-        try {
-            produtoService.criarProduto(produtoDTO);
-            return Response.status(Response.Status.CREATED).entity(produtoDTO).build();
-        } catch (Exception e) {
-            return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
-        }
+    @Path("/notebook")
+    public Response criarNotebook(NotebookDTO notebookDTO) {
+        Notebook notebook = produtoService.criarNotebook(notebookDTO);
+
+        return Response.ok().build();
     }
 
-    @GET
+/*    @GET
     @Path("/{id}")
     public Response buscarProdutoPorId(@PathParam("id") Long id) {
        Produto produto = produtoService.buscarProdutoPorId(id);
@@ -32,6 +46,17 @@ public class ProdutoController {
             return Response.status(Response.Status.NOT_FOUND).build();
         }
         return Response.ok(produto).build();
+    }*/
+
+    @GET
+    @Path("/{id}")
+    public Response buscarProdutoPorId(@PathParam("id") Long id) {
+        Produto produto = produtoService.buscarProdutoPorId(id);
+        if (produto == null) {
+            return Response.status(Response.Status.NOT_FOUND).build();
+        }
+        ProdutoDTO produtoDTO = produtoMapper.toDTO(produto);
+        return Response.ok(produtoDTO).build();
     }
 
     @GET

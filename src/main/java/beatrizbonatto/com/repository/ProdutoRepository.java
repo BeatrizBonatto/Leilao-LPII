@@ -4,6 +4,7 @@ import beatrizbonatto.com.model.Produto;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.persistence.EntityManager;
+import jakarta.transaction.Transactional;
 
 import java.util.List;
 
@@ -32,6 +33,11 @@ public class ProdutoRepository {
                 .setParameter("leilaoId", leilaoId)
                 .setParameter("produtoId", produtoId)
                 .getSingleResult();
+    }
+
+    @Transactional
+    public void salvar(Produto produto) {
+        em.merge(produto);
     }
 
 }

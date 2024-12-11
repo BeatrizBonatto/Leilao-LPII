@@ -1,12 +1,15 @@
-package beatrizbonatto.com.model;
+package beatrizbonatto.com.model.Produtos;
 
+import beatrizbonatto.com.model.Leilao;
+import beatrizbonatto.com.model.Produto;
+import beatrizbonatto.com.model.SubTipo;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Inheritance;
 import jakarta.persistence.InheritanceType;
 
 @Entity
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-public class Veiculo extends Produto{
+public class Veiculo extends Produto {
     private String placa;
     private String cor;
 

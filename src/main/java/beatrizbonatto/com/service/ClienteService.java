@@ -2,6 +2,7 @@ package beatrizbonatto.com.service;
 
 import beatrizbonatto.com.dto.ClienteDTO;
 import beatrizbonatto.com.model.Cliente;
+import beatrizbonatto.com.model.Leilao;
 import beatrizbonatto.com.repository.ClienteRepository;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
@@ -20,7 +21,13 @@ public class ClienteService {
 
     @Transactional
     public void criarCliente(ClienteDTO clienteDTO) {
-        em.persist(clienteDTO);
+        Cliente toSave = new Cliente();
+        toSave.setNome(clienteDTO.getNome());
+        toSave.setCpf(clienteDTO.getCpf());
+        toSave.setDataNascimento(clienteDTO.getDataNascimento());
+        toSave.setLances(clienteDTO.getLances());
+
+        clienteRepository.salvar(toSave);
     }
 
     public Cliente buscarClientePorId(Long id) {

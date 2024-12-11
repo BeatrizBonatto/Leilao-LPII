@@ -1,18 +1,16 @@
 package beatrizbonatto.com.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import io.quarkus.hibernate.orm.panache.PanacheEntityBase;
 import jakarta.persistence.*;
 
 @Entity
-@Table
-public class Produto {
+@Inheritance(strategy = InheritanceType.JOINED)
+@Table(name = "produto")
+public class Produto extends PanacheEntityBase {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @Enumerated(EnumType.STRING)
-    @Column(name = "sub_tipo", nullable = false, columnDefinition = "VARCHAR(255)")
-    private SubTipo subTipo;
 
     @Column(nullable = false)
     private String nome;

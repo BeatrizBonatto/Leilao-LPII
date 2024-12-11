@@ -1,8 +1,10 @@
 package beatrizbonatto.com.service;
 
+import beatrizbonatto.com.dto.NotebookDTO;
 import beatrizbonatto.com.dto.ProdutoDTO;
 import beatrizbonatto.com.model.Lance;
 import beatrizbonatto.com.model.Leilao;
+import beatrizbonatto.com.model.Produtos.Notebook;
 import beatrizbonatto.com.model.Produto;
 import beatrizbonatto.com.repository.LanceRepository;
 import beatrizbonatto.com.repository.LeilaoRepository;
@@ -29,10 +31,35 @@ public class ProdutoService {
     @Inject
     EntityManager em;
 
+//    @Transactional
+//    public void criarProduto(ProdutoDTO produtoDTO) {
+//        if(produtoDTO.getSubTipo() != null && produtoDTO.getNome() != null && produtoDTO.getLeilao() != null) {
+//            em.persist(produtoDTO);
+//        } else {
+//            throw new IllegalArgumentException("Todos os campos devem ser preenchidos");
+//        }
+//    }
+
     @Transactional
-    public void criarProduto(ProdutoDTO produtoDTO) {
-        if(produtoDTO.getSubTipo() != null && produtoDTO.getNome() != null && produtoDTO.getLeilao() != null) {
-            em.persist(produtoDTO);
+    public Notebook criarNotebook(NotebookDTO notebookDTO) {
+
+        Leilao leilao = leilaoRepository.buscaLeilaoPorId(notebookDTO.getIdLeilao());
+
+        if (leilao == null) {
+            throw new IllegalArgumentException("Leilão com o ID fornecido não existe!");
+        }
+
+        if(notebookDTO.getNome() != null && notebookDTO.getPrecoInicial() != null && notebookDTO.getPolegada() != null) {
+            Notebook notebook = new Notebook();
+            notebook.setId(notebookDTO.getId());
+            notebook.setSubTipo(notebookDTO.getSubTipo());
+            notebook.setNome(notebookDTO.getNome());
+            notebook.setPrecoInicial(notebookDTO.getPrecoInicial());
+            notebook.setPolegada(notebookDTO.getPolegada());
+            notebook.setLeilao(leilao);
+
+            produtoRepository.salvar(notebook);
+            return notebook;
         } else {
             throw new IllegalArgumentException("Todos os campos devem ser preenchidos");
         }
@@ -93,12 +120,49 @@ public class ProdutoService {
             throw new IllegalArgumentException("O leilão deve ser futuro.");
         }
 
-        produto.setLeilao(novoLeilao);
+        //produto.setLeilao(novoLeilao);
         atualizarProduto(produtoId, toDTO(produto));
     }
 
 
     private ProdutoDTO toDTO(Produto produto) {
-        return new ProdutoDTO(produto.getId(), produto.getSubTipo(), produto.getNome(), produto.getDescricao(), produto.getPrecoInicial(), produto.getLeilao());
+        return new ProdutoDTO(produto.getNome(), produto.getDescricao(), produto.getPrecoInicial(),1L);
     }
+
+    public ProdutoDTO toDTO2(Produto produto) {
+        if (produto instanceof Notebook) {
+            Notebook notebook = (Notebook) produto;
+            return new NotebookDTO(
+                    produto.getId(),
+                    produto.getSubTipo(),
+                    produto.getNome(),
+                    produto.getDescricao(),
+                    produto.getPrecoInicial(),
+                   1L,// produto.getLeilao().getId(),
+                    notebook.getPolegada()
+            );
+        } /*else if (produto instanceof Carro) {
+            Carro carro = (Carro) produto;
+            return new CarroDTO(
+                    produto.getId(),
+                    produto.getNome(),
+                    produto.getDescricao(),
+                    produto.getPrecoInicial(),
+                    produto.getLeilao().getId(),
+                    carro.getNumeroDePortas()
+            );
+        } else if (produto instanceof Monitor) {
+            Monitor monitor = (Monitor) produto;
+            return new MonitorDTO(
+                    produto.getId(),
+                    produto.getNome(),
+                    produto.getDescricao(),
+                    produto.getPrecoInicial(),
+                    produto.getLeilao().getId(),
+                    monitor.getResolucao()
+            );
+        }*/
+        return null;
+    }
+
 }

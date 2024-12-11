@@ -35,9 +35,9 @@ public class Leilao {
     @Column(nullable = false)
     private String estado;
 
-    @OneToMany(mappedBy = "leilao", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
-    @JsonManagedReference
-    private List<Produto> produtos = new ArrayList<>();
+//    @OneToMany(mappedBy = "leilao", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+//    @JsonManagedReference
+//    private List<Produto> produtos = new ArrayList<>();
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "leilao_instfinanceira")
@@ -57,7 +57,7 @@ public class Leilao {
         this.endereco = endereco;
         this.cidade = cidade;
         this.estado = estado;
-        this.produtos = produtos;
+        //this.produtos = produtos;
         this.instFinanceira = instFinanceira;
     }
 
@@ -124,14 +124,14 @@ public class Leilao {
     public void setEstado(String estado) {
         this.estado = estado;
     }
-
-    public List<Produto> getProdutos() {
-        return produtos;
-    }
-
-    public void setProdutos(List<Produto> produtos) {
-        this.produtos = produtos;
-    }
+//
+//    public List<Produto> getProdutos() {
+//        return produtos;
+//    }
+//
+//    public void setProdutos(List<Produto> produtos) {
+//        this.produtos = produtos;
+//    }
 
     public List<InstFinanceira> getInstFinanceira() {
         return instFinanceira;

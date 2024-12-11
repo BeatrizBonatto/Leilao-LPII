@@ -1,7 +1,6 @@
 package beatrizbonatto.com.dto;
 
 import beatrizbonatto.com.model.InstFinanceira;
-import beatrizbonatto.com.model.Produto;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -17,16 +16,12 @@ public class LeilaoDTO {
     private String endereco;
     private String cidade;
     private String estado;
-    private List<Produto> produtos;
-    private List<InstFinanceira> instFinanceira;
+    //private List<Produto> produtos;
+    private List<Long> listIdsInstFin;
 
     public LeilaoDTO() {}
 
-    public LeilaoDTO(Long id,
-                     LocalDateTime dataInicio, LocalDateTime dataFim, LocalDateTime dataVisitacao,
-                     String dominioLeilaoEletronico,
-                     String endereco, String cidade, String estado,
-                     List<Produto> produtos, List<InstFinanceira> instFinanceira) {
+    public LeilaoDTO(Long id, LocalDateTime dataInicio, LocalDateTime dataFim, LocalDateTime dataVisitacao, String dominioLeilaoEletronico, String endereco, String cidade, String estado, List<Long> listIdsInstFin) {
         this.id = id;
         this.dataInicio = dataInicio;
         this.dataFim = dataFim;
@@ -35,8 +30,7 @@ public class LeilaoDTO {
         this.endereco = endereco;
         this.cidade = cidade;
         this.estado = estado;
-        this.produtos = produtos;
-        this.instFinanceira = instFinanceira;
+        this.listIdsInstFin = listIdsInstFin;
     }
 
     public Long getId() {
@@ -103,20 +97,20 @@ public class LeilaoDTO {
         this.estado = estado;
     }
 
-    public List<Produto> getProdutos() {
-        return produtos;
+//    public List<Produto> getProdutos() {
+//        return produtos;
+//    }
+//
+//    public void setProdutos(List<Produto> produtos) {
+//        this.produtos = produtos;
+//    }
+
+
+    public List<Long> getListIdsInstFin() {
+        return listIdsInstFin;
     }
 
-    public void setProdutos(List<Produto> produtos) {
-        this.produtos = produtos;
+    public void setListIdsInstFin(List<Long> listIdsInstFin) {
+        this.listIdsInstFin = listIdsInstFin;
     }
-
-    public List<InstFinanceira> getInstFinanceira() {
-        return instFinanceira;
-    }
-
-    public void setInstFinanceira(List<InstFinanceira> instFinanceira) {
-        this.instFinanceira = instFinanceira;
-    }
-
 }

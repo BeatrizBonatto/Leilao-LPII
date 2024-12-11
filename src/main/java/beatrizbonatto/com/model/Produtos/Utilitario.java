@@ -1,4 +1,7 @@
-package beatrizbonatto.com.model;
+package beatrizbonatto.com.model.Produtos;
+
+import beatrizbonatto.com.model.Leilao;
+import beatrizbonatto.com.model.SubTipo;
 
 public class Utilitario extends Veiculo {
     private Integer capacidadePassageiros;

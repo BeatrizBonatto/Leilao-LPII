@@ -1,4 +1,8 @@
-package beatrizbonatto.com.model;
+package beatrizbonatto.com.model.Produtos;
+
+import beatrizbonatto.com.model.DispInformatica;
+import beatrizbonatto.com.model.Leilao;
+import beatrizbonatto.com.model.SubTipo;
 
 public class Switch extends DispInformatica {
     private Boolean gerenciavel;

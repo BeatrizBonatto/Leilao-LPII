@@ -5,40 +5,20 @@ import beatrizbonatto.com.model.Leilao;
 import beatrizbonatto.com.model.SubTipo;
 
 public class ProdutoDTO {
-    private Long id;
-    private SubTipo subTipo;
     private String nome;
     private String descricao;
     private Double precoInicial;
-    private Leilao leilao;
+    private Long idLeilao;
 
     public ProdutoDTO() {
     }
 
-    public ProdutoDTO(Long id, SubTipo subTipo, String nome, String descricao, Double precoInicial,
-                      Leilao leilao) {
-        this.id = id;
-        this.subTipo = subTipo;
+    public ProdutoDTO(String nome, String descricao, Double precoInicial,
+                      Long idLeilao) {
         this.nome = nome;
         this.descricao = descricao;
         this.precoInicial = precoInicial;
-        this.leilao = leilao;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public SubTipo getSubTipo() {
-        return subTipo;
-    }
-
-    public void setSubTipo(SubTipo subTipo) {
-        this.subTipo = subTipo;
+        this.idLeilao = idLeilao;
     }
 
     public String getNome() {
@@ -65,12 +45,11 @@ public class ProdutoDTO {
         this.precoInicial = precoInicial;
     }
 
-    public Leilao getLeilao() {
-        return leilao;
+    public Long getIdLeilao() {
+        return idLeilao;
     }
 
-    public void setLeilao(Leilao leilao) {
-        this.leilao = leilao;
+    public void setIdLeilao(Long idLeilao) {
+        this.idLeilao = idLeilao;
     }
-
 }

@@ -2,6 +2,7 @@ package beatrizbonatto.com.service;
 
 import beatrizbonatto.com.dto.DetalhesLeilaoDTO;
 import beatrizbonatto.com.dto.LeilaoDTO;
+import beatrizbonatto.com.model.InstFinanceira;
 import beatrizbonatto.com.model.Lance;
 import beatrizbonatto.com.model.Leilao;
 import beatrizbonatto.com.model.Produto;
@@ -12,6 +13,7 @@ import jakarta.persistence.EntityManager;
 import jakarta.transaction.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @ApplicationScoped
@@ -24,10 +26,28 @@ public class LeilaoService {
 
     @Transactional
     public void criarLeilao(LeilaoDTO leilaoDTO) {
-        if (leilaoDTO.getInstFinanceira() == null || leilaoDTO.getInstFinanceira().toString() == "") {
+        if (leilaoDTO.getListIdsInstFin() == null || leilaoDTO.getListIdsInstFin().toString() == "") {
             throw new IllegalArgumentException("Cada leilão deve ter ao menos uma entidade financeira associada.");
         }
-        em.persist(leilaoDTO);
+        Leilao toSave = new Leilao();
+        toSave.setId(leilaoDTO.getId());
+        toSave.setDataInicio(leilaoDTO.getDataInicio());
+        toSave.setDataFim(leilaoDTO.getDataFim());
+        toSave.setDataVisita(leilaoDTO.getDataVisitacao());
+        toSave.setDominioLeilaoEletronico(leilaoDTO.getDominioLeilaoEletronico());
+        toSave.setEndereco(leilaoDTO.getEndereco());
+        toSave.setCidade(leilaoDTO.getCidade());
+        toSave.setEstado(leilaoDTO.getEstado());
+        List<InstFinanceira> instFinanceiras = new ArrayList<>();
+
+        for (Long id : leilaoDTO.getListIdsInstFin()) {
+            InstFinanceira instFinanceira = em.find(InstFinanceira.class, id);
+            instFinanceiras.add(instFinanceira);
+        }
+        toSave.setInstFinanceira(instFinanceiras);
+
+        leilaoRepository.salvar(toSave);
+
     }
 
     public Leilao buscaLeilaoPorId(Long id) {
@@ -90,12 +110,12 @@ public class LeilaoService {
         return leilaoRepository.buscarProdutosPorSubTipoPorLeilao(subTipo, leilaoId);
     }
 
-    private LeilaoDTO toDTO(Leilao leilao) {
-        return new LeilaoDTO(leilao.getId() ,
-                leilao.getDataInicio(), leilao.getDataFim(), leilao.getDataVisita(),
-                leilao.getDominioLeilaoEletronico(),
-                leilao.getEndereco(), leilao.getCidade(), leilao.getEstado(),
-                leilao.getProdutos(), leilao.getInstFinanceira()
-        );
-    }
+//    private LeilaoDTO toDTO(Leilao leilao) {
+//        return new LeilaoDTO(leilao.getId() ,
+//                leilao.getDataInicio(), leilao.getDataFim(), leilao.getDataVisita(),
+//                leilao.getDominioLeilaoEletronico(),
+//                leilao.getEndereco(), leilao.getCidade(), leilao.getEstado(),
+//               leilao.getInstFinanceira()
+//        );
+//    }
 }
