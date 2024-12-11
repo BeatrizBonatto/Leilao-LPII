@@ -2,7 +2,7 @@ package beatrizbonatto.com.controller;
 
 import beatrizbonatto.com.dto.NotebookDTO;
 import beatrizbonatto.com.dto.ProdutoDTO;
-import beatrizbonatto.com.model.Produtos.Notebook;
+import beatrizbonatto.com.model.Notebook;
 import beatrizbonatto.com.model.Produto;
 import beatrizbonatto.com.service.ProdutoMapper;
 import beatrizbonatto.com.service.ProdutoService;
@@ -38,7 +38,7 @@ public class ProdutoController {
         return Response.ok().build();
     }
 
-/*    @GET
+/*  @GET
     @Path("/{id}")
     public Response buscarProdutoPorId(@PathParam("id") Long id) {
        Produto produto = produtoService.buscarProdutoPorId(id);

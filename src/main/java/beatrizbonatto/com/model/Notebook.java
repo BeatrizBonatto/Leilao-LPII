@@ -1,8 +1,5 @@
-package beatrizbonatto.com.model.Produtos;
+package beatrizbonatto.com.model;
 
-import beatrizbonatto.com.model.DispInformatica;
-import beatrizbonatto.com.model.Leilao;
-import beatrizbonatto.com.model.SubTipo;
 import jakarta.persistence.DiscriminatorValue;
 import jakarta.persistence.Entity;
 

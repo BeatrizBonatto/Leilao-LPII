@@ -4,8 +4,8 @@ import beatrizbonatto.com.dto.NotebookDTO;
 import beatrizbonatto.com.dto.ProdutoDTO;
 import beatrizbonatto.com.model.Lance;
 import beatrizbonatto.com.model.Leilao;
-import beatrizbonatto.com.model.Produtos.Notebook;
 import beatrizbonatto.com.model.Produto;
+import beatrizbonatto.com.model.Notebook;
 import beatrizbonatto.com.repository.LanceRepository;
 import beatrizbonatto.com.repository.LeilaoRepository;
 import beatrizbonatto.com.repository.ProdutoRepository;
@@ -51,8 +51,6 @@ public class ProdutoService {
 
         if(notebookDTO.getNome() != null && notebookDTO.getPrecoInicial() != null && notebookDTO.getPolegada() != null) {
             Notebook notebook = new Notebook();
-            notebook.setId(notebookDTO.getId());
-            notebook.setSubTipo(notebookDTO.getSubTipo());
             notebook.setNome(notebookDTO.getNome());
             notebook.setPrecoInicial(notebookDTO.getPrecoInicial());
             notebook.setPolegada(notebookDTO.getPolegada());
@@ -97,7 +95,6 @@ public class ProdutoService {
     }
 
     public void desassociarProduto(Long produtoId, Long novoLeilaoId) {
-        // Busca o produto pelo ID
         Produto produto = produtoRepository.buscarProdutoPorId(produtoId);
 
         if (produto == null) {
@@ -120,25 +117,23 @@ public class ProdutoService {
             throw new IllegalArgumentException("O leilão deve ser futuro.");
         }
 
-        //produto.setLeilao(novoLeilao);
+        produto.setLeilao(novoLeilao);
         atualizarProduto(produtoId, toDTO(produto));
     }
 
 
     private ProdutoDTO toDTO(Produto produto) {
-        return new ProdutoDTO(produto.getNome(), produto.getDescricao(), produto.getPrecoInicial(),1L);
+        return new ProdutoDTO(produto.getNome(), produto.getDescricao(), produto.getPrecoInicial(),produto.getLeilao().getId());
     }
 
     public ProdutoDTO toDTO2(Produto produto) {
         if (produto instanceof Notebook) {
             Notebook notebook = (Notebook) produto;
             return new NotebookDTO(
-                    produto.getId(),
-                    produto.getSubTipo(),
                     produto.getNome(),
                     produto.getDescricao(),
                     produto.getPrecoInicial(),
-                   1L,// produto.getLeilao().getId(),
+                    produto.getLeilao().getId(),
                     notebook.getPolegada()
             );
         } /*else if (produto instanceof Carro) {

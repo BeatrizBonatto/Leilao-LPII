@@ -30,7 +30,6 @@ public class Produto extends PanacheEntityBase {
     public Produto(Long id, SubTipo subTipo, String nome, String descricao, Double precoInicial,
                    Leilao leilao) {
         this.id = id;
-        this.subTipo = subTipo;
         this.nome = nome;
         this.descricao = descricao;
         this.precoInicial = precoInicial;
@@ -43,14 +42,6 @@ public class Produto extends PanacheEntityBase {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public SubTipo getSubTipo() {
-        return subTipo;
-    }
-
-    public void setSubTipo(SubTipo subTipo) {
-        this.subTipo = subTipo;
     }
 
     public String getNome() {
