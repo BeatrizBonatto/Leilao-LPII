@@ -68,7 +68,6 @@ public class LeilaoRepository {
         String status = determinarStatusLeilao(leilao);
 
         return new DetalhesLeilaoDTO(
-                leilao.getId(),
                 leilao.getDataInicio(),
                 leilao.getDataFim(),
                 leilao.getDataVisita(),

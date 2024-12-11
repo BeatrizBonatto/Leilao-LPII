@@ -77,6 +77,6 @@ public class LanceService {
     }
 
     private LanceDTO toDTO(Lance lance) {
-        return new LanceDTO(lance.getId() , lance.getCliente(), lance.getProduto(), lance.getValor());
+        return new LanceDTO(lance.getCliente(), lance.getProduto(), lance.getValor());
     }
 }

@@ -6,7 +6,6 @@ import beatrizbonatto.com.model.Leilao;
 import java.util.List;
 
 public class InstFinanceiraDTO {
-    private Long id;
     private Long codigo;
     private String nome;
     private String cnpj;
@@ -14,20 +13,11 @@ public class InstFinanceiraDTO {
 
     public InstFinanceiraDTO() {}
 
-    public InstFinanceiraDTO(Long id, Long codigo, String nome, String cnpj, List<Leilao> leiloes) {
-        this.id = id;
+    public InstFinanceiraDTO(Long codigo, String nome, String cnpj, List<Leilao> leiloes) {
         this.codigo = codigo;
         this.nome = nome;
         this.cnpj = cnpj;
         this.leiloes = leiloes;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public Long getCodigo() {

@@ -6,7 +6,6 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 public class DetalhesLeilaoDTO {
-    private Long leilaoId;
     private LocalDateTime dataInicio;
     private LocalDateTime dataFim;
     private LocalDateTime dataVisita;
@@ -19,10 +18,9 @@ public class DetalhesLeilaoDTO {
     private Integer quantidadeProdutos;
     private String status;
 
-    public DetalhesLeilaoDTO(Long leilaoId, LocalDateTime dataInicio, LocalDateTime dataFim, LocalDateTime dataVisita,
+    public DetalhesLeilaoDTO(LocalDateTime dataInicio, LocalDateTime dataFim, LocalDateTime dataVisita,
                              String dominioLeilaoEletronico, String endereco, String cidade, String estado,
                              List<String> produtos, List<String> instituicoesFinanceiras, Integer quantidadeProdutos, String status) {
-        this.leilaoId = leilaoId;
         this.dataInicio = dataInicio;
         this.dataFim = dataFim;
         this.dataVisita = dataVisita;
@@ -34,14 +32,6 @@ public class DetalhesLeilaoDTO {
         this.instituicoesFinanceiras = instituicoesFinanceiras;
         this.quantidadeProdutos = quantidadeProdutos;
         this.status = status;
-    }
-
-    public Long getLeilaoId() {
-        return leilaoId;
-    }
-
-    public void setLeilaoId(Long leilaoId) {
-        this.leilaoId = leilaoId;
     }
 
     public LocalDateTime getDataInicio() {

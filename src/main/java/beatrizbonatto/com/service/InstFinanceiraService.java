@@ -53,7 +53,6 @@ public class InstFinanceiraService {
 
     private InstFinanceiraDTO toDTO(InstFinanceira instFinanceira) {
         return new InstFinanceiraDTO(
-                instFinanceira.getId(),
                 instFinanceira.getCodigo(),
                 instFinanceira.getNome(),
                 instFinanceira.getCnpj(),

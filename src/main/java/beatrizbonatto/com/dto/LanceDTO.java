@@ -4,26 +4,16 @@ import beatrizbonatto.com.model.Cliente;
 import beatrizbonatto.com.model.Produto;
 
 public class LanceDTO {
-    private Long id;
     private Cliente cliente;
     private Produto produto;
     private Double valor;
 
     public LanceDTO() {}
 
-    public LanceDTO(Long id, Cliente cliente, Produto produto, Double valor) {
-        this.id = cliente.getId();
+    public LanceDTO(Cliente cliente, Produto produto, Double valor) {
         this.cliente = cliente;
         this.produto = produto;
         this.valor = valor;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public Cliente getCliente() {

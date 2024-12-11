@@ -1,24 +1,14 @@
 package beatrizbonatto.com.dto;
 
 public class HistoricoLancesDTO {
-    private int id;
     private String produto;
     private String cliente;
     private Double valor;
 
     public HistoricoLancesDTO(int id, String produto, String cliente, Double valor) {
-        this.id = id;
         this.produto = produto;
         this.cliente = cliente;
         this.valor = valor;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getProduto() {

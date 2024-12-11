@@ -27,7 +27,7 @@ public class Produto extends PanacheEntityBase {
 
     public Produto() {}
 
-    public Produto(Long id, SubTipo subTipo, String nome, String descricao, Double precoInicial,
+    public Produto(Long id, String nome, String descricao, Double precoInicial,
                    Leilao leilao) {
         this.id = id;
         this.nome = nome;

@@ -1,14 +1,13 @@
 package beatrizbonatto.com.dto;
 
 import beatrizbonatto.com.model.InstFinanceira;
+import beatrizbonatto.com.model.Produto;
 
 import java.time.LocalDateTime;
 import java.util.List;
 
 
 public class LeilaoDTO {
-
-    private Long id;
     private LocalDateTime dataInicio;
     private LocalDateTime dataFim;
     private LocalDateTime dataVisitacao;
@@ -16,13 +15,15 @@ public class LeilaoDTO {
     private String endereco;
     private String cidade;
     private String estado;
-    //private List<Produto> produtos;
+    private List<Produto> produtos;
     private List<Long> listIdsInstFin;
 
     public LeilaoDTO() {}
 
-    public LeilaoDTO(Long id, LocalDateTime dataInicio, LocalDateTime dataFim, LocalDateTime dataVisitacao, String dominioLeilaoEletronico, String endereco, String cidade, String estado, List<Long> listIdsInstFin) {
-        this.id = id;
+    public LeilaoDTO(LocalDateTime dataInicio, LocalDateTime dataFim, LocalDateTime dataVisitacao,
+                     String dominioLeilaoEletronico,
+                     String endereco, String cidade, String estado,
+                     List<Long> listIdsInstFin) {
         this.dataInicio = dataInicio;
         this.dataFim = dataFim;
         this.dataVisitacao = dataVisitacao;
@@ -31,14 +32,6 @@ public class LeilaoDTO {
         this.cidade = cidade;
         this.estado = estado;
         this.listIdsInstFin = listIdsInstFin;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public LocalDateTime getDataInicio() {

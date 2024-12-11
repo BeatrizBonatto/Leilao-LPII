@@ -12,9 +12,9 @@ public class DispInformatica extends Produto {
 
     public DispInformatica() {}
 
-    public DispInformatica(Long id, SubTipo subTipo, String nome, String descricao, Double precoInicial, Leilao leilao,
-                           String cor, String marca) {
-        super(id, subTipo, nome, descricao, precoInicial, leilao);
+    public DispInformatica(Long id, String nome, String descricao, Double precoInicial,
+                           Leilao leilao, String cor, String marca) {
+        super(id, nome, descricao, precoInicial, leilao);
         this.cor = cor;
         this.marca = marca;
     }

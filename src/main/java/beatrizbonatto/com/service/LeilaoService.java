@@ -30,7 +30,6 @@ public class LeilaoService {
             throw new IllegalArgumentException("Cada leilão deve ter ao menos uma entidade financeira associada.");
         }
         Leilao toSave = new Leilao();
-        toSave.setId(leilaoDTO.getId());
         toSave.setDataInicio(leilaoDTO.getDataInicio());
         toSave.setDataFim(leilaoDTO.getDataFim());
         toSave.setDataVisita(leilaoDTO.getDataVisitacao());
