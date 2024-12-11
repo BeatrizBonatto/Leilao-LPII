@@ -6,6 +6,7 @@ import beatrizbonatto.com.service.InstFinanceiraService;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.Response;
+import org.eclipse.microprofile.openapi.annotations.Operation;
 
 import java.util.List;
 
@@ -16,6 +17,7 @@ public class InstFinanceiraController {
 
     @POST
     @Path("/criar")
+    @Operation(summary = "Cria instituicao financeira")
     public Response criarInstFinanceira(InstFinanceiraDTO instFinanceiraDTO) {
         instFinanceiraService.criarInstFinanceira(instFinanceiraDTO);
         return Response.status(Response.Status.CREATED).entity(instFinanceiraDTO).build();
@@ -23,6 +25,7 @@ public class InstFinanceiraController {
 
     @GET
     @Path("/{id}")
+    @Operation(summary = "Buscar instituicao financeira por id")
     public Response buscarInstFinanceira(@PathParam("id") Long id) {
        InstFinanceira instFinanceira = instFinanceiraService.buscarInstFinanceira(id);
         if (instFinanceira == null) {
@@ -32,12 +35,14 @@ public class InstFinanceiraController {
     }
 
     @GET
+    @Operation(summary = "Lista de instituicoes")
     public List<InstFinanceira> listaDeInstFinanceira() {
         return instFinanceiraService.listaDeInstFinanceira();
     }
 
     @PUT
     @Path("atualizar/{id}")
+    @Operation(summary = "Atualizar instituicao financeira, buscando pelo id")
     public Response atualizarInstFinanceira(@PathParam("id") Long id, InstFinanceiraDTO instFinanceiraDTO) {
         InstFinanceiraDTO updatedInstFinanceira = instFinanceiraService.atualizarInstFinanceira(id, instFinanceiraDTO);
         if (updatedInstFinanceira == null) {
@@ -48,6 +53,7 @@ public class InstFinanceiraController {
 
     @DELETE
     @Path("excluir/{id}")
+    @Operation(summary = "Excluir instituicao financeira, buscando pelo id")
     public Response excluirInstFinanceira(@PathParam("id") Long id) {
         if (instFinanceiraService.excluirInstFinanceira(id)) {
             return Response.noContent().build();

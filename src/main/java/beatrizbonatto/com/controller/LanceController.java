@@ -7,6 +7,7 @@ import beatrizbonatto.com.service.LanceService;
 import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.Response;
+import org.eclipse.microprofile.openapi.annotations.Operation;
 
 import java.util.List;
 
@@ -16,6 +17,7 @@ public class LanceController {
     LanceService lanceService;
 
     @POST
+    @Operation(summary = "Cria um novo lance")
     public Response criarLance(LanceDTO lanceDTO) {
         try {
             lanceService.criarLance(lanceDTO);
@@ -27,6 +29,7 @@ public class LanceController {
 
     @GET
     @Path("/lance_produto/{id}")
+    @Operation(summary = "Buscar um lance por id")
     public Response buscarLancePorId(@PathParam("id") Long id) {
        Lance lance = lanceService.buscarLancePorId(id);
         if (lance == null) {
@@ -36,18 +39,21 @@ public class LanceController {
     }
 
     @GET
+    @Operation(summary = "Lista de lances")
     public List<Lance> listaDeLances() {
         return lanceService.listaDeLances();
     }
 
     @GET
     @Path("/produto/{idProduto}/historico-lances")
+    @Operation(summary = "Buscar historico de lances por id de produto")
     public List<HistoricoLancesDTO> buscarHistoricoLancesPorProduto(@PathParam("idProduto") Long produtoId) {
         return lanceService.buscarHistoricoLancesPorProduto(produtoId);
     }
 
     @PUT
     @Path("/{id}")
+    @Operation(summary = "Atualizar lance, buscando pelo id")
     public Response atualizarLance(@PathParam("id") Long id, LanceDTO lanceDTO) {
         LanceDTO updatedLance = lanceService.atualizarLance(id, lanceDTO);
         if (updatedLance == null) {
@@ -58,6 +64,7 @@ public class LanceController {
 
     @DELETE
     @Path("/{id}")
+    @Operation(summary = "Excluir lance, buscando pelo id")
     public Response excluirLance(@PathParam("id") Long id) {
         if (lanceService.excluirLance(id)) {
             return Response.noContent().build();
