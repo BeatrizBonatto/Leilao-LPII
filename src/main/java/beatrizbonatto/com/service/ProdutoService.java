@@ -269,6 +269,155 @@ public class ProdutoService {
     }
 
     @Transactional
+    public Hub atualizarHub(Long id, HubDTO produtoAtualizado) {
+        if(buscarProdutoPorId(id) != null) {
+
+            Leilao leilao = leilaoRepository.buscaLeilaoPorId(produtoAtualizado.getIdLeilao());
+
+            if (leilao == null) {
+                throw new IllegalArgumentException("Leilão com o ID fornecido não existe!");
+            }
+
+            Hub hub = new Hub();
+            hub.setId(id);
+            hub.setNome(produtoAtualizado.getNome());
+            hub.setPrecoInicial(produtoAtualizado.getPrecoInicial());
+            hub.setCor(produtoAtualizado.getCor());
+            hub.setMarca(produtoAtualizado.getMarca());
+            hub.setQuantidadePortas(produtoAtualizado.getQuantidadePortas());
+            hub.setLeilao(leilao);
+
+            produtoRepository.salvar(hub);
+            return hub;
+        }
+        throw new IllegalArgumentException("Produto não existe");
+    }
+
+    @Transactional
+    public Roteador atualizarRoteador(Long id, RoteadorDTO produtoAtualizado) {
+        if(buscarProdutoPorId(id) != null) {
+
+            Leilao leilao = leilaoRepository.buscaLeilaoPorId(produtoAtualizado.getIdLeilao());
+
+            if (leilao == null) {
+                throw new IllegalArgumentException("Leilão com o ID fornecido não existe!");
+            }
+
+            Roteador roteador = new Roteador();
+            roteador.setId(id);
+            roteador.setNome(produtoAtualizado.getNome());
+            roteador.setPrecoInicial(produtoAtualizado.getPrecoInicial());
+            roteador.setCor(produtoAtualizado.getCor());
+            roteador.setMarca(produtoAtualizado.getMarca());
+            roteador.setVelocidadeWiFi(produtoAtualizado.getVelocidadeWiFi());
+            roteador.setLeilao(leilao);
+
+            produtoRepository.salvar(roteador);
+            return roteador;
+        }
+        throw new IllegalArgumentException("Produto não existe");
+    }
+
+    @Transactional
+    public Switch atualizarSwitch(Long id, SwitchDTO produtoAtualizado) {
+        if(buscarProdutoPorId(id) != null) {
+
+            Leilao leilao = leilaoRepository.buscaLeilaoPorId(produtoAtualizado.getIdLeilao());
+
+            if (leilao == null) {
+                throw new IllegalArgumentException("Leilão com o ID fornecido não existe!");
+            }
+
+            Switch switch1 = new Switch();
+            switch1.setId(id);
+            switch1.setNome(produtoAtualizado.getNome());
+            switch1.setPrecoInicial(produtoAtualizado.getPrecoInicial());
+            switch1.setCor(produtoAtualizado.getCor());
+            switch1.setMarca(produtoAtualizado.getMarca());
+            switch1.setGerenciavel(produtoAtualizado.getGerenciavel());
+            switch1.setLeilao(leilao);
+
+            produtoRepository.salvar(switch1);
+            return switch1;
+        }
+        throw new IllegalArgumentException("Produto não existe");
+    }
+
+    @Transactional
+    public Caminhao atualizarCaminhao(Long id, CaminhaoDTO produtoAtualizado) {
+        if(buscarProdutoPorId(id) != null) {
+
+            Leilao leilao = leilaoRepository.buscaLeilaoPorId(produtoAtualizado.getIdLeilao());
+
+            if (leilao == null) {
+                throw new IllegalArgumentException("Leilão com o ID fornecido não existe!");
+            }
+
+            Caminhao caminhao = new Caminhao();
+            caminhao.setNome(produtoAtualizado.getNome());
+            caminhao.setPrecoInicial(produtoAtualizado.getPrecoInicial());
+            caminhao.setCor(produtoAtualizado.getCor());
+            caminhao.setPlaca(produtoAtualizado.getPlaca());
+            caminhao.setCor(produtoAtualizado.getCor());
+            caminhao.setQuantidadeEixo(produtoAtualizado.getQuantidadeEixo());
+            caminhao.setLeilao(leilao);
+
+            produtoRepository.salvar(caminhao);
+            return caminhao;
+        }
+        throw new IllegalArgumentException("Produto não existe");
+    }
+
+    @Transactional
+    public Carro atualizarCarro(Long id, CarroDTO produtoAtualizado) {
+        if(buscarProdutoPorId(id) != null) {
+
+            Leilao leilao = leilaoRepository.buscaLeilaoPorId(produtoAtualizado.getIdLeilao());
+
+            if (leilao == null) {
+                throw new IllegalArgumentException("Leilão com o ID fornecido não existe!");
+            }
+
+            Carro carro = new Carro();
+            carro.setNome(produtoAtualizado.getNome());
+            carro.setPrecoInicial(produtoAtualizado.getPrecoInicial());
+            carro.setCor(produtoAtualizado.getCor());
+            carro.setPlaca(produtoAtualizado.getPlaca());
+            carro.setCor(produtoAtualizado.getCor());
+            carro.setLeilao(leilao);
+            carro.setTipoDeCambio(produtoAtualizado.getTipoDeCambio());
+            produtoRepository.salvar(carro);
+            return carro;
+        }
+        throw new IllegalArgumentException("Produto não existe");
+    }
+
+    @Transactional
+    public Moto atualizarMoto(Long id, MotoDTO produtoAtualizado) {
+        if(buscarProdutoPorId(id) != null) {
+
+            Leilao leilao = leilaoRepository.buscaLeilaoPorId(produtoAtualizado.getIdLeilao());
+
+            if (leilao == null) {
+                throw new IllegalArgumentException("Leilão com o ID fornecido não existe!");
+            }
+
+            Moto moto = new Moto();
+            moto.setNome(produtoAtualizado.getNome());
+            moto.setPrecoInicial(produtoAtualizado.getPrecoInicial());
+            moto.setCor(produtoAtualizado.getCor());
+            moto.setPlaca(produtoAtualizado.getPlaca());
+            moto.setCor(produtoAtualizado.getCor());
+            moto.setCilindrada(produtoAtualizado.getCilindrada());
+            moto.setLeilao(leilao);
+
+            produtoRepository.salvar(moto);
+            return moto;
+        }
+        throw new IllegalArgumentException("Produto não existe");
+    }
+
+    @Transactional
     public boolean excluirProduto(Long id) {
         if(em.find(Produto.class, id) != null) {
             Produto produto = buscarProdutoPorId(id);

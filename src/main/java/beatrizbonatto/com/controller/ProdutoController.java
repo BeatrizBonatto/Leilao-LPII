@@ -131,6 +131,96 @@ public class ProdutoController {
         }
     }
 
+    @PUT
+    @Path("/hub/{id}")
+    @Operation(summary = "Atualizar Hub, buscando pelo id")
+    public Response atualizarHub(@PathParam("id") Long id, HubDTO hubDTO) {
+        try {
+            Hub updatedProduto = produtoService.atualizarHub(id, hubDTO);
+            if (updatedProduto == null) {
+                return Response.status(Response.Status.NOT_FOUND).build();
+            }
+            return Response.ok(updatedProduto).build();
+        } catch (Exception e) {
+            return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
+        }
+    }
+
+    @PUT
+    @Path("/roteador/{id}")
+    @Operation(summary = "Atualizar Roteador, buscando pelo id")
+    public Response atualizarRoteador(@PathParam("id") Long id, RoteadorDTO roteadorDTO) {
+        try {
+            Roteador updatedProduto = produtoService.atualizarRoteador(id, roteadorDTO);
+            if (updatedProduto == null) {
+                return Response.status(Response.Status.NOT_FOUND).build();
+            }
+            return Response.ok(updatedProduto).build();
+        } catch (Exception e) {
+            return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
+        }
+    }
+
+    @PUT
+    @Path("/switch/{id}")
+    @Operation(summary = "Atualizar Switch, buscando pelo id")
+    public Response atualizarSwitch(@PathParam("id") Long id, SwitchDTO switchDTO) {
+        try {
+            Switch updatedProduto = produtoService.atualizarSwitch(id, switchDTO);
+            if (updatedProduto == null) {
+                return Response.status(Response.Status.NOT_FOUND).build();
+            }
+            return Response.ok(updatedProduto).build();
+        } catch (Exception e) {
+            return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
+        }
+    }
+
+    @PUT
+    @Path("/caminhao/{id}")
+    @Operation(summary = "Atualizar Caminhao, buscando pelo id")
+    public Response atualizarCaminhao(@PathParam("id") Long id, CaminhaoDTO caminhaoDTO) {
+        try {
+            Caminhao updatedProduto = produtoService.atualizarCaminhao(id, caminhaoDTO);
+            if (updatedProduto == null) {
+                return Response.status(Response.Status.NOT_FOUND).build();
+            }
+            return Response.ok(updatedProduto).build();
+        } catch (Exception e) {
+            return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
+        }
+    }
+
+    @PUT
+    @Path("/carro/{id}")
+    @Operation(summary = "Atualizar Carro, buscando pelo id")
+    public Response atualizarCarro(@PathParam("id") Long id, CarroDTO carroDTO) {
+        try {
+            Carro updatedProduto = produtoService.atualizarCarro(id, carroDTO);
+            if (updatedProduto == null) {
+                return Response.status(Response.Status.NOT_FOUND).build();
+            }
+            return Response.ok(updatedProduto).build();
+        } catch (Exception e) {
+            return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
+        }
+    }
+
+    @PUT
+    @Path("/moto/{id}")
+    @Operation(summary = "Atualizar Moto, buscando pelo id")
+    public Response atualizarCarro(@PathParam("id") Long id, MotoDTO motoDTO) {
+        try {
+            Moto updatedProduto = produtoService.atualizarMoto(id, motoDTO);
+            if (updatedProduto == null) {
+                return Response.status(Response.Status.NOT_FOUND).build();
+            }
+            return Response.ok(updatedProduto).build();
+        } catch (Exception e) {
+            return Response.status(Response.Status.BAD_REQUEST).entity(e.getMessage()).build();
+        }
+    }
+
     @DELETE
     @Path("/{id}")
     @Operation(summary = "Excluir produto, buscando pelo id")
