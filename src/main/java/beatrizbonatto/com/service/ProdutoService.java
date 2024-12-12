@@ -204,7 +204,6 @@ public class ProdutoService {
         }
     }
 
-
     @Transactional
     public Utilitario criarUtilitario(UtilitarioDTO utilitarioDTO) {
 
@@ -413,6 +412,31 @@ public class ProdutoService {
 
             produtoRepository.salvar(moto);
             return moto;
+        }
+        throw new IllegalArgumentException("Produto não existe");
+    }
+
+    @Transactional
+    public Utilitario atualizarUtilitario(Long id, UtilitarioDTO produtoAtualizado) {
+        if(buscarProdutoPorId(id) != null) {
+
+            Leilao leilao = leilaoRepository.buscaLeilaoPorId(produtoAtualizado.getIdLeilao());
+
+            if (leilao == null) {
+                throw new IllegalArgumentException("Leilão com o ID fornecido não existe!");
+            }
+
+            Utilitario utilitario = new Utilitario();
+            utilitario.setNome(produtoAtualizado.getNome());
+            utilitario.setPrecoInicial(produtoAtualizado.getPrecoInicial());
+            utilitario.setCor(produtoAtualizado.getCor());
+            utilitario.setPlaca(produtoAtualizado.getPlaca());
+            utilitario.setCor(produtoAtualizado.getCor());
+            utilitario.setCapacidadePassageiros(produtoAtualizado.getCapacidadePassageiros());
+            utilitario.setLeilao(leilao);
+
+            produtoRepository.salvar(utilitario);
+            return utilitario;
         }
         throw new IllegalArgumentException("Produto não existe");
     }
