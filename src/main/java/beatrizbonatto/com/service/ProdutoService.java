@@ -3,6 +3,7 @@ package beatrizbonatto.com.service;
 import beatrizbonatto.com.dto.HubDTO;
 import beatrizbonatto.com.dto.NotebookDTO;
 import beatrizbonatto.com.dto.ProdutoDTO;
+import beatrizbonatto.com.dto.RoteadorDTO;
 import beatrizbonatto.com.model.*;
 import beatrizbonatto.com.repository.LanceRepository;
 import beatrizbonatto.com.repository.LeilaoRepository;
@@ -73,6 +74,31 @@ public class ProdutoService {
 
             produtoRepository.salvar(hub);
             return hub;
+        } else {
+            throw new IllegalArgumentException("Todos os campos devem ser preenchidos");
+        }
+    }
+
+    @Transactional
+    public Roteador criarRoteador(RoteadorDTO roteadorDTO) {
+
+        Leilao leilao = leilaoRepository.buscaLeilaoPorId(roteadorDTO.getIdLeilao());
+
+        if (leilao == null) {
+            throw new IllegalArgumentException("Leilão com o ID fornecido não existe!");
+        }
+
+        if(roteadorDTO.getNome() != null && roteadorDTO.getPrecoInicial() != null) {
+            Roteador roteador = new Roteador();
+            roteador.setNome(roteadorDTO.getNome());
+            roteador.setPrecoInicial(roteadorDTO.getPrecoInicial());
+            roteador.setCor(roteadorDTO.getCor());
+            roteador.setMarca(roteadorDTO.getMarca());
+            roteador.setVelocidadeWiFi(roteadorDTO.getVelocidadeWiFi());
+            roteador.setLeilao(leilao);
+
+            produtoRepository.salvar(roteador);
+            return roteador;
         } else {
             throw new IllegalArgumentException("Todos os campos devem ser preenchidos");
         }
