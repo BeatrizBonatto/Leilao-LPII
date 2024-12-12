@@ -55,6 +55,15 @@ public class ProdutoController {
         return Response.ok().build();
     }
 
+    @POST
+    @Path("/caminhao")
+    @Operation(summary = "Cria um novo caminhao")
+    public Response criarSwitch(CaminhaoDTO caminhaoDTO) {
+        Caminhao caminhao = produtoService.criarCaminhao(caminhaoDTO);
+
+        return Response.ok().build();
+    }
+
     @GET
     @Path("/{id}")
     @Operation(summary = "Buscar um produto por id")

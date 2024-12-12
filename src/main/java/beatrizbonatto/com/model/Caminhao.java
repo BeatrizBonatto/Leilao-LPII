@@ -1,5 +1,10 @@
 package beatrizbonatto.com.model;
 
+import jakarta.persistence.DiscriminatorValue;
+import jakarta.persistence.Entity;
+
+@Entity
+@DiscriminatorValue("CAMINHAO")
 public class Caminhao extends Veiculo {
     private Integer quantidadeEixo;
 
@@ -8,6 +13,8 @@ public class Caminhao extends Veiculo {
         super(id, nome, descricao, precoInicial, leilao, placa, cor);
         this.quantidadeEixo = quantidadeEixo;
     }
+
+    public Caminhao() {}
 
     public Integer getQuantidadeEixo() {
         return quantidadeEixo;
