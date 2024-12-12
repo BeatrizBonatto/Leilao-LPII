@@ -1,13 +1,7 @@
 package beatrizbonatto.com.controller;
 
-import beatrizbonatto.com.dto.HubDTO;
-import beatrizbonatto.com.dto.NotebookDTO;
-import beatrizbonatto.com.dto.ProdutoDTO;
-import beatrizbonatto.com.dto.RoteadorDTO;
-import beatrizbonatto.com.model.Hub;
-import beatrizbonatto.com.model.Notebook;
-import beatrizbonatto.com.model.Produto;
-import beatrizbonatto.com.model.Roteador;
+import beatrizbonatto.com.dto.*;
+import beatrizbonatto.com.model.*;
 import beatrizbonatto.com.service.ProdutoMapper;
 import beatrizbonatto.com.service.ProdutoService;
 import jakarta.inject.Inject;
@@ -48,6 +42,15 @@ public class ProdutoController {
     @Operation(summary = "Cria um novo roteador")
     public Response criarRoteador(RoteadorDTO roteadorDTO) {
         Roteador roteador = produtoService.criarRoteador(roteadorDTO);
+
+        return Response.ok().build();
+    }
+
+    @POST
+    @Path("/switch")
+    @Operation(summary = "Cria um novo switch")
+    public Response criarSwitch(SwitchDTO switchDTO) {
+        Switch switch1 = produtoService.criarSwitch(switchDTO);
 
         return Response.ok().build();
     }

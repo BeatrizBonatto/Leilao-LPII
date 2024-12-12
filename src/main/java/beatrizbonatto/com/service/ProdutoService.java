@@ -1,9 +1,6 @@
 package beatrizbonatto.com.service;
 
-import beatrizbonatto.com.dto.HubDTO;
-import beatrizbonatto.com.dto.NotebookDTO;
-import beatrizbonatto.com.dto.ProdutoDTO;
-import beatrizbonatto.com.dto.RoteadorDTO;
+import beatrizbonatto.com.dto.*;
 import beatrizbonatto.com.model.*;
 import beatrizbonatto.com.repository.LanceRepository;
 import beatrizbonatto.com.repository.LeilaoRepository;
@@ -99,6 +96,31 @@ public class ProdutoService {
 
             produtoRepository.salvar(roteador);
             return roteador;
+        } else {
+            throw new IllegalArgumentException("Todos os campos devem ser preenchidos");
+        }
+    }
+
+    @Transactional
+    public Switch criarSwitch(SwitchDTO switchDTO) {
+
+        Leilao leilao = leilaoRepository.buscaLeilaoPorId(switchDTO.getIdLeilao());
+
+        if (leilao == null) {
+            throw new IllegalArgumentException("Leilão com o ID fornecido não existe!");
+        }
+
+        if(switchDTO.getNome() != null && switchDTO.getPrecoInicial() != null) {
+            Switch switch1 = new Switch();
+            switch1.setNome(switchDTO.getNome());
+            switch1.setPrecoInicial(switchDTO.getPrecoInicial());
+            switch1.setCor(switchDTO.getCor());
+            switch1.setMarca(switchDTO.getMarca());
+            switch1.setGerenciavel(switchDTO.getGerenciavel());
+            switch1.setLeilao(leilao);
+
+            produtoRepository.salvar(switch1);
+            return switch1;
         } else {
             throw new IllegalArgumentException("Todos os campos devem ser preenchidos");
         }
