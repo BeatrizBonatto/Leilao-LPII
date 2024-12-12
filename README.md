@@ -3,6 +3,9 @@
 Este projeto utiliza **Quarkus**, um framework Java.  
 Saiba mais em: https://quarkus.io/
 
+## Swagger UI
+Acesse diretamtente o Swagger UI através deste link: <http://localhost:8080/swagger-ui/>
+
 ## Rodando a aplicação no modo de desenvolvimento
 
 Para executar a aplicação no modo de desenvolvimento, que habilita live coding, use o comando:
