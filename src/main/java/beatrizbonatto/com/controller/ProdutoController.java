@@ -82,6 +82,15 @@ public class ProdutoController {
         return Response.ok().build();
     }
 
+    @POST
+    @Path("/utilitario")
+    @Operation(summary = "Cria um novo utilitario")
+    public Response criarUtilitario(UtilitarioDTO utilitarioDTO) {
+        Utilitario utilitario = produtoService.criarUtilitario(utilitarioDTO);
+
+        return Response.ok().build();
+    }
+
     @GET
     @Path("/{id}")
     @Operation(summary = "Buscar um produto por id")

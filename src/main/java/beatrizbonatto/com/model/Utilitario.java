@@ -1,5 +1,10 @@
 package beatrizbonatto.com.model;
 
+import jakarta.persistence.DiscriminatorValue;
+import jakarta.persistence.Entity;
+
+@Entity
+@DiscriminatorValue("UTILITARIO")
 public class Utilitario extends Veiculo {
     private Integer capacidadePassageiros;
 
@@ -9,6 +14,8 @@ public class Utilitario extends Veiculo {
         super(id, nome, descricao, precoInicial, leilao, placa, cor);
         this.capacidadePassageiros = capacidadePassageiros;
     }
+
+    public Utilitario() {}
 
     public Integer getCapacidadePassageiros() {
         return capacidadePassageiros;
