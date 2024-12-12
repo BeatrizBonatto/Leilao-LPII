@@ -1,5 +1,10 @@
 package beatrizbonatto.com.model;
 
+import jakarta.persistence.DiscriminatorValue;
+import jakarta.persistence.Entity;
+
+@Entity
+@DiscriminatorValue("HUB")
 public class Hub extends DispInformatica {
     private Integer quantidadePortas;
 
@@ -8,6 +13,10 @@ public class Hub extends DispInformatica {
                Integer quantidadePortas) {
         super(id, nome, descricao, precoInicial, leilao, cor, marca);
         this.quantidadePortas = quantidadePortas;
+    }
+
+    public Hub() {
+
     }
 
     public Integer getQuantidadePortas() {

@@ -1,7 +1,9 @@
 package beatrizbonatto.com.controller;
 
+import beatrizbonatto.com.dto.HubDTO;
 import beatrizbonatto.com.dto.NotebookDTO;
 import beatrizbonatto.com.dto.ProdutoDTO;
+import beatrizbonatto.com.model.Hub;
 import beatrizbonatto.com.model.Notebook;
 import beatrizbonatto.com.model.Produto;
 import beatrizbonatto.com.service.ProdutoMapper;
@@ -26,6 +28,15 @@ public class ProdutoController {
     @Operation(summary = "Cria um novo notebook")
     public Response criarNotebook(NotebookDTO notebookDTO) {
         Notebook notebook = produtoService.criarNotebook(notebookDTO);
+
+        return Response.ok().build();
+    }
+
+    @POST
+    @Path("/hub")
+    @Operation(summary = "Cria um novo hub")
+    public Response criarHub(HubDTO hubDTO) {
+        Hub hub = produtoService.criarHub(hubDTO);
 
         return Response.ok().build();
     }

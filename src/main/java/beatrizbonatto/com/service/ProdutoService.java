@@ -1,11 +1,9 @@
 package beatrizbonatto.com.service;
 
+import beatrizbonatto.com.dto.HubDTO;
 import beatrizbonatto.com.dto.NotebookDTO;
 import beatrizbonatto.com.dto.ProdutoDTO;
-import beatrizbonatto.com.model.Lance;
-import beatrizbonatto.com.model.Leilao;
-import beatrizbonatto.com.model.Produto;
-import beatrizbonatto.com.model.Notebook;
+import beatrizbonatto.com.model.*;
 import beatrizbonatto.com.repository.LanceRepository;
 import beatrizbonatto.com.repository.LeilaoRepository;
 import beatrizbonatto.com.repository.ProdutoRepository;
@@ -31,15 +29,6 @@ public class ProdutoService {
     @Inject
     EntityManager em;
 
-//    @Transactional
-//    public void criarProduto(ProdutoDTO produtoDTO) {
-//        if(produtoDTO.getSubTipo() != null && produtoDTO.getNome() != null && produtoDTO.getLeilao() != null) {
-//            em.persist(produtoDTO);
-//        } else {
-//            throw new IllegalArgumentException("Todos os campos devem ser preenchidos");
-//        }
-//    }
-
     @Transactional
     public Notebook criarNotebook(NotebookDTO notebookDTO) {
 
@@ -54,10 +43,36 @@ public class ProdutoService {
             notebook.setNome(notebookDTO.getNome());
             notebook.setPrecoInicial(notebookDTO.getPrecoInicial());
             notebook.setPolegada(notebookDTO.getPolegada());
+            notebook.setCor(notebookDTO.getCor());
+            notebook.setMarca(notebookDTO.getMarca());
             notebook.setLeilao(leilao);
 
             produtoRepository.salvar(notebook);
             return notebook;
+        } else {
+            throw new IllegalArgumentException("Todos os campos devem ser preenchidos");
+        }
+    }
+
+    @Transactional
+    public Hub criarHub(HubDTO hubDTO) {
+
+        Leilao leilao = leilaoRepository.buscaLeilaoPorId(hubDTO.getIdLeilao());
+
+        if (leilao == null) {
+            throw new IllegalArgumentException("Leilão com o ID fornecido não existe!");
+        }
+
+        if(hubDTO.getNome() != null && hubDTO.getPrecoInicial() != null) {
+            Hub hub = new Hub();
+            hub.setNome(hubDTO.getNome());
+            hub.setPrecoInicial(hubDTO.getPrecoInicial());
+            hub.setCor(hubDTO.getCor());
+            hub.setMarca(hubDTO.getMarca());
+            hub.setLeilao(leilao);
+
+            produtoRepository.salvar(hub);
+            return hub;
         } else {
             throw new IllegalArgumentException("Todos os campos devem ser preenchidos");
         }
@@ -124,40 +139,6 @@ public class ProdutoService {
 
     private ProdutoDTO toDTO(Produto produto) {
         return new ProdutoDTO(produto.getNome(), produto.getDescricao(), produto.getPrecoInicial(),produto.getLeilao().getId());
-    }
-
-    public ProdutoDTO toDTO2(Produto produto) {
-        if (produto instanceof Notebook) {
-            Notebook notebook = (Notebook) produto;
-            return new NotebookDTO(
-                    produto.getNome(),
-                    produto.getDescricao(),
-                    produto.getPrecoInicial(),
-                    produto.getLeilao().getId(),
-                    notebook.getPolegada()
-            );
-        } /*else if (produto instanceof Carro) {
-            Carro carro = (Carro) produto;
-            return new CarroDTO(
-                    produto.getId(),
-                    produto.getNome(),
-                    produto.getDescricao(),
-                    produto.getPrecoInicial(),
-                    produto.getLeilao().getId(),
-                    carro.getNumeroDePortas()
-            );
-        } else if (produto instanceof Monitor) {
-            Monitor monitor = (Monitor) produto;
-            return new MonitorDTO(
-                    produto.getId(),
-                    produto.getNome(),
-                    produto.getDescricao(),
-                    produto.getPrecoInicial(),
-                    produto.getLeilao().getId(),
-                    monitor.getResolucao()
-            );
-        }*/
-        return null;
     }
 
 }
