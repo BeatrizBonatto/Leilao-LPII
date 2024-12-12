@@ -1,6 +1,5 @@
 package beatrizbonatto.com.dto;
 
-import beatrizbonatto.com.model.InstFinanceira;
 import beatrizbonatto.com.model.Produto;
 
 import java.time.LocalDateTime;
@@ -15,7 +14,6 @@ public class LeilaoDTO {
     private String endereco;
     private String cidade;
     private String estado;
-    private List<Produto> produtos;
     private List<Long> listIdsInstFin;
 
     public LeilaoDTO() {}
@@ -89,15 +87,6 @@ public class LeilaoDTO {
     public void setEstado(String estado) {
         this.estado = estado;
     }
-
-//    public List<Produto> getProdutos() {
-//        return produtos;
-//    }
-//
-//    public void setProdutos(List<Produto> produtos) {
-//        this.produtos = produtos;
-//    }
-
 
     public List<Long> getListIdsInstFin() {
         return listIdsInstFin;
