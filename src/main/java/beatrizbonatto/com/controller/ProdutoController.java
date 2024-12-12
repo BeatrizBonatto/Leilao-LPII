@@ -73,6 +73,15 @@ public class ProdutoController {
         return Response.ok().build();
     }
 
+    @POST
+    @Path("/moto")
+    @Operation(summary = "Cria uma nova moto")
+    public Response criarMoto(MotoDTO motoDTO) {
+        Moto moto = produtoService.criarMoto(motoDTO);
+
+        return Response.ok().build();
+    }
+
     @GET
     @Path("/{id}")
     @Operation(summary = "Buscar um produto por id")

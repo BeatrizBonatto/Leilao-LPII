@@ -178,6 +178,32 @@ public class ProdutoService {
         }
     }
 
+    @Transactional
+    public Moto criarMoto(MotoDTO motoDTO) {
+
+        Leilao leilao = leilaoRepository.buscaLeilaoPorId(motoDTO.getIdLeilao());
+
+        if (leilao == null) {
+            throw new IllegalArgumentException("Leilão com o ID fornecido não existe!");
+        }
+
+        if(motoDTO.getNome() != null && motoDTO.getPrecoInicial() != null) {
+            Moto moto = new Moto();
+            moto.setNome(motoDTO.getNome());
+            moto.setPrecoInicial(motoDTO.getPrecoInicial());
+            moto.setCor(motoDTO.getCor());
+            moto.setPlaca(motoDTO.getPlaca());
+            moto.setCor(motoDTO.getCor());
+            moto.setCilindrada(motoDTO.getCilindrada());
+            moto.setLeilao(leilao);
+
+            produtoRepository.salvar(moto);
+            return moto;
+        } else {
+            throw new IllegalArgumentException("Todos os campos devem ser preenchidos");
+        }
+    }
+
     public List<Produto> listaDeProdutos() {
         return produtoRepository.listaDeProdutos();
     }

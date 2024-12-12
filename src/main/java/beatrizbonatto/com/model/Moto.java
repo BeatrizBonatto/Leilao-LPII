@@ -1,5 +1,10 @@
 package beatrizbonatto.com.model;
 
+import jakarta.persistence.DiscriminatorValue;
+import jakarta.persistence.Entity;
+
+@Entity
+@DiscriminatorValue("MOTO")
 public class Moto extends Veiculo {
     private Integer cilindrada;
 
@@ -8,6 +13,8 @@ public class Moto extends Veiculo {
         super(id, nome, descricao, precoInicial, leilao, placa, cor);
         this.cilindrada = cilindrada;
     }
+
+    public Moto() {}
 
     public Integer getCilindrada() {
         return cilindrada;
