@@ -168,7 +168,7 @@ public class ProdutoService {
             carro.setCor(carroDTO.getCor());
             carro.setPlaca(carroDTO.getPlaca());
             carro.setCor(carroDTO.getCor());
-
+            carro.setTipoDeCambio(carroDTO.getTipoDeCambio());
             carro.setLeilao(leilao);
 
             produtoRepository.salvar(carro);
