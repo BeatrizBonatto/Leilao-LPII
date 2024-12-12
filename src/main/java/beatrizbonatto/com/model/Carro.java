@@ -1,8 +1,10 @@
 package beatrizbonatto.com.model;
 
-import beatrizbonatto.com.model.Leilao;
-import beatrizbonatto.com.model.SubTipo;
+import jakarta.persistence.DiscriminatorValue;
+import jakarta.persistence.Entity;
 
+@Entity
+@DiscriminatorValue("CARRO")
 public class Carro extends Veiculo {
     private String tipoDeCambio;
 
@@ -12,6 +14,8 @@ public class Carro extends Veiculo {
         super(id, nome, descricao, precoInicial, leilao, placa, cor);
         this.tipoDeCambio = tipoDeCambio;
     }
+
+    public Carro() {}
 
     public String getTipoDeCambio() {
         return tipoDeCambio;

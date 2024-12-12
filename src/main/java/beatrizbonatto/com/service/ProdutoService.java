@@ -152,6 +152,32 @@ public class ProdutoService {
         }
     }
 
+    @Transactional
+    public Carro criarCarro(CarroDTO carroDTO) {
+
+        Leilao leilao = leilaoRepository.buscaLeilaoPorId(carroDTO.getIdLeilao());
+
+        if (leilao == null) {
+            throw new IllegalArgumentException("Leilão com o ID fornecido não existe!");
+        }
+
+        if(carroDTO.getNome() != null && carroDTO.getPrecoInicial() != null) {
+            Carro carro = new Carro();
+            carro.setNome(carroDTO.getNome());
+            carro.setPrecoInicial(carroDTO.getPrecoInicial());
+            carro.setCor(carroDTO.getCor());
+            carro.setPlaca(carroDTO.getPlaca());
+            carro.setCor(carroDTO.getCor());
+
+            carro.setLeilao(leilao);
+
+            produtoRepository.salvar(carro);
+            return carro;
+        } else {
+            throw new IllegalArgumentException("Todos os campos devem ser preenchidos");
+        }
+    }
+
     public List<Produto> listaDeProdutos() {
         return produtoRepository.listaDeProdutos();
     }
@@ -165,10 +191,26 @@ public class ProdutoService {
     }
 
     @Transactional
-    public ProdutoDTO atualizarProduto(Long id, ProdutoDTO produtoAtualizado) {
+    public Notebook atualizarNotebook(Long id, NotebookDTO notebookAtualizado) {
         if(buscarProdutoPorId(id) != null) {
-            em.merge(produtoAtualizado);
-            return produtoAtualizado;
+
+            Leilao leilao = leilaoRepository.buscaLeilaoPorId(notebookAtualizado.getIdLeilao());
+
+            if (leilao == null) {
+                throw new IllegalArgumentException("Leilão com o ID fornecido não existe!");
+            }
+
+            Notebook notebook = new Notebook();
+            notebook.setId(id);
+            notebook.setNome(notebookAtualizado.getNome());
+            notebook.setPrecoInicial(notebookAtualizado.getPrecoInicial());
+            notebook.setCor(notebookAtualizado.getCor());
+            notebook.setMarca(notebookAtualizado.getMarca());
+            notebook.setPolegada(notebookAtualizado.getPolegada());
+            notebook.setLeilao(leilao);
+
+            produtoRepository.salvar(notebook);
+            return notebook;
         }
         throw new IllegalArgumentException("Produto não existe");
     }
@@ -207,7 +249,7 @@ public class ProdutoService {
         }
 
         produto.setLeilao(novoLeilao);
-        atualizarProduto(produtoId, toDTO(produto));
+        //atualizarNotebook(produtoId, toDTO(produto));
     }
 
 

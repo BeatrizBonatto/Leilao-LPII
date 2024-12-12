@@ -58,8 +58,17 @@ public class ProdutoController {
     @POST
     @Path("/caminhao")
     @Operation(summary = "Cria um novo caminhao")
-    public Response criarSwitch(CaminhaoDTO caminhaoDTO) {
+    public Response criarCaminhao(CaminhaoDTO caminhaoDTO) {
         Caminhao caminhao = produtoService.criarCaminhao(caminhaoDTO);
+
+        return Response.ok().build();
+    }
+
+    @POST
+    @Path("/carro")
+    @Operation(summary = "Cria um novo carro")
+    public Response criarCarro(CarroDTO carroDTO) {
+        Carro carro = produtoService.criarCarro(carroDTO);
 
         return Response.ok().build();
     }
@@ -90,11 +99,11 @@ public class ProdutoController {
     }
 
     @PUT
-    @Path("/{id}")
-    @Operation(summary = "Atualizar produto, buscando pelo id")
-    public Response atualizarProduto(@PathParam("id") Long id, ProdutoDTO produtoDTO) {
+    @Path("/notebook/{id}")
+    @Operation(summary = "Atualizar notebook, buscando pelo id")
+    public Response atualizarNotebook(@PathParam("id") Long id, NotebookDTO notebookDTO) {
         try {
-            ProdutoDTO updatedProduto = produtoService.atualizarProduto(id, produtoDTO);
+            Notebook updatedProduto = produtoService.atualizarNotebook(id, notebookDTO);
             if (updatedProduto == null) {
                 return Response.status(Response.Status.NOT_FOUND).build();
             }
